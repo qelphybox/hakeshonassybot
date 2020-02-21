@@ -20,10 +20,6 @@ MONGO_DB_NAME=hakeshonassydb
 - Store messages -> Analyze storage
 - Send achieve statistics by command
 
-### Store messages
-
-- MongoDB
-
 ### Commands
 
 /stat ->
