@@ -2,7 +2,7 @@
 
 Bot gives achieves for telegram groups users
 
-## Dependecies
+## Dependencies
 
 - node v13.8.0
 - mongodb 4.2.3
