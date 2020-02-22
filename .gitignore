@@ -68,8 +68,8 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
-.env.test
+.env*
+.env.sample*
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -195,3 +195,5 @@ modules.xml
 .idea/sonarlint
 
 # End of https://www.gitignore.io/api/node,webstorm+all
+
+prod/data

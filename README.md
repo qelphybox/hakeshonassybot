@@ -22,10 +22,11 @@ MONGO_DB_NAME=hakeshonassydb
 
 ### Commands
 
+STILL NOT IMPLEMENTED!
+
 /stat ->
 User1: Most posts per day
 
 ## Achieves
 
 - Most posts per day
-
