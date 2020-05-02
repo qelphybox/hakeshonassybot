@@ -4,12 +4,14 @@
   "description": "Bot gives achieves for telegram groups users",
   "main": "src/index.js",
   "scripts": {
-    "run": "node src/index.js",
+    "bot": "node src/index.js",
+    "worker": "node src/worker.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "moment": "^2.25.1",
     "mongodb": "^3.5.3",
     "slimbot": "^4.6.0"
   }
