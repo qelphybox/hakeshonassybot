@@ -2,6 +2,12 @@
 
 Bot gives achieves for telegram groups users
 
+## Dev
+
+```bash
+make dev
+```
+
 ## Dependencies
 
 - node v13.8.0

@@ -11,3 +11,6 @@ provision-prod:
 
 deploy-prod:
 	prod/deploy.sh
+	
+dev:
+	docker-compose up
