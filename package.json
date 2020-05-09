@@ -5,7 +5,6 @@
   "main": "src/index.js",
   "scripts": {
     "bot": "node src/index.js",
-    "worker": "node src/worker.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

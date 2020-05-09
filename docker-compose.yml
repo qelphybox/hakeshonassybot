@@ -20,10 +20,6 @@ services:
     <<: *x-default
     command: npm run bot
 
-  worker:
-    <<: *x-default
-    command: npm run worker
-
 
   mongodb:
     image: mongo:latest
