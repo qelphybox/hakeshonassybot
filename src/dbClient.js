@@ -54,7 +54,7 @@ module.exports = class DBClient {
       .collection('messages')
       .aggregate(
         [
-          {$match: {"date": {$gt: timestamp}}},
+          {$match: { "date": {$gt: timestamp}}},
           {
             $group: {
               _id: {
@@ -82,7 +82,28 @@ module.exports = class DBClient {
         ]
       )
       .toArray();
+  }
 
+  async getChatMessagesStatByDate(chatId, timestamp) {
+    const mongo = this._mongo();
+    const client = await mongo.connect();
+    return client
+      .db(this.dbName)
+      .collection('messages')
+      .aggregate(
+        [
+          {$match: {"chat.id": chatId, "date": {$gt: timestamp}}},
+          {
+            $group: {
+              _id: "$from.id",
+              count: {"$sum": 1},
+              username: {"$first": "$from.username"},
+            }
+          },
+          { $sort : { count : -1 } }
+        ]
+      )
+      .toArray();
   }
 
   async getAllChats() {
