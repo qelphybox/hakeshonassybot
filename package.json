@@ -13,5 +13,8 @@
     "moment": "^2.25.1",
     "mongodb": "^3.5.3",
     "slimbot": "^4.6.0"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1"
   }
 }
