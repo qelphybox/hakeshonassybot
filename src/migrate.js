@@ -12,7 +12,8 @@ const createDbCollection = async () => {
   await client
     .db(dbName)
     .collection('messages')
-    .createIndex({ "chat.id": -1, "date": -1 });
+    .createIndex({ "chat.id": 1 })
+    .createIndex({ "date": -1 });
 };
 
 createDbCollection();
