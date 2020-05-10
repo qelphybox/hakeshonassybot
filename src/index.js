@@ -5,18 +5,15 @@ const Slimbot = require('slimbot');
 const DBClient = require('./dbClient');
 
 
-const socks5proxy = {
-  socksHost: process.env['SOCKS5_HOST'],
-  socksPort: process.env['SOCKS5_PORT'],
-};
-
-let slimbot;
-
-if (process.env['USE_PROXY'] === 'true') {
-  slimbot = new Slimbot(process.env['TELEGRAM_BOT_TOKEN'], socks5proxy);
-} else {
-  slimbot = new Slimbot(process.env['TELEGRAM_BOT_TOKEN']);
+const buildProxySettings = () => {
+  if (process.env['SOCKS5_HOST'] || process.env['SOCKS5_PORT']) {
+    return {
+      socksHost: process.env['SOCKS5_HOST'],
+      socksPort: process.env['SOCKS5_PORT'],
+    }
+  }
 }
+const slimbot = new Slimbot(process.env['TELEGRAM_BOT_TOKEN'], buildProxySettings());
 
 const client = new DBClient(
   process.env['MONGO_URL'],
