@@ -21,19 +21,20 @@ const client = new DBClient(
 );
 
 
-const stats = async (chatId) => {
+const stats = async (statsRequestObj) => {
   const statsFunctions = [statByDay, statByHour];
-  const sendStats = await Promise.all(statsFunctions.map((statFunction) => statFunction(chatId)));
+  const sendStats = await Promise.all(statsFunctions.map((statFunction) => statFunction(statsRequestObj)));
 
   const text = renderMessage(sendStats);
-  slimbot.sendMessage(chatId, text, { disable_web_page_preview: true, disable_notification: true });
+  slimbot.sendMessage(statsRequestObj.chatId, text, { disable_web_page_preview: true, disable_notification: true });
 };
 
 // Register listeners
-slimbot.on('message', message => {
+slimbot.on('message', async message => {
   if (message.text.startsWith('/stats')) {
     const chatId = message.chat.id;
-    stats(chatId);
+    const messageTimestamp = message.date;
+    stats({ chatId, messageTimestamp });
   } else {
     client.saveMessage(message);
   }
