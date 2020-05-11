@@ -20,11 +20,7 @@ module.exports = class DBClient {
     await client.close();
   }
 
-  async getMessagesCountByUserToday(chatId) {
-    const now = new Date();
-    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const timestamp = startOfDay / 1000;
-
+  async getChatMessagesStatByDate(chatId, timestamp) {
     const mongo = this._mongo();
     const client = await mongo.connect();
     return client
@@ -36,11 +32,11 @@ module.exports = class DBClient {
           {
             $group: {
               _id: "$from.id",
-              count: {$sum: 1},
-              first_name: {"$first": "$from.first_name"},
-              last_name: {"$first": "$from.last_name"},
+              count: {"$sum": 1},
+              username: {"$first": "$from.username"},
             }
-          }
+          },
+          { $sort : { count : -1 } }
         ]
       )
       .toArray();
