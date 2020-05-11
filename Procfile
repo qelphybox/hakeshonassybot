@@ -1,1 +1,2 @@
-bot: npm run run
+bot: npm run bot
+release: npm run migrate
