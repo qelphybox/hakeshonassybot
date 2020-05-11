@@ -22,7 +22,7 @@ const client = new DBClient(
 
 
 const stats = async (statsRequestObj) => {
-  const statsFunctions = [statByDay, statByHour];
+  const statsFunctions = [statByDay, statByHour, worklessUser];
   const sendStats = await Promise.all(statsFunctions.map((statFunction) => statFunction(statsRequestObj)));
 
   const text = renderMessage(sendStats);
