@@ -5,6 +5,8 @@ Bot gives achieves for telegram groups users
 ## Dev
 
 ```bash
+# set proper token
+echo "TELEGRAM_BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11" > .env
 make dev
 ```
 
