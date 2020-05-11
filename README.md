@@ -10,6 +10,13 @@ echo "TELEGRAM_BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11" > .env
 make dev
 ```
 
+## Test
+
+```bash
+make setup_test
+make test
+```
+
 ## Dependencies
 
 - node v13.8.0
@@ -36,5 +43,3 @@ STILL NOT IMPLEMENTED!
 User1: Most posts per day
 
 ## Achieves
-
-- Most posts per day
