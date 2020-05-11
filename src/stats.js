@@ -4,6 +4,7 @@ const DBClient = require('./dbClient');
 const stats = {
   TODAY_MESSAGE_COUNT: 'today_message_count',
   HOUR_MESSAGE_COUNT: 'hour_message_count',
+  WORKLESS_USER: 'workless_user',
 };
 
 
@@ -13,28 +14,35 @@ const client = new DBClient(
 );
 
 
-const statByDay = async (statsRequestObj) => {
-  const { chatId, messageTimestamp } = statsRequestObj;
-  const messageDate = new Date(messageTimestamp);
+const statByDay = async ({ chatId, messageTimestamp }) => {
+  const messageDate = new Date(messageTimestamp * 1000);
   messageDate.setDate(messageDate.getDate() - 1);
   const dayTimestamp = messageDate / 1000;
   const data = await client.getChatMessagesStatByDate(chatId, dayTimestamp);
-  console.log(data)
   return { name: stats.TODAY_MESSAGE_COUNT, data };
 };
 
-const statByHour = async (statsRequestObj) => {
-  const { chatId, messageTimestamp } = statsRequestObj;
-  const messageDate = new Date(messageTimestamp);
+const statByHour = async ({ chatId, messageTimestamp }) => {
+  const messageDate = new Date(messageTimestamp * 1000);
   messageDate.setHours(messageDate.getHours() - 1);
   const hourTimestamp = Math.floor(messageDate / 1000);
   const data = await client.getChatMessagesStatByDate(chatId, hourTimestamp);
-  console.log(data)
   return  { name: stats.HOUR_MESSAGE_COUNT, data };
 };
+
+const worklessUser = async ({ chatId, messageTimestamp }) => {
+  const messageDate = new Date(messageTimestamp * 1000);
+  const mondayNumber = 1;
+  const currantDay = messageDate.getDay();
+  messageDate.setDate(messageDate.getDate() - (currantDay - mondayNumber));
+  const dayTimestamp = messageDate / 1000;
+  const data = await client.getWorklessUser(chatId, dayTimestamp);
+  return  { name: stats.WORKLESS_USER, data };
+}
 
 module.exports = {
   stats,
   statByDay,
   statByHour,
+  worklessUser,
 };
