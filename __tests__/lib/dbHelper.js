@@ -1,8 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 
-const url = 'mongodb://localhost:27017';
-const dbName = 'test_messages';
-
+const url = process.env['MONGO_URL'];
+const dbName = process.env['MONGO_DB_NAME'];
 const createDbCollection = async () => {
   const mongo = new MongoClient(url);
   const client = await mongo.connect();
