@@ -1,5 +1,5 @@
 const { renderMessage } = require('./render');
-const { statByDay, statByHour } = require('./stats');
+const { statByDay, statByHour, worklessUser } = require('./stats');
 
 const Slimbot = require('slimbot');
 const DBClient = require('./dbClient');

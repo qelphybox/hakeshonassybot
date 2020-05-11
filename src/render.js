@@ -7,7 +7,7 @@ const templates = {
   [stats.HOUR_MESSAGE_COUNT]: (stat) => `Сообщений за последний час: ${stat.map(getUserStatString).join(", ")}`,
   [stats.WORKLESS_USER]: (stat) => {
     if (stat.length > 0)  {
-      return `${stat[0].username} - безработный`
+      return `@${stat[0].username} - безработный`
     } else {
       return ''
     }
