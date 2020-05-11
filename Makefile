@@ -14,3 +14,9 @@ deploy-prod:
 	
 dev:
 	docker-compose up
+
+test:
+	docker-compose run --rm -e MONGO_DB_NAME=hakeshonassydb_test bot npm test
+
+setup_test:
+	docker-compose run --rm -e MONGO_DB_NAME=hakeshonassydb_test bot npm run migrate
