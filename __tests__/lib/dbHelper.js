@@ -2,16 +2,14 @@ const MongoClient = require('mongodb').MongoClient;
 
 const url = process.env['MONGO_URL'];
 const dbName = process.env['MONGO_DB_NAME'];
-const createDbCollection = async () => {
-  const mongo = new MongoClient(url);
-  const client = await mongo.connect();
 
-  await client.db(dbName).createCollection('messages');
-};
+const getClient = async () => {
+  const mongo = new MongoClient(url);
+  return await mongo.connect();
+}
 
 const addMessages = async (messages) => {
-  const mongo = new MongoClient(url);
-  const client = await mongo.connect();
+  const client = await getClient();
   await client
     .db(dbName)
     .collection('messages')
@@ -20,8 +18,7 @@ const addMessages = async (messages) => {
 };
 
 const removeAllMessages = async () => {
-  const mongo = new MongoClient(url);
-  const client = await mongo.connect();
+  const client = await getClient();
   await client
     .db(dbName)
     .collection('messages')
@@ -30,4 +27,4 @@ const removeAllMessages = async () => {
 
 }
 
-module.exports = { createDbCollection, addMessages, removeAllMessages };
+module.exports = { addMessages, removeAllMessages };
