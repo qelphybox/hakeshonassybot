@@ -36,7 +36,7 @@ module.exports = class DBClient {
               username: {"$first": "$from.username"},
             }
           },
-          { $sort : { count : -1 } }
+          {$sort: {count: -1}}
         ]
       )
       .toArray();
@@ -52,17 +52,26 @@ module.exports = class DBClient {
         [
           {$match: {"chat.id": chatId, "date": {$gt: timestamp}}},
           {
+            $project: {
+              _id: 1,
+              "from.id": 1,
+              "from.username": 1,
+              dayOfWeek: {
+                $dayOfWeek: {
+                  $toDate: {$multiply: ["$date", 1000]}
+                }
+              },
+              hour: {$hour: {$toDate: {$multiply: ["$date", 1000]}}}
+            }
+          },
+          {
             $match: {
               $expr: {
-                $in: [{
-                  $dayOfWeek: {
-                    $toDate: {$multiply: ["$date", 1000]}
-                  }
-                }, [2, 3, 4, 5, 6]]
+                $in: ["$dayOfWeek", [2, 3, 4, 5, 6]]
               }
             }
           },
-          {$match: {$expr: {$and: [{$gt: [{$hour: {$toDate: {$multiply: ["$date", 1000]}}}, 10]}, {$lt: [{$hour: {$toDate: {$multiply: ["$date", 1000]}}}, 18]}]}}},
+          {$match: {$expr: {$and: [{$gt: ["$hour", 10]}, {$lt: ["$hour", 18]}]}}},
           {
             $group: {
               _id: "$from.id",
