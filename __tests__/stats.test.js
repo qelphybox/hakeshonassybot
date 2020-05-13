@@ -1,13 +1,9 @@
 // hours timestamp search = 1589133600
-const {statByHour, statByDay, worklessUser, stats} = require('../src/stats');
-const {createDbCollection, addMessages, removeAllMessages} = require('./lib/dbHelper');
+const {statFunctions, stats} = require('../src/stats');
+const { addMessages, removeAllMessages} = require('./lib/dbHelper');
 const messagesByHour = require('./__fixtures__/messagesByHour.json');
 const messagesByDay = require('./__fixtures__/messagesByDay.json');
 const messagesWorklessUser = require('./__fixtures__/messagesWorklessUser.json');
-
-beforeAll(() => {
-  createDbCollection();
-});
 
 afterEach(() => {
   removeAllMessages();
@@ -16,7 +12,7 @@ afterEach(() => {
 describe('statByHour', () => {
   test('statByHour', async () => {
     await addMessages(messagesByHour)
-    const data = await statByHour({chatId: 1, messageTimestamp: 1589133600})
+    const data = await statFunctions.statByHour({chatId: 1, messageTimestamp: 1589133600})
     expect(data).toEqual({
         "data": [
           {_id: 2, count: 3, username: 'test2'},
@@ -30,7 +26,7 @@ describe('statByHour', () => {
 describe('statByDay', () => {
   test('statByDay', async () => {
     await addMessages(messagesByDay)
-    const data = await statByDay({chatId: 1, messageTimestamp: 1589155200})
+    const data = await statFunctions.statByDay({chatId: 1, messageTimestamp: 1589155200})
     expect(data).toEqual({
         "data": [
           {_id: 2, count: 3, username: 'test2'},
@@ -44,7 +40,7 @@ describe('statByDay', () => {
 describe('worklessUser', () => {
   test('worklessUser', async () => {
     await addMessages(messagesWorklessUser)
-    const data = await worklessUser({chatId: 1, messageTimestamp: 1588982400})
+    const data = await statFunctions.worklessUser({chatId: 1, messageTimestamp: 1588982400})
     expect(data).toEqual({
       data:
         [{ _id: 2, count: 3, username: 'test2' }],
