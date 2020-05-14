@@ -6,7 +6,8 @@
   "scripts": {
     "bot": "node src/index.js",
     "migrate": "node src/migrate.js",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint \"**/*.js\" --fix"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,9 @@
     "slimbot": "^4.6.0"
   },
   "devDependencies": {
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
     "jest": "^26.0.1"
   }
 }
