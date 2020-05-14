@@ -1,38 +1,42 @@
+const Slimbot = require('slimbot');
 const { renderMessage } = require('./render');
 const { statFunctions } = require('./stats');
 
-const Slimbot = require('slimbot');
 const DBClient = require('./dbClient');
 
 
 const buildProxySettings = () => {
-  if (process.env['SOCKS5_HOST'] || process.env['SOCKS5_PORT']) {
+  if (process.env.SOCKS5_HOST || process.env.SOCKS5_PORT) {
     return {
-      socksHost: process.env['SOCKS5_HOST'],
-      socksPort: process.env['SOCKS5_PORT'],
-    }
+      socksHost: process.env.SOCKS5_HOST,
+      socksPort: process.env.SOCKS5_PORT,
+    };
   }
-}
-const slimbot = new Slimbot(process.env['TELEGRAM_BOT_TOKEN'], buildProxySettings());
+};
+const slimbot = new Slimbot(process.env.TELEGRAM_BOT_TOKEN, buildProxySettings());
 
 const client = new DBClient(
-  process.env['MONGO_URL'],
-  process.env['MONGO_DB_NAME']
+  process.env.MONGO_URL,
+  process.env.MONGO_DB_NAME,
 );
 
 
 const stats = async (statsRequestObj) => {
   const sendStats = await Promise.all(
     Object.keys(statFunctions)
-      .map((statFunctionName) => statFunctions[statFunctionName](statsRequestObj))
+      .map((statFunctionName) => statFunctions[statFunctionName](statsRequestObj)),
   );
 
   const text = renderMessage(sendStats);
-  slimbot.sendMessage(statsRequestObj.chatId, text, { disable_web_page_preview: true, disable_notification: true });
+  slimbot.sendMessage(
+    statsRequestObj.chatId,
+    text,
+    { disable_web_page_preview: true, disable_notification: true },
+  );
 };
 
 // Register listeners
-slimbot.on('message', async message => {
+slimbot.on('message', async (message) => {
   if (message.text.startsWith('/stats')) {
     const chatId = message.chat.id;
     const messageTimestamp = message.date;

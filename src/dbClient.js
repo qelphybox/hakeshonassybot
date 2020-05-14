@@ -1,4 +1,4 @@
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
 
 module.exports = class DBClient {
   constructor(url, dbName) {
@@ -28,16 +28,16 @@ module.exports = class DBClient {
       .collection('messages')
       .aggregate(
         [
-          {$match: {"chat.id": chatId, "date": {$gt: timestamp}}},
+          { $match: { 'chat.id': chatId, date: { $gt: timestamp } } },
           {
             $group: {
-              _id: "$from.id",
-              count: {"$sum": 1},
-              username: {"$first": "$from.username"},
-            }
+              _id: '$from.id',
+              count: { $sum: 1 },
+              username: { $first: '$from.username' },
+            },
           },
-          {$sort: {count: -1}}
-        ]
+          { $sort: { count: -1 } },
+        ],
       )
       .toArray();
   }
@@ -50,38 +50,38 @@ module.exports = class DBClient {
       .collection('messages')
       .aggregate(
         [
-          {$match: {"chat.id": chatId, "date": {$gt: timestamp}}},
+          { $match: { 'chat.id': chatId, date: { $gt: timestamp } } },
           {
             $project: {
               _id: 1,
-              "from.id": 1,
-              "from.username": 1,
+              'from.id': 1,
+              'from.username': 1,
               dayOfWeek: {
                 $dayOfWeek: {
-                  $toDate: {$multiply: ["$date", 1000]}
-                }
+                  $toDate: { $multiply: ['$date', 1000] },
+                },
               },
-              hour: {$hour: {$toDate: {$multiply: ["$date", 1000]}}}
-            }
+              hour: { $hour: { $toDate: { $multiply: ['$date', 1000] } } },
+            },
           },
           {
             $match: {
               $expr: {
-                $in: ["$dayOfWeek", [2, 3, 4, 5, 6]]
-              }
-            }
+                $in: ['$dayOfWeek', [2, 3, 4, 5, 6]],
+              },
+            },
           },
-          {$match: {$expr: {$and: [{$gte: ["$hour", 10]}, {$lt: ["$hour", 18]}]}}},
+          { $match: { $expr: { $and: [{ $gte: ['$hour', 10] }, { $lt: ['$hour', 18] }] } } },
           {
             $group: {
-              _id: "$from.id",
-              count: {"$sum": 1},
-              username: {"$first": "$from.username"},
-            }
+              _id: '$from.id',
+              count: { $sum: 1 },
+              username: { $first: '$from.username' },
+            },
           },
-          {$sort: {count: -1}},
-          {$limit: 1}
-        ]
+          { $sort: { count: -1 } },
+          { $limit: 1 },
+        ],
       )
       .toArray();
   }
