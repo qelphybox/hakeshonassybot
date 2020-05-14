@@ -20,4 +20,8 @@ const createDbCollection = async () => {
     .createIndex({ "date": -1 });
 };
 
+console.log('Start migration...')
 createDbCollection();
+console.log('Done')
+
+process.exit()
