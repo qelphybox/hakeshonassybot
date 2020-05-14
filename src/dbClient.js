@@ -71,7 +71,7 @@ module.exports = class DBClient {
               }
             }
           },
-          {$match: {$expr: {$and: [{$gt: ["$hour", 10]}, {$lt: ["$hour", 18]}]}}},
+          {$match: {$expr: {$and: [{$gte: ["$hour", 10]}, {$lt: ["$hour", 18]}]}}},
           {
             $group: {
               _id: "$from.id",
