@@ -1,8 +1,8 @@
 # Hake Shonassy Bot
 
-Bot gives achieves for telegram groups users
+Телеграм бот, собирает статистики чата для разлечения, присваивает ачивки участникам.
 
-## Dev
+## Разработка
 
 ```bash
 # set proper token
@@ -10,19 +10,16 @@ echo "TELEGRAM_BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11" > .env
 make dev
 ```
 
-## Test
+## Тесты
 
 ```bash
 make setup_test
 make test
 ```
 
-## Dependencies
+## Конфгируация
 
-- node v13.8.0
-- mongodb 4.2.3
-
-## Configuration
+Пример конфигурации
 
 ```env
 TELEGRAM_BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
@@ -30,16 +27,15 @@ MONGO_URL=mongodb://localhost:27017
 MONGO_DB_NAME=hakeshonassydb
 ```
 
-## Mechanism
-- ReceiveMessage from telegram API
-- Store messages -> Analyze storage
-- Send achieve statistics by command
+### Команды
+```
+/stats
 
-### Commands
+Сообщений за последние 24 часа: @kirillbobykin (1)
+Сообщений за последний час: @kirillbobykin (1)
+@kirillbobykin - безработный
+```
 
-STILL NOT IMPLEMENTED!
+## Ачивки
 
-/stat ->
-User1: Most posts per day
-
-## Achieves
+- Безработный - больше всего сообщений с пн по пт с 10 до 18 часов по UTC.
