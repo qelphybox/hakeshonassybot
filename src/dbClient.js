@@ -34,6 +34,8 @@ module.exports = class DBClient {
               _id: '$from.id',
               count: { $sum: 1 },
               username: { $first: '$from.username' },
+              first_name: { $first: '$from.first_name' },
+              last_name: { $first: '$from.last_name' },
             },
           },
           { $sort: { count: -1 } },
@@ -56,6 +58,8 @@ module.exports = class DBClient {
               _id: 1,
               'from.id': 1,
               'from.username': 1,
+              'from.first_name': 1,
+              'from.last_name': 1,
               dayOfWeek: {
                 $dayOfWeek: {
                   $toDate: { $multiply: ['$date', 1000] },
@@ -77,6 +81,8 @@ module.exports = class DBClient {
               _id: '$from.id',
               count: { $sum: 1 },
               username: { $first: '$from.username' },
+              first_name: { $first: '$from.first_name' },
+              last_name: { $first: '$from.last_name' },
             },
           },
           { $sort: { count: -1 } },

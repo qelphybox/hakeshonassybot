@@ -1,6 +1,8 @@
 const { stats } = require('./stats');
 
-const getUserStatString = ({ username, count }) => `@${username} (${count})`;
+const getUserStatString = ({
+  first_name, last_name, count, _id,
+}) => `[${first_name}${last_name ? ` ${last_name}` : ''}](tg://user?id=${_id}) (${count})`;
 
 const templates = {
   [stats.TODAY_MESSAGE_COUNT]: (stat) => `Сообщений за последние 24 часа: ${stat.map(getUserStatString).join(', ')}`,

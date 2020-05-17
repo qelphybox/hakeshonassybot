@@ -33,7 +33,7 @@ const stats = async (statsRequestObj) => {
   slimbot.sendMessage(
     statsRequestObj.chatId,
     text,
-    { disable_web_page_preview: true, disable_notification: true },
+    { disable_web_page_preview: true, disable_notification: true, parse_mode: 'Markdown' },
   );
 };
 
