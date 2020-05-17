@@ -6,12 +6,14 @@ const DBClient = require('./dbClient');
 
 
 const buildProxySettings = () => {
+  let socks5;
   if (process.env.SOCKS5_HOST || process.env.SOCKS5_PORT) {
-    return {
+    socks5 = {
       socksHost: process.env.SOCKS5_HOST,
       socksPort: process.env.SOCKS5_PORT,
     };
   }
+  return socks5;
 };
 const slimbot = new Slimbot(process.env.TELEGRAM_BOT_TOKEN, buildProxySettings());
 

@@ -6,12 +6,12 @@ module.exports = class DBClient {
     this.dbName = dbName;
   }
 
-  _mongo() {
+  mongo() {
     return new MongoClient(this.url);
   }
 
   async saveMessage(message) {
-    const mongo = this._mongo();
+    const mongo = this.mongo();
     const client = await mongo.connect();
     await client
       .db(this.dbName)
@@ -21,7 +21,7 @@ module.exports = class DBClient {
   }
 
   async getChatMessagesStatByDate(chatId, timestamp) {
-    const mongo = this._mongo();
+    const mongo = this.mongo();
     const client = await mongo.connect();
     return client
       .db(this.dbName)
@@ -43,7 +43,7 @@ module.exports = class DBClient {
   }
 
   async getWorklessUser(chatId, timestamp) {
-    const mongo = this._mongo();
+    const mongo = this.mongo();
     const client = await mongo.connect();
     return client
       .db(this.dbName)
