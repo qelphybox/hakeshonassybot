@@ -1,12 +1,12 @@
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
 
-const url = process.env['MONGO_URL'];
-const dbName = process.env['MONGO_DB_NAME'];
+const url = process.env.MONGO_URL;
+const dbName = process.env.MONGO_DB_NAME;
 
 const getClient = async () => {
   const mongo = new MongoClient(url);
-  return await mongo.connect();
-}
+  return mongo.connect();
+};
 
 const addMessages = async (messages) => {
   const client = await getClient();
@@ -24,7 +24,6 @@ const removeAllMessages = async () => {
     .collection('messages')
     .deleteMany({});
   await client.close();
-
-}
+};
 
 module.exports = { addMessages, removeAllMessages };
