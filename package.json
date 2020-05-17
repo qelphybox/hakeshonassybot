@@ -14,7 +14,7 @@
     "bot": "node src/index.js",
     "migrate": "node src/migrate.js",
     "test": "jest",
-    "lint": "eslint \"**/*.js\" --fix"
+    "lint": "eslint \"**/*.js\""
   },
   "author": "",
   "license": "ISC",
