@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "Bot gives achieves for telegram groups users",
   "main": "src/index.js",
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/__tests__/lib/"
+    ]
+  },
   "scripts": {
     "bot": "node src/index.js",
     "migrate": "node src/migrate.js",
