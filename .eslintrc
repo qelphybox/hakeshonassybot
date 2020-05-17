@@ -1,3 +1,6 @@
 {
-  "extends": ["airbnb/base", "plugin:jest/recommended"]
+  "extends": ["airbnb/base", "plugin:jest/recommended"],
+  "rules": {
+    "camelcase": "off"
+  }
 }
