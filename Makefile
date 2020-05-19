@@ -22,7 +22,7 @@ setup_test:
 	docker-compose run --rm -e MONGO_DB_NAME=hakeshonassydb_test bot npm run migrate
 
 lint:
-	npm run lint
+	docker-compose run --rm --no-deps bot npm run lint
 
 lint-fix:
-	npm run lint-fix
+	docker-compose run --rm --no-deps bot npm run lint-fix
