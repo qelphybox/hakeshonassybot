@@ -1,4 +1,4 @@
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
 
 class DBClient {
   constructor(url, dbName) {
@@ -29,8 +29,8 @@ class DBClient {
 }
 
 const dbClient = new DBClient(
-  process.env['MONGO_URL'],
-  process.env['MONGO_DB_NAME']
+  process.env.MONGO_URL,
+  process.env.MONGO_DB_NAME,
 );
 Object.freeze(dbClient);
 module.exports = { dbClient };
