@@ -32,7 +32,7 @@ const stats = async (statsRequestObj) => {
 
 // Register listeners
 slimbot.on('message', async (message) => {
-  if (message.text.startsWith('/stats')) {
+  if (message.text && message.text.startsWith('/stats')) {
     const chatId = message.chat.id;
     const messageTimestamp = message.date;
     stats({ chatId, messageTimestamp, dbClient });
