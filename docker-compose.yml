@@ -3,23 +3,20 @@ version: '3.7'
 volumes:
   db_data:
 
-x-default: &x-default
-  build: .
-  env_file:
-    - .env
-  environment:
-    - MONGO_URL=mongodb://mongodb:27017
-    - MONGO_DB_NAME=hakeshonassydb
-  volumes:
-    - ./:/app
-  depends_on:
-    - mongodb
-
 services:
   bot:
-    <<: *x-default
+    build: .
     command: npm run bot
-
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017
+      - MONGO_DB_NAME=hakeshonassydb
+    volumes:
+      - ./:/app
+    depends_on:
+      - mongodb
 
   mongodb:
     image: mongo:latest
