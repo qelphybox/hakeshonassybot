@@ -19,7 +19,7 @@ services:
       - mongodb
 
   mongodb:
-    image: mongo:latest
+    image: mongo:4.2.6
     restart: always
     environment:
       - MONGO_DATA_DIR=/data/db
