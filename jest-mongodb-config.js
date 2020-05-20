@@ -4,7 +4,7 @@ module.exports = {
       dbName: process.env.MONGO_DB_NAME,
     },
     binary: {
-      version: '4.0.2',
+      version: '4.2.6',
       skipMD5: true,
     },
     autoStart: false,
