@@ -4,6 +4,7 @@ const stats = {
   TODAY_MESSAGE_COUNT: 'today_message_count',
   HOUR_MESSAGE_COUNT: 'hour_message_count',
   WORKLESS_USER: 'workless_user',
+  WORST_CHAT_USER: 'worst_chat_user',
 };
 
 const statByDay = async ({ chatId, messageTimestamp }) => {
@@ -99,10 +100,32 @@ const worklessUser = async ({ chatId, messageTimestamp }) => {
   return { name: stats.WORKLESS_USER, data };
 };
 
+const worstChatUser = async ({ chatId }) => {
+  const data = await dbClient.queryMessages((messages) => messages.aggregate(
+    [
+      { $match: { 'chat.id': chatId, voice: { $exists: true } } },
+      {
+        $group: {
+          _id: '$from.id',
+          count: { $sum: 1 },
+          username: { $first: '$from.username' },
+          first_name: { $first: '$from.first_name' },
+          last_name: { $first: '$from.last_name' },
+        },
+      },
+      { $sort: { count: -1 } },
+      { $limit: 1 },
+    ],
+  )
+    .toArray());
+  return { name: stats.WORST_CHAT_USER, data };
+};
+
 const statFunctions = {
   statByDay,
   statByHour,
   worklessUser,
+  worstChatUser,
 };
 
 module.exports = {

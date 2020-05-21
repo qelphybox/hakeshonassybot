@@ -16,6 +16,13 @@ const templates = {
     }
     return '';
   },
+  [stats.WORST_CHAT_USER]: (stat) => {
+    console.log(stat);
+    if (stat.length > 0) {
+      return `${getUserLink(stat[0])} - худший юзер чата`;
+    }
+    return '';
+  },
 };
 
 const renderMessage = (statsArray) => statsArray.map((stat) => templates[stat.name](stat.data)).join('\n');
