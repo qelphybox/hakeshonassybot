@@ -1,9 +1,10 @@
 const { stats } = require('./stats');
 
-const getUserStatString = ({
 /* eslint-disable camelcase */
+const getUserLink = ({ first_name, last_name, _id }) => `[${first_name}${last_name ? ` ${last_name}` : ''}](tg://user?id=${_id})`;
+const getUserStatString = ({
   first_name, last_name, count, _id,
-}) => `[${first_name}${last_name ? ` ${last_name}` : ''}](tg://user?id=${_id}) (${count})`;
+}) => `${getUserLink({ first_name, last_name, _id })} (${count})`;
 /* eslint-enable camelcase */
 
 const templates = {
@@ -11,7 +12,7 @@ const templates = {
   [stats.HOUR_MESSAGE_COUNT]: (stat) => `Сообщений за последний час: ${stat.map(getUserStatString).join(', ')}`,
   [stats.WORKLESS_USER]: (stat) => {
     if (stat.length > 0) {
-      return `@${stat[0].username} - безработный`;
+      return `${getUserLink(stat[0])} - безработный`;
     }
     return '';
   },
