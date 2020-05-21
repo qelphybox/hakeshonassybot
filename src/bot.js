@@ -32,10 +32,11 @@ const stats = async (statsRequestObj) => {
 
 // Register listeners
 slimbot.on('message', async (message) => {
+  // TODO: entities&.any { type == 'bot_command' }
   if (message.text && message.text.startsWith('/stats')) {
     const chatId = message.chat.id;
     const messageTimestamp = message.date;
-    stats({ chatId, messageTimestamp, dbClient });
+    stats({ chatId, messageTimestamp });
   } else {
     dbClient.queryMessages((messages) => {
       messages.insertOne(message);
@@ -49,7 +50,7 @@ dbClient.connect().then(() => {
 
 process.on('exit', async (code) => {
   console.log(`Exit with code ${code}, stopping...`);
-  await dbClient.disconnect();
   slimbot.stopPolling();
+  await dbClient.disconnect();
   console.log('Bye!');
 });
