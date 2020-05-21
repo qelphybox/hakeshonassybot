@@ -1,92 +1,36 @@
 const { MongoClient } = require('mongodb');
 
-module.exports = class DBClient {
+class DBClient {
   constructor(url, dbName) {
     this.url = url;
     this.dbName = dbName;
+    this.client = new MongoClient(this.url);
   }
 
-  mongo() {
-    return new MongoClient(this.url);
+  connect() {
+    return this.client.connect();
   }
 
-  async saveMessage(message) {
-    const mongo = this.mongo();
-    const client = await mongo.connect();
-    await client
-      .db(this.dbName)
-      .collection('messages')
-      .insertOne(message);
-    await client.close();
+  close() {
+    return this.client.close();
   }
 
-  async getChatMessagesStatByDate(chatId, timestamp) {
-    const mongo = this.mongo();
-    const client = await mongo.connect();
-    return client
-      .db(this.dbName)
-      .collection('messages')
-      .aggregate(
-        [
-          { $match: { 'chat.id': chatId, date: { $gt: timestamp } } },
-          {
-            $group: {
-              _id: '$from.id',
-              count: { $sum: 1 },
-              username: { $first: '$from.username' },
-              first_name: { $first: '$from.first_name' },
-              last_name: { $first: '$from.last_name' },
-            },
-          },
-          { $sort: { count: -1 } },
-        ],
-      )
-      .toArray();
+  get db() {
+    return this.client.db(this.dbName);
   }
 
-  async getWorklessUser(chatId, timestamp) {
-    const mongo = this.mongo();
-    const client = await mongo.connect();
-    return client
-      .db(this.dbName)
-      .collection('messages')
-      .aggregate(
-        [
-          { $match: { 'chat.id': chatId, date: { $gt: timestamp } } },
-          {
-            $project: {
-              _id: 1,
-              'from.id': 1,
-              'from.username': 1,
-              'from.first_name': 1,
-              'from.last_name': 1,
-              dayOfWeekOfMessageTimestamp: {
-                $dayOfWeek: { date: { $toDate: { $multiply: ['$date', 1000] } }, timezone: '+03:00' },
-              },
-              hourOfMessageTimestamp: { $hour: { date: { $toDate: { $multiply: ['$date', 1000] } }, timezone: '+03:00' } },
-            },
-          },
-          {
-            $match: {
-              $expr: {
-                $in: ['$dayOfWeekOfMessageTimestamp', [2, 3, 4, 5, 6]],
-              },
-            },
-          },
-          { $match: { $expr: { $and: [{ $gte: ['$hourOfMessageTimestamp', 10] }, { $lt: ['$hourOfMessageTimestamp', 18] }] } } },
-          {
-            $group: {
-              _id: '$from.id',
-              count: { $sum: 1 },
-              username: { $first: '$from.username' },
-              first_name: { $first: '$from.first_name' },
-              last_name: { $first: '$from.last_name' },
-            },
-          },
-          { $sort: { count: -1 } },
-          { $limit: 1 },
-        ],
-      )
-      .toArray();
+  query(callback) {
+    return callback(this.db);
   }
-};
+
+  queryMessages(callback) {
+    return this.query((db) => callback(db.collection('messages')));
+  }
+}
+
+const dbClient = new DBClient(
+  process.env.MONGO_URL,
+  process.env.MONGO_DB_NAME,
+);
+Object.freeze(dbClient);
+module.exports = { dbClient };

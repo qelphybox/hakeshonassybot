@@ -2,8 +2,7 @@ const Slimbot = require('slimbot');
 const { renderMessage } = require('./render');
 const { statFunctions } = require('./stats');
 
-const DBClient = require('./dbClient');
-
+const { dbClient } = require('./dbClient');
 
 const buildProxySettings = () => {
   let socks5;
@@ -16,12 +15,6 @@ const buildProxySettings = () => {
   return socks5;
 };
 const slimbot = new Slimbot(process.env.TELEGRAM_BOT_TOKEN, buildProxySettings());
-
-const client = new DBClient(
-  process.env.MONGO_URL,
-  process.env.MONGO_DB_NAME,
-);
-
 
 const stats = async (statsRequestObj) => {
   const sendStats = await Promise.all(
@@ -42,10 +35,21 @@ slimbot.on('message', async (message) => {
   if (message.text.startsWith('/stats')) {
     const chatId = message.chat.id;
     const messageTimestamp = message.date;
-    stats({ chatId, messageTimestamp });
+    stats({ chatId, messageTimestamp, dbClient });
   } else {
-    client.saveMessage(message);
+    dbClient.queryMessages((messages) => {
+      messages.insertOne(message);
+    });
   }
 });
 
-slimbot.startPolling();
+dbClient.connect().then(() => {
+  slimbot.startPolling();
+});
+
+process.on('exit', async (code) => {
+  console.log(`Exit with code ${code}, stopping...`);
+  await dbClient.disconnect();
+  slimbot.stopPolling();
+  console.log('Bye!');
+});
