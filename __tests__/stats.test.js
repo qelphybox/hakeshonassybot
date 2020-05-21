@@ -22,11 +22,15 @@ describe('stats', () => {
           {
             _id: 2,
             count: 3,
+            first_name: 'test2',
+            last_name: 'test2',
             username: 'test2',
           },
           {
             _id: 1,
             count: 2,
+            first_name: 'test1',
+            last_name: 'test1',
             username: 'test1',
           },
         ],
@@ -51,11 +55,15 @@ describe('stats', () => {
           {
             _id: 2,
             count: 3,
+            first_name: 'test2',
+            last_name: 'test2',
             username: 'test2',
           },
           {
             _id: 1,
             count: 2,
+            first_name: 'test1',
+            last_name: 'test1',
             username: 'test1',
           },
         ],
@@ -80,6 +88,8 @@ describe('stats', () => {
             [{
               _id: 2,
               count: 3,
+              first_name: 'test2',
+              last_name: 'test2',
               username: 'test2',
             }],
         name: stats.WORKLESS_USER,
