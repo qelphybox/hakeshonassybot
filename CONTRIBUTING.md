@@ -6,3 +6,6 @@
 5) Сделай задачу, если что-то не ясно по задаче, задай вопросы в комментариях.
 6) Если считаешь задачу законченой, запушь все коммиты в свой форк, и создай [pull request на этот репозиторий](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork). Когда твое решение пройдет все проверки и ревью, мы вмерджим этот функционал.
 7) PROFIT!
+
+## Как еще помочь?
+Ты можешь [предложить фичу, рассказать о баге](https://github.com/qelphybox/hakeshonassybot/issues), или рассказать своим друзьям о нас.
