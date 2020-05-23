@@ -3,11 +3,11 @@ const { getUserStatString } = require('../utils/render');
 
 const collect = async ({ chat, messageTimestamp }) => {
   const messageDate = new Date(messageTimestamp * 1000);
-  messageDate.setDate(messageDate.getDate() - 1);
-  const dayTimestamp = messageDate / 1000;
+  messageDate.setHours(messageDate.getHours() - 1);
+  const hourTimestamp = Math.floor(messageDate / 1000);
   const data = await dbClient.queryMessages((messages) => messages.aggregate(
     [
-      { $match: { 'chat.id': chat.id, date: { $gt: dayTimestamp } } },
+      { $match: { 'chat.id': chat.id, date: { $gt: hourTimestamp } } },
       {
         $group: {
           _id: '$from.id',
@@ -23,7 +23,7 @@ const collect = async ({ chat, messageTimestamp }) => {
   return data;
 };
 
-const render = (collectedStat) => `Сообщений за последние 24 часа: ${collectedStat.map(getUserStatString).join(', ')}`;
+const render = (collectedStat) => `Сообщений за последний час: ${collectedStat.map(getUserStatString).join(', ')}`;
 
 
 module.exports = {
