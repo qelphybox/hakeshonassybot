@@ -1,6 +1,5 @@
-const { stats } = require('../src/stats');
 
-const { getUserStatString, renderMessage } = require('../src/render');
+const { getUserLink, getUserStatString, renderMessage } = require('../src/utils/render');
 
 describe('getUserStatString', () => {
   test('username: test, count: 2', () => {
@@ -15,90 +14,45 @@ describe('getUserStatString', () => {
 });
 
 
+describe('getUserLink', () => {
+  test('first_name and last_name', () => {
+    expect(getUserLink({
+      _id: 1,
+      username: 'test',
+      first_name: 'test',
+      last_name: 'test',
+    })).toBe('[test test](tg://user?id=1)');
+  });
+
+  test('only first name', () => {
+    expect(getUserLink({
+      _id: 1,
+      username: 'test',
+      first_name: 'test',
+    })).toBe('[test](tg://user?id=1)');
+  });
+});
+
 describe('renderMessage', () => {
-  test('TODAY_MESSAGE_COUNT', () => {
-    const statsArray = [{
-      name: stats.TODAY_MESSAGE_COUNT,
-      data: [{
-        _id: 1,
-        username: 'test',
-        first_name: 'test',
-        last_name: 'test',
-        count: 1,
-      },
-      {
-        _id: 2,
-        username: 'test2',
-        first_name: 'test2',
-        last_name: 'test2',
-        count: 2,
-      }],
-    }];
-    expect(renderMessage(statsArray)).toBe('Сообщений за последние 24 часа: [test test](tg://user?id=1) (1), [test2 test2](tg://user?id=2) (2)');
-  });
-
-  test('HOUR_MESSAGE_COUNT', () => {
-    const statsArray = [
-      {
-        name: stats.TODAY_MESSAGE_COUNT,
-        data: [{
-          _id: 1,
-          username: 'test',
-          first_name: 'test',
-          last_name: 'test',
-          count: 1,
-        },
-        {
-          _id: 2,
-          username: 'test2',
-          first_name: 'test',
-          last_name: 'test',
-          count: 2,
-        }],
-      },
-      {
-        name: stats.HOUR_MESSAGE_COUNT,
-        data: [{
-          _id: 1,
-          username: 'test',
-          first_name: 'test',
-          last_name: 'test',
-          count: 1,
-        },
-        {
-          _id: 2,
-          username: 'test2',
-          first_name: 'test',
-          last_name: 'test',
-          count: 2,
-        }],
-      },
+  test('render stats', () => {
+    const statsStringsArray = [
+      'Сообщений за последние 24 часа: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)',
+      'Сообщений за последний час: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)',
     ];
-    expect(renderMessage(statsArray)).toBe(
-      'Сообщений за последние 24 часа: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)\n'
-      + 'Сообщений за последний час: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)',
-    );
+    expect(renderMessage(statsStringsArray)).toBe('Сообщений за последние 24 часа: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)\n'
+      + 'Сообщений за последний час: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)');
   });
 
-  test('HOUR_MESSAGE_COUNT and TODAY_MESSAGE_COUNT', () => {
-    const statsArray = [{
-      name: stats.HOUR_MESSAGE_COUNT,
-      data: [{
-        _id: 1,
-        username: 'test',
-        first_name: 'test',
-        last_name: 'test',
-        count: 1,
-      },
-      {
-        _id: 2,
-        username: 'test2',
-        first_name: 'test',
-        last_name: 'test',
-        count: 2,
-      }],
-    }];
-    expect(renderMessage(statsArray)).toBe('Сообщений за последний час: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)');
+  test('filter empty stats', () => {
+    const statsStringsArray = [
+      '',
+      'Сообщений за последние 24 часа: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)',
+      '',
+      'Сообщений за последний час: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)',
+      '',
+    ];
+    expect(renderMessage(statsStringsArray)).toBe('Сообщений за последние 24 часа: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)\n'
+      + 'Сообщений за последний час: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)');
   });
 
   test('empty array', () => {
