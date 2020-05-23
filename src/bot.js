@@ -1,6 +1,6 @@
 const Slimbot = require('slimbot');
-const { renderMessage } = require('./render');
-const { statFunctions } = require('./stats');
+const { renderMessage } = require('./utils/render');
+const { statsArray } = require('./statistics');
 
 const { dbClient } = require('./dbClient');
 
@@ -16,15 +16,15 @@ const buildProxySettings = () => {
 };
 const slimbot = new Slimbot(process.env.TELEGRAM_BOT_TOKEN, buildProxySettings());
 
-const stats = async (statsRequestObj) => {
-  const sendStats = await Promise.all(
-    Object.keys(statFunctions)
-      .map((statFunctionName) => statFunctions[statFunctionName](statsRequestObj)),
-  );
+const stats = async (message) => {
+  const sendStats = await Promise.all(statsArray.map(async (stat) => {
+    const collection = await stat.collect(message);
+    return stat.render(collection);
+  }));
 
   const text = renderMessage(sendStats);
   slimbot.sendMessage(
-    statsRequestObj.chatId,
+    message.chat.id,
     text,
     { disable_web_page_preview: true, disable_notification: true, parse_mode: 'Markdown' },
   );
@@ -34,9 +34,7 @@ const stats = async (statsRequestObj) => {
 slimbot.on('message', async (message) => {
   // TODO: entities&.any { type == 'bot_command' }
   if (message.text && message.text.startsWith('/stats')) {
-    const chatId = message.chat.id;
-    const messageTimestamp = message.date;
-    stats({ chatId, messageTimestamp });
+    stats(message);
   } else {
     dbClient.queryMessages((messages) => {
       messages.insertOne(message);
