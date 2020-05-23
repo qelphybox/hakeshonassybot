@@ -1,5 +1,10 @@
 // hours timestamp search = 1589133600
-const { statFunctions, stats } = require('../src/stats');
+
+const todayMessageCountStat = require('../src/statistics/todayMessageCountStat');
+const hourMessageCountStat = require('../src/statistics/hourMessageCountStat');
+const worklessUserStat = require('../src/statistics/worklessUserStat');
+const contentSupplierStat = require('../src/statistics/contentSupplierStat');
+
 const { describeDBSetupTeardown } = require('./lib/dbHelper');
 const { dbClient } = require('../src/dbClient');
 const messagesByHour = require('./__fixtures__/messagesByHourFixtures/correctData.json');
@@ -16,9 +21,10 @@ describe('stats', () => {
   describe('statByHour', () => {
     test('statByHour', async () => {
       await addMessages(messagesByHour);
-      const data = await statFunctions.statByHour({ chatId: 1, messageTimestamp: 1589133600 });
-      expect(data).toEqual({
-        data: [
+      const collection = await hourMessageCountStat
+        .collect({ chat: { id: 1 }, date: 1589133600 });
+      expect(collection).toEqual(
+        [
           {
             _id: 2,
             count: 3,
@@ -34,24 +40,29 @@ describe('stats', () => {
             username: 'test1',
           },
         ],
-        name: stats.HOUR_MESSAGE_COUNT,
-      });
+      );
+
+      const statString = hourMessageCountStat.render(collection);
+      expect(statString).toBe('Сообщений за последний час: [test2 test2](tg://user?id=2) (3), [test1 test1](tg://user?id=1) (2)');
     });
 
     test('empty data', async () => {
-      const data = await statFunctions.statByHour({ chatId: 1, messageTimestamp: 1589133600 });
-      expect(data).toEqual({
-        data: [], name: stats.HOUR_MESSAGE_COUNT,
-      });
+      const collection = await hourMessageCountStat
+        .collect({ chat: { id: 1 }, date: 1589133600 });
+      expect(collection).toEqual([]);
+
+      const statString = hourMessageCountStat.render(collection);
+
+      expect(statString).toBe('Сообщений за последний час: ');
     });
   });
 
   describe('statByDay', () => {
     test('statByDay', async () => {
       await addMessages(messagesByDay);
-      const data = await statFunctions.statByDay({ chatId: 1, messageTimestamp: 1589155200 });
-      expect(data).toEqual({
-        data: [
+      const collection = await todayMessageCountStat.collect({ chat: { id: 1 }, date: 1589155200 });
+      expect(collection).toEqual(
+        [
           {
             _id: 2,
             count: 3,
@@ -67,41 +78,50 @@ describe('stats', () => {
             username: 'test1',
           },
         ],
-        name: stats.TODAY_MESSAGE_COUNT,
-      });
+      );
+
+      const statString = todayMessageCountStat.render(collection);
+
+      expect(statString).toBe('Сообщений за последние 24 часа: [test2 test2](tg://user?id=2) (3), [test1 test1](tg://user?id=1) (2)');
     });
 
     test('empty data', async () => {
-      const data = await statFunctions.statByDay({ chatId: 1, messageTimestamp: 1589155200 });
-      expect(data).toEqual({
-        data: [], name: stats.TODAY_MESSAGE_COUNT,
-      });
+      const collection = await todayMessageCountStat.collect({ chat: { id: 1 }, date: 1589155200 });
+      expect(collection).toEqual([]);
+
+      const statString = todayMessageCountStat.render(collection);
+
+      expect(statString).toBe('Сообщений за последние 24 часа: ');
     });
   });
 
   describe('worklessUser', () => {
     test('worklessUser', async () => {
       await addMessages(messagesWorklessUser);
-      const data = await statFunctions.worklessUser({ chatId: 1, messageTimestamp: 1588982400 });
-      expect(data).toEqual({
-        data:
-            [{
-              _id: 2,
-              count: 3,
-              first_name: 'test2',
-              last_name: 'test2',
-              username: 'test2',
-            }],
-        name: stats.WORKLESS_USER,
-      });
+      const collection = await worklessUserStat.collect({ chat: { id: 1 }, date: 1588982400 });
+      expect(collection).toEqual(
+        [{
+          _id: 2,
+          count: 3,
+          first_name: 'test2',
+          last_name: 'test2',
+          username: 'test2',
+        }],
+      );
+
+      const statString = worklessUserStat.render(collection);
+
+      expect(statString).toBe('[test2 test2](tg://user?id=2) - безработный');
     });
 
     test('empty data', async () => {
-      const data = await statFunctions.worklessUser({ chatId: 1, messageTimestamp: 1588982400 });
-      expect(data).toEqual({
-        data: [],
-        name: stats.WORKLESS_USER,
-      });
+      const collection = await worklessUserStat.collect({ chat: { id: 1 }, date: 1588982400 });
+      expect(collection).toEqual([]);
+
+
+      const statString = worklessUserStat.render(collection);
+
+      expect(statString).toBe('');
     });
   });
 });
