@@ -10,6 +10,7 @@ const { dbClient } = require('../src/dbClient');
 const messagesByHour = require('./__fixtures__/messagesByHourFixtures/correctData.json');
 const messagesByDay = require('./__fixtures__/messagesByDayFixtures/correctData.json');
 const messagesWorklessUser = require('./__fixtures__/messagesWorklessUser/correctData.json');
+const messagesContentSupplier = require('./__fixtures__/messagesContentSupplier/correctData.json');
 
 describeDBSetupTeardown();
 
@@ -116,6 +117,37 @@ describe('stats', () => {
 
     test('empty data', async () => {
       const collection = await worklessUserStat.collect({ chat: { id: 1 }, date: 1588982400 });
+      expect(collection).toEqual([]);
+
+
+      const statString = worklessUserStat.render(collection);
+
+      expect(statString).toBe('');
+    });
+  });
+
+
+  describe('contentSupplierStat', () => {
+    test('contentSupplierStat', async () => {
+      await addMessages(messagesContentSupplier);
+      const collection = await contentSupplierStat.collect({ chat: { id: 1 }, date: 1588982400 });
+      expect(collection).toEqual(
+        [{
+          _id: 1,
+          count: 3,
+          first_name: 'test1',
+          last_name: 'test1',
+          username: 'test1',
+        }],
+      );
+
+      const statString = contentSupplierStat.render(collection);
+
+      expect(statString).toBe('[test1 test1](tg://user?id=1) - поставщик контента');
+    });
+
+    test('empty data', async () => {
+      const collection = await contentSupplierStat.collect({ chat: { id: 1 }, date: 1588982400 });
       expect(collection).toEqual([]);
 
 
