@@ -32,9 +32,10 @@ const stats = async (message) => {
 
 // Register listeners
 slimbot.on('message', async (message) => {
-  // TODO: entities&.any { type == 'bot_command' }
-  if (message.text && message.text.startsWith('/stats')) {
-    stats(message);
+  if (message.entities && message.entities.any((entity) => entity.type === 'bot_command')) {
+    if (message.text.startsWith('/stats')) {
+      stats(message);
+    }
   } else {
     dbClient.queryMessages((messages) => {
       messages.insertOne(message);
