@@ -9,7 +9,6 @@ const statsArray = [
   hourMessageCountStat,
   worklessUserStat,
   contentSupplierStat,
-  worstChatUserStat,
 ];
 
 // TODO: tests for this two functions
