@@ -1,8 +1,8 @@
 const { dbClient } = require('../dbClient');
 const { getUserStatString } = require('../utils/render');
 
-const collect = async ({ chat, messageTimestamp }) => {
-  const messageDate = new Date(messageTimestamp * 1000);
+const collect = async ({ chat, date }) => {
+  const messageDate = new Date(date * 1000);
   messageDate.setDate(messageDate.getDate() - 1);
   const dayTimestamp = messageDate / 1000;
   const data = await dbClient.queryMessages((messages) => messages.aggregate(

@@ -1,8 +1,8 @@
 const { dbClient } = require('../dbClient');
-const { getUserStatString, getUserLink } = require('../utils/render');
+const { getUserLink } = require('../utils/render');
 
-const collect = async ({ chat, messageTimestamp }) => {
-  const messageDate = new Date(messageTimestamp * 1000);
+const collect = async ({ chat, date }) => {
+  const messageDate = new Date(date * 1000);
   const mondayNumber = 1;
   const currentDay = messageDate.getDay();
   messageDate.setDate(messageDate.getDate() - (currentDay - mondayNumber));

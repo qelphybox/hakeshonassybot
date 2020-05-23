@@ -17,12 +17,12 @@ const buildProxySettings = () => {
 const slimbot = new Slimbot(process.env.TELEGRAM_BOT_TOKEN, buildProxySettings());
 
 const stats = async (message) => {
-  const sendStats = await Promise.all(statsArray.map(async (stat) => {
+  const statsText = await Promise.all(statsArray.map(async (stat) => {
     const collection = await stat.collect(message);
     return stat.render(collection);
   }));
 
-  const text = renderMessage(sendStats);
+  const text = renderMessage(statsText);
   slimbot.sendMessage(
     message.chat.id,
     text,

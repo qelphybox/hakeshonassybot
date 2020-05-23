@@ -1,8 +1,8 @@
-const {dbClient} = require('../dbClient');
-const {getUserStatString, getUserLink} = require('../utils/render');
+const { dbClient } = require('../dbClient');
+const { getUserLink } = require('../utils/render');
 
-const collect = async ({chat, messageTimestamp}) => {
-  const messageDate = new Date(messageTimestamp * 1000);
+const collect = async ({ chat, date }) => {
+  const messageDate = new Date(date * 1000);
   const mondayNumber = 1;
   const currentDay = messageDate.getDay();
   messageDate.setDate(messageDate.getDate() - (currentDay - mondayNumber));
@@ -12,9 +12,9 @@ const collect = async ({chat, messageTimestamp}) => {
       {
         $match: {
           'chat.id': chat.id,
-          date: {$gt: dayTimestamp},
-          $or: [{photo: {$exists: true}}, {video: {$exists: true}}]
-        }
+          date: { $gt: dayTimestamp },
+          $or: [{ photo: { $exists: true } }, { video: { $exists: true } }],
+        },
       },
       {
         $project: {
@@ -24,9 +24,9 @@ const collect = async ({chat, messageTimestamp}) => {
           'from.first_name': 1,
           'from.last_name': 1,
           dayOfWeekOfMessageTimestamp: {
-            $dayOfWeek: {date: {$toDate: {$multiply: ['$date', 1000]}}, timezone: '+03:00'},
+            $dayOfWeek: { date: { $toDate: { $multiply: ['$date', 1000] } }, timezone: '+03:00' },
           },
-          hourOfMessageTimestamp: {$hour: {date: {$toDate: {$multiply: ['$date', 1000]}}, timezone: '+03:00'}},
+          hourOfMessageTimestamp: { $hour: { date: { $toDate: { $multiply: ['$date', 1000] } }, timezone: '+03:00' } },
         },
       },
       {
@@ -36,18 +36,18 @@ const collect = async ({chat, messageTimestamp}) => {
           },
         },
       },
-      {$match: {$expr: {$and: [{$gte: ['$hourOfMessageTimestamp', 10]}, {$lt: ['$hourOfMessageTimestamp', 18]}]}}},
+      { $match: { $expr: { $and: [{ $gte: ['$hourOfMessageTimestamp', 10] }, { $lt: ['$hourOfMessageTimestamp', 18] }] } } },
       {
         $group: {
           _id: '$from.id',
-          count: {$sum: 1},
-          username: {$first: '$from.username'},
-          first_name: {$first: '$from.first_name'},
-          last_name: {$first: '$from.last_name'},
+          count: { $sum: 1 },
+          username: { $first: '$from.username' },
+          first_name: { $first: '$from.first_name' },
+          last_name: { $first: '$from.last_name' },
         },
       },
-      {$sort: {count: -1}},
-      {$limit: 1},
+      { $sort: { count: -1 } },
+      { $limit: 1 },
     ],
   )
     .toArray());
@@ -55,7 +55,6 @@ const collect = async ({chat, messageTimestamp}) => {
 };
 
 const render = (collectedStat) => {
-  console.log(collectedStat);
   if (collectedStat.length > 0) {
     return `${getUserLink(collectedStat[0])} - поставщик контента`;
   }
