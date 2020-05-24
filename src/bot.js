@@ -1,6 +1,6 @@
-import { isCommand } from './utils/common';
-
 const Slimbot = require('slimbot');
+const { isCommand } = require('./utils/common');
+
 const { renderMessage } = require('./utils/render');
 const { statsArray } = require('./statistics');
 
