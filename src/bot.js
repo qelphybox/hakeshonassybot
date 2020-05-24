@@ -1,6 +1,8 @@
+import { isCommand } from './utils/common';
+
 const Slimbot = require('slimbot');
-const { renderMessage } = require('./render');
-const { statFunctions } = require('./stats');
+const { renderMessage } = require('./utils/render');
+const { statsArray } = require('./statistics');
 
 const { dbClient } = require('./dbClient');
 
@@ -16,15 +18,15 @@ const buildProxySettings = () => {
 };
 const slimbot = new Slimbot(process.env.TELEGRAM_BOT_TOKEN, buildProxySettings());
 
-const stats = async (statsRequestObj) => {
-  const sendStats = await Promise.all(
-    Object.keys(statFunctions)
-      .map((statFunctionName) => statFunctions[statFunctionName](statsRequestObj)),
-  );
+const stats = async (message) => {
+  const statsText = await Promise.all(statsArray.map(async ({ render, collect }) => {
+    const collection = await collect(message);
+    return render(collection);
+  }));
 
-  const text = renderMessage(sendStats);
+  const text = renderMessage(statsText);
   slimbot.sendMessage(
-    statsRequestObj.chatId,
+    message.chat.id,
     text,
     { disable_web_page_preview: true, disable_notification: true, parse_mode: 'Markdown' },
   );
@@ -32,10 +34,10 @@ const stats = async (statsRequestObj) => {
 
 // Register listeners
 slimbot.on('message', async (message) => {
-  if (message.text && message.text.startsWith('/stats')) {
-    const chatId = message.chat.id;
-    const messageTimestamp = message.date;
-    stats({ chatId, messageTimestamp, dbClient });
+  if (isCommand(message)) {
+    if (message.text.startsWith('/stats')) {
+      stats(message);
+    }
   } else {
     dbClient.queryMessages((messages) => {
       messages.insertOne(message);
@@ -49,7 +51,7 @@ dbClient.connect().then(() => {
 
 process.on('exit', async (code) => {
   console.log(`Exit with code ${code}, stopping...`);
-  await dbClient.disconnect();
   slimbot.stopPolling();
+  await dbClient.disconnect();
   console.log('Bye!');
 });
