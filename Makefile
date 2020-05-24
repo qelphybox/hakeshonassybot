@@ -1,16 +1,10 @@
 TAG_NAME = kirillbobykin/hakeshonassybot
 
-release:
-	docker build . -t ${TAG_NAME}
+workdir:
+	docker-compose run --rm bot sh
 
-push:
-	docker push ${TAG_NAME}
-
-provision-prod:
-	prod/provision.sh
-
-deploy-prod:
-	prod/deploy.sh
+migrate:
+	docker-compose run --rm bot npm run migrate
 	
 dev:
 	docker-compose up
