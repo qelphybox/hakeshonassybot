@@ -1,12 +1,19 @@
 const { dbClient } = require('../dbClient');
 const { getFullUserName } = require('../utils/render');
 
-const collect = async ({ chat, date }) => {
-  const messageDate = new Date(date * 1000);
+const getMondayDate = (date) => {
   const mondayNumber = 1;
-  const currentDay = messageDate.getDay();
-  messageDate.setDate(messageDate.getDate() - (currentDay - mondayNumber));
-  const dayTimestamp = messageDate / 1000;
+  const sundayNumber = 0;
+  // sunday index is 0, if get sunday index, need convert to 7 value;
+  const currentDay = date.getDay() === sundayNumber ? 7 : date.getDay();
+  return date.getDate() - (currentDay - mondayNumber);
+};
+
+const collect = async ({ chat, date }) => {
+  const queryDate = new Date(date * 1000);
+  const mondayDate = getMondayDate(queryDate);
+  queryDate.setDate(mondayDate);
+  const dayTimestamp = queryDate / 1000;
   const data = await dbClient.queryMessages((messages) => messages.aggregate(
     [
       { $match: { 'chat.id': chat.id, date: { $gt: dayTimestamp } } },
