@@ -1,5 +1,5 @@
 const { dbClient } = require('../dbClient');
-const { getUserLink } = require('../utils/render');
+const { getFullUserName } = require('../utils/render');
 
 const collect = async ({ chat, date }) => {
   const messageDate = new Date(date * 1000);
@@ -52,7 +52,7 @@ const collect = async ({ chat, date }) => {
 
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
-    return `${getUserLink(collectedStat[0])} - безработный`;
+    return `${getFullUserName(collectedStat[0])} - безработный`;
   }
   return '';
 };

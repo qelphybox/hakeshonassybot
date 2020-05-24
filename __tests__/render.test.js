@@ -9,7 +9,7 @@ describe('getUserStatString', () => {
       first_name: 'test',
       last_name: 'test',
       count: 2,
-    })).toBe('[test test](tg://user?id=1) (2)');
+    })).toBe('test test (2)');
   });
 });
 
