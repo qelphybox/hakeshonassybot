@@ -1,3 +1,5 @@
+import { isCommand } from './utils/common';
+
 const Slimbot = require('slimbot');
 const { renderMessage } = require('./utils/render');
 const { statsArray } = require('./statistics');
@@ -17,9 +19,9 @@ const buildProxySettings = () => {
 const slimbot = new Slimbot(process.env.TELEGRAM_BOT_TOKEN, buildProxySettings());
 
 const stats = async (message) => {
-  const statsText = await Promise.all(statsArray.map(async (stat) => {
-    const collection = await stat.collect(message);
-    return stat.render(collection);
+  const statsText = await Promise.all(statsArray.map(async ({ render, collect }) => {
+    const collection = await collect(message);
+    return render(collection);
   }));
 
   const text = renderMessage(statsText);
@@ -32,7 +34,7 @@ const stats = async (message) => {
 
 // Register listeners
 slimbot.on('message', async (message) => {
-  if (message.entities && message.entities.any((entity) => entity.type === 'bot_command')) {
+  if (isCommand(message)) {
     if (message.text.startsWith('/stats')) {
       stats(message);
     }
