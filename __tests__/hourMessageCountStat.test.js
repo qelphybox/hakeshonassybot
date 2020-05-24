@@ -37,7 +37,7 @@ describe('statByHour', () => {
     );
 
     const statString = hourMessageCountStat.render(collection);
-    expect(statString).toBe('Сообщений за последний час: [test2 test2](tg://user?id=2) (3), [test1 test1](tg://user?id=1) (2)');
+    expect(statString).toBe('Сообщений за последний час: test2 test2 (3), test1 test1 (2)');
   });
 
   test('empty data', async () => {
