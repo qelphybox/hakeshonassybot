@@ -28,15 +28,15 @@ describe('worklessUser', () => {
     expect(statString).toBe('test2 test2 - безработный');
   });
 
-  // test('empty data', async () => {
-  //   const collection = await worklessUserStat.collect({ chat: { id: 1 }, date: 1588982400 });
-  //   expect(collection).toEqual([]);
-  //
-  //
-  //   const statString = worklessUserStat.render(collection);
-  //
-  //   expect(statString).toBe('');
-  // });
+  test('empty data', async () => {
+    const collection = await worklessUserStat.collect({ chat: { id: 1 }, date: 1588982400 });
+    expect(collection).toEqual([]);
+
+
+    const statString = worklessUserStat.render(collection);
+
+    expect(statString).toBe('');
+  });
 
   test('sunday timestamp request', async () => {
     await addMessages(messagesWorklessUser);
