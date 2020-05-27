@@ -24,10 +24,9 @@ console.log('Start migration...');
 createDbCollection()
   .then(() => {
     console.log('Done');
+    process.exit();
   })
   .catch((error) => {
     console.log('migration failed with error: ', error);
-  })
-  .finally(() => {
-    process.exit();
+    process.exit(1);
   });
