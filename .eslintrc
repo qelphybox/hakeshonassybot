@@ -1,7 +1,6 @@
 {
   "extends": ["airbnb/base", "plugin:jest/recommended"],
   "rules": {
-    "camelcase": "off",
     // no need to use logger, console is appropiate
     "no-console": "off"
   }
