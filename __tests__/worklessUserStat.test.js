@@ -37,4 +37,22 @@ describe('worklessUser', () => {
 
     expect(statString).toBe('');
   });
+
+  test('sunday timestamp request', async () => {
+    await addMessages(messagesWorklessUser);
+    const collection = await worklessUserStat.collect({ chat: { id: 1 }, date: 1589130000 });
+    expect(collection).toEqual(
+      [{
+        _id: 2,
+        count: 3,
+        first_name: 'test2',
+        last_name: 'test2',
+        username: 'test2',
+      }],
+    );
+
+    const statString = worklessUserStat.render(collection);
+
+    expect(statString).toBe('test2 test2 - безработный');
+  });
 });
