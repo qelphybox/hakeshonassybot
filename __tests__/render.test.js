@@ -1,5 +1,5 @@
 
-const { getUserLink, getUserStatString, renderMessage } = require('../src/utils/render');
+const { getUserLink, getUserStatString } = require('../src/utils/render');
 
 describe('getUserStatString', () => {
   test('username: test, count: 2', () => {
