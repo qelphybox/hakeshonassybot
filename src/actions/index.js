@@ -1,8 +1,11 @@
-const { isCommand } = require('../utils/common');
 const { statsArray } = require('../statistics');
 const { dbClient } = require('../dbClient');
-const { renderMessage } = require('../utils/render');
 
+const isCommand = ({ entities }) => !!entities && entities.some((entity) => entity.type === 'bot_command');
+
+const renderMessage = (statsStringsArray) => statsStringsArray
+  .filter((statString) => statString.length > 0)
+  .join('\n');
 
 const stats = async (slimbot, message) => {
   const statsText = await Promise.all(statsArray.map(async ({ render, collect }) => {

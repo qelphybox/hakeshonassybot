@@ -32,31 +32,3 @@ describe('getUserLink', () => {
     })).toBe('[test](tg://user?id=1)');
   });
 });
-
-describe('renderMessage', () => {
-  test('render stats', () => {
-    const statsStringsArray = [
-      'Сообщений за последние 24 часа: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)',
-      'Сообщений за последний час: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)',
-    ];
-    expect(renderMessage(statsStringsArray)).toBe('Сообщений за последние 24 часа: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)\n'
-      + 'Сообщений за последний час: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)');
-  });
-
-  test('filter empty stats', () => {
-    const statsStringsArray = [
-      '',
-      'Сообщений за последние 24 часа: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)',
-      '',
-      'Сообщений за последний час: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)',
-      '',
-    ];
-    expect(renderMessage(statsStringsArray)).toBe('Сообщений за последние 24 часа: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)\n'
-      + 'Сообщений за последний час: [test test](tg://user?id=1) (1), [test test](tg://user?id=2) (2)');
-  });
-
-  test('empty array', () => {
-    const statsArray = [];
-    expect(renderMessage(statsArray)).toBe('');
-  });
-});
