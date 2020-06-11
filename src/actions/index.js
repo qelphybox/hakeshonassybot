@@ -27,8 +27,8 @@ const onMessage = async (slimbot, message) => {
       await stats(slimbot, message);
     }
   } else {
-    await dbClient.queryMessages((messages) => {
-      messages.insertOne(message);
+    await dbClient.queryMessages(async (messages) => {
+      await messages.insertOne(message);
     });
   }
 };
