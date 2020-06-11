@@ -7,6 +7,7 @@
     "bot": "node src/bot.js",
     "migrate": "node src/migrate.js",
     "test": "jest",
+    "test-action": "jest __tests__/actions.test.js",
     "lint": "eslint \"**/*.js\"",
     "lint-fix": "eslint \"**/*.js\" --fix"
   },
@@ -15,7 +16,8 @@
   "dependencies": {
     "moment": "^2.25.1",
     "mongodb": "^3.5.3",
-    "slimbot": "^4.6.0"
+    "slimbot": "^4.6.0",
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.1.5",
