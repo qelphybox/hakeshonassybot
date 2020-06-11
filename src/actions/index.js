@@ -24,10 +24,10 @@ const stats = async (slimbot, message) => {
 const onMessage = async (slimbot, message) => {
   if (isCommand(message)) {
     if (message.text.startsWith('/stats')) {
-      stats(slimbot, message);
+      await stats(slimbot, message);
     }
   } else {
-    dbClient.queryMessages((messages) => {
+    await dbClient.queryMessages((messages) => {
       messages.insertOne(message);
     });
   }
