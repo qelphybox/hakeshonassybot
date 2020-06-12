@@ -1,5 +1,4 @@
 const uuidv4 = require('uuid').v4;
-const { onMessage } = require('../../src/actions');
 
 const messageContentByType = {
   text: uuidv4(),
@@ -50,7 +49,7 @@ const messageContentByType = {
 
 const sendTestMessage = async ({
   userId, firstName, date, type,
-}, slimbot) => {
+}, onMessage, slimbot) => {
   const userMessage = {
     message_id: uuidv4(),
     from: {
