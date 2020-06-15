@@ -1,8 +1,6 @@
 const Slimbot = require('slimbot');
-const { isCommand } = require('./utils/common');
 
-const { renderMessage } = require('./utils/render');
-const { statsArray } = require('./statistics');
+const { onMessage } = require('./actions');
 
 const { dbClient } = require('./dbClient');
 
@@ -18,32 +16,9 @@ const buildProxySettings = () => {
 };
 const slimbot = new Slimbot(process.env.TELEGRAM_BOT_TOKEN, buildProxySettings());
 
-const stats = async (message) => {
-  const statsText = await Promise.all(statsArray.map(async ({ render, collect }) => {
-    const collection = await collect(message);
-    return render(collection);
-  }));
-
-  const text = renderMessage(statsText);
-  slimbot.sendMessage(
-    message.chat.id,
-    text,
-    { disable_web_page_preview: true, parse_mode: 'Markdown' },
-  );
-};
 
 // Register listeners
-slimbot.on('message', async (message) => {
-  if (isCommand(message)) {
-    if (message.text.startsWith('/stats')) {
-      stats(message);
-    }
-  } else {
-    dbClient.queryMessages((messages) => {
-      messages.insertOne(message);
-    });
-  }
-});
+slimbot.on('message', onMessage.bind(null, slimbot));
 
 dbClient.connect().then(() => {
   slimbot.startPolling();

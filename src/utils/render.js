@@ -6,11 +6,7 @@ const getUserStatString = ({
 }) => `${getFullUserName({ first_name, last_name })} (${count})`;
 /* eslint-enable camelcase */
 
-const renderMessage = (statsStringsArray) => statsStringsArray
-  .filter((statString) => statString.length > 0)
-  .join('\n');
-
 
 module.exports = {
-  getUserLink, getUserStatString, renderMessage, getFullUserName,
+  getUserLink, getUserStatString, getFullUserName,
 };
