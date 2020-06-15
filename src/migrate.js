@@ -21,7 +21,12 @@ const createDbCollection = async () => {
 };
 
 console.log('Start migration...');
-createDbCollection();
-console.log('Done');
-
-process.exit();
+createDbCollection()
+  .then(() => {
+    console.log('Done');
+    process.exit();
+  })
+  .catch((error) => {
+    console.log('migration failed with error: ', error);
+    process.exit(1);
+  });
