@@ -1,12 +1,15 @@
+const moment = require('moment');
 const { dbClient } = require('../dbClient');
 const { getFullUserName } = require('../utils/render');
 
+moment.locale('ru');
+
 const collect = async ({ chat, date }) => {
-  const messageDate = new Date(date * 1000);
-  const mondayNumber = 1;
-  const currentDay = messageDate.getDay();
-  messageDate.setDate(messageDate.getDate() - (currentDay - mondayNumber));
-  const dayTimestamp = messageDate / 1000;
+  const queryDate = new Date(date * 1000);
+  const currentWeekMonday = moment(queryDate).weekday(0).set({
+    hour: 0, minute: 0, second: 0, millisecond: 0,
+  });
+  const dayTimestamp = currentWeekMonday / 1000;
   const data = await dbClient.queryMessages((messages) => messages.aggregate(
     [
       {

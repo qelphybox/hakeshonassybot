@@ -290,4 +290,118 @@ describe('manual create messages', () => {
 
     await onMessage(slimbot, statMessage);
   });
+
+
+  test('workless user monday messages, tuesday stats', async () => {
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch('user1 - безработный');
+    });
+
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1592218800, type: 'text',
+    }, onMessage, slimbot);
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1592218800, type: 'text',
+    }, onMessage, slimbot);
+
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1592226000, type: 'text',
+    }, onMessage, slimbot);
+
+    const statMessage = {
+      chat: {
+        id: 1,
+      },
+      date: 1592316000,
+      text: '/stats',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, statMessage);
+  });
+
+  test('cintent supplier monday messages, tuesday stats', async () => {
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch('user2 - поставщик контента');
+    });
+
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1592218800, type: 'photo',
+    }, onMessage, slimbot);
+
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1592226000, type: 'photo',
+    }, onMessage, slimbot);
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1592226000, type: 'video',
+    }, onMessage, slimbot);
+
+    const statMessage = {
+      chat: {
+        id: 1,
+      },
+      date: 1592316000,
+      text: '/stats',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, statMessage);
+  });
+
+
+  test('workless user monday messages, sunday stats', async () => {
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch('user1 - безработный');
+    });
+
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1592218800, type: 'text',
+    }, onMessage, slimbot);
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1592218800, type: 'text',
+    }, onMessage, slimbot);
+
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1592226000, type: 'text',
+    }, onMessage, slimbot);
+
+    const statMessage = {
+      chat: {
+        id: 1,
+      },
+      date: 1592737200,
+      text: '/stats',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, statMessage);
+  });
+
+  test('cintent supplier monday messages, sunday stats', async () => {
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch('user2 - поставщик контента');
+    });
+
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1592218800, type: 'photo',
+    }, onMessage, slimbot);
+
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1592226000, type: 'photo',
+    }, onMessage, slimbot);
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1592226000, type: 'video',
+    }, onMessage, slimbot);
+
+    const statMessage = {
+      chat: {
+        id: 1,
+      },
+      date: 1592737200,
+      text: '/stats',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, statMessage);
+  });
 });
