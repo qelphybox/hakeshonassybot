@@ -15,7 +15,7 @@
   "dependencies": {
     "moment": "^2.25.1",
     "mongodb": "^3.5.3",
-    "slimbot": "^4.6.0"
+    "slimbot": "^4.8.0"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.1.5",
