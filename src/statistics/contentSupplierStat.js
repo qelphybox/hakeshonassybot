@@ -59,7 +59,7 @@ const collect = async ({ chat, date }) => {
 
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
-    return `${getFullUserName(collectedStat[0])} - поставщик контента`;
+    return `*${getFullUserName(collectedStat[0])}* - поставщик контента`;
   }
   return '';
 };
