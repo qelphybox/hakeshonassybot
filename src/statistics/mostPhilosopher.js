@@ -4,7 +4,7 @@ const { getFullUserName } = require('../utils/render');
 const collect = async ({ chat }) => {
   const data = await dbClient.queryMessages((messages) => messages.aggregate(
     [
-    { $match: { 'chat.id': chat.id, text: { $exists: true } } },
+      { $match: { 'chat.id': chat.id, text: { $exists: true } } },
       {
         $project: {
           _id: 1,
@@ -12,7 +12,7 @@ const collect = async ({ chat }) => {
           'from.username': 1,
           'from.first_name': 1,
           'from.last_name': 1,
-          'text_length': { $strLenCP: '$text' },
+          text_length: { $strLenCP: '$text' },
         },
       },
       { $sort: { text_length: 1 } },
@@ -23,30 +23,31 @@ const collect = async ({ chat }) => {
           username: { $first: '$from.username' },
           first_name: { $first: '$from.first_name' },
           last_name: { $first: '$from.last_name' },
-          all_msg_len_array: { $push: '$text_length'}, 
+          all_msg_len_array: { $push: '$text_length' },
         },
       },
-      { $addFields: {
-        middle_index: { $floor: {$divide: ['$count', 2]}}}},
-      { $addFields: {
-        middle_index_less: { $subtract: ['$middle_index', 1]}}},
-      { 
+      { $addFields: { middle_index: { $floor: { $divide: ['$count', 2] } } } },
+      { $addFields: { middle_index_less: { $subtract: ['$middle_index', 1] } } },
+      {
         $addFields: {
-          median: { 
+          median: {
             $cond: {
-              if: { $mod: ['$count', 2]},
-              then: { $arrayElemAt: ['$all_msg_len_array', '$middle_index']},
-              else: { $divide: 
-                [ 
-                { $sum: [
-                  { $arrayElemAt: ['$all_msg_len_array', '$middle_index']},
-                  { $arrayElemAt: ['$all_msg_len_array', '$middle_index_less']}
-                  ]}, 2
-                ]
-              }
-            }
-          }
-        }
+              if: { $mod: ['$count', 2] },
+              then: { $arrayElemAt: ['$all_msg_len_array', '$middle_index'] },
+              else: {
+                $divide:
+                [
+                  {
+                    $sum: [
+                      { $arrayElemAt: ['$all_msg_len_array', '$middle_index'] },
+                      { $arrayElemAt: ['$all_msg_len_array', '$middle_index_less'] },
+                    ],
+                  }, 2,
+                ],
+              },
+            },
+          },
+        },
       },
       { $sort: { median: 1 } },
       { $limit: 1 },
@@ -67,4 +68,3 @@ module.exports = {
   render,
   collect,
 };
-
