@@ -25,7 +25,7 @@ describe('contentSupplierStat', () => {
 
     const statString = contentSupplierStat.render(collection);
 
-    expect(statString).toBe('test1 test1 - поставщик контента');
+    expect(statString).toBe('*test1 test1* - поставщик контента');
   });
 
   test('empty data', async () => {
