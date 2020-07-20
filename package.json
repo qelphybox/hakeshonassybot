@@ -21,7 +21,7 @@
     "@shelf/jest-mongodb": "^1.2.1",
     "eslint": "^7.0.0",
     "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^23.18.0",
     "jest": "^26.0.1",
     "uuid": "^8.2.0"
