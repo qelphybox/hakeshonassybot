@@ -6,7 +6,7 @@ moment.locale('ru');
 
 const collect = async ({ chat, date }) => {
   const queryDate = new Date(date * 1000);
-  const currentWeekMonday = moment(queryDate).weekday(0).set({
+  const currentWeekMonday = moment(queryDate).subtract(7, 'days').set({
     hour: 0, minute: 0, second: 0, millisecond: 0,
   });
   const dayTimestamp = currentWeekMonday / 1000;
