@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "moment": "^2.25.1",
+    "moment": "^2.27.0",
     "mongodb": "^3.5.3",
     "slimbot": "^4.6.0"
   },
