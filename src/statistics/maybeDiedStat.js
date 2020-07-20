@@ -8,7 +8,7 @@ const collect = async ({ chat }) => {
       {
         $group: {
           _id: '$from.id',
-          date: { $max: "$date" },
+          date: { $max: '$date' },
           username: { $first: '$from.username' },
           first_name: { $first: '$from.first_name' },
           last_name: { $first: '$from.last_name' },

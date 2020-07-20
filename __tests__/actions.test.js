@@ -518,7 +518,7 @@ describe('manual create messages', () => {
     await onMessage(slimbot, statMessage);
   });
 
-  test.only('maybe died', async () => {
+  test('maybe died', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user1* - наверное помер');
     });
