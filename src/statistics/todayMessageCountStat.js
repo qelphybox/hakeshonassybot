@@ -23,7 +23,7 @@ const collect = async ({ chat, date }) => {
   return data;
 };
 
-const render = (collectedStat) => `Сообщений за последние 24 часа: ${collectedStat.map(getUserStatString).join(', ')}`;
+const render = (collectedStat) => `*Сообщений за последние 24 часа:* ${collectedStat.map(getUserStatString).join(', ')}`;
 
 
 module.exports = {
