@@ -464,7 +464,7 @@ describe('manual create messages', () => {
 
   test('content supplier thursday messages, monday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('user2 - поставщик контента');
+      expect(text).toMatch('*user2* - поставщик контента');
     });
 
     await sendTestMessage({
@@ -492,7 +492,7 @@ describe('manual create messages', () => {
 
   test('workless user thursday messages, monday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('user1 - безработный');
+      expect(text).toMatch('*user1* - безработный');
     });
 
     await sendTestMessage({
