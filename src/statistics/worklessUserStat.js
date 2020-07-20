@@ -6,7 +6,7 @@ moment.locale('ru');
 
 const collect = async ({ chat, date }) => {
   const queryDate = new Date(date * 1000);
-  const currentWeekMonday = moment(queryDate).weekday(0).set({
+  const currentWeekMonday = moment(queryDate).subtract(7, 'days').set({
     hour: 0, minute: 0, second: 0, millisecond: 0,
   });
   const dayTimestamp = currentWeekMonday / 1000;
@@ -20,22 +20,20 @@ const collect = async ({ chat, date }) => {
           'from.username': 1,
           'from.first_name': 1,
           'from.last_name': 1,
-          dayOfWeek: {
-            $dayOfWeek: {
-              $toDate: { $multiply: ['$date', 1000] },
-            },
+          dayOfWeekOfMessageTimestamp: {
+            $dayOfWeek: { date: { $toDate: { $multiply: ['$date', 1000] } }, timezone: '+03:00' },
           },
-          hour: { $hour: { $toDate: { $multiply: ['$date', 1000] } } },
+          hourOfMessageTimestamp: { $hour: { date: { $toDate: { $multiply: ['$date', 1000] } }, timezone: '+03:00' } },
         },
       },
       {
         $match: {
           $expr: {
-            $in: ['$dayOfWeek', [2, 3, 4, 5, 6]],
+            $in: ['$dayOfWeekOfMessageTimestamp', [2, 3, 4, 5, 6]],
           },
         },
       },
-      { $match: { $expr: { $and: [{ $gte: ['$hour', 10] }, { $lt: ['$hour', 18] }] } } },
+      { $match: { $expr: { $and: [{ $gte: ['$hourOfMessageTimestamp', 10] }, { $lt: ['$hourOfMessageTimestamp', 18] }] } } },
       {
         $group: {
           _id: '$from.id',
