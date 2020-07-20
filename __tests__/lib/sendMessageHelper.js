@@ -1,15 +1,15 @@
 const uuidv4 = require('uuid').v4;
 
 const messageContentByType = {
-  text: uuidv4(),
-  voice: {
+  text: () => uuidv4(),
+  voice: () => ({
     duration: 0,
     mime_type: 'audio/ogg',
     file_id: 'AwACAgIAAxkBAANCXsRFwwnuqJoIXLJbwJYGzrYY4QwAAnwFAAL4nyhKd5NzrU_Aw7QZBA',
     file_unique_id: 'AgADfAUAAvifKEo',
     file_size: 4521,
-  },
-  photo: [{
+  }),
+  photo: () => [{
     file_id: 'AgACAgIAAxkBAAM3XsREf78d0HJ5q1BDVOO-JCrN4eUAAnOtMRv4nyhKlf7nZcUI6IBIJ3eRLgADAQADAgADbQADtnIDAAEZBA',
     file_unique_id: 'AQADSCd3kS4AA7ZyAwAB',
     file_size: 16588,
@@ -28,7 +28,7 @@ const messageContentByType = {
     width: 1280,
     height: 1033,
   }],
-  video: {
+  video: () => ({
     duration: 23,
     width: 480,
     height: 270,
@@ -43,13 +43,20 @@ const messageContentByType = {
     file_id: 'BAACAgIAAxkBAAM-XsRFVwmlTKSvsUnjdj8qBNPN7R8AAnoFAAL4nyhKWZLnJ4OuzVgZBA',
     file_unique_id: 'AgADegUAAvifKEo',
     file_size: 1226294,
-  },
+  }),
+  sticker: ({ setName }) => ({
+    width: 512,
+    height: 512,
+    emoji: '🐝',
+    set_name: setName,
+    is_animated: false,
+  }),
 };
 
 
 const sendTestMessage = async ({
   userId, firstName, date, type,
-}, onMessage, slimbot) => {
+}, onMessage, slimbot, messageContentObj) => {
   const userMessage = {
     message_id: uuidv4(),
     from: {
@@ -61,7 +68,7 @@ const sendTestMessage = async ({
       id: 1,
     },
     date,
-    [type]: messageContentByType[type],
+    [type]: messageContentByType[type](messageContentObj),
   };
 
   await onMessage(slimbot, userMessage);
