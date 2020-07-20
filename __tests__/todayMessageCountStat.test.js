@@ -35,7 +35,7 @@ describe('statByDay', () => {
 
     const statString = todayMessageCountStat.render(collection);
 
-    expect(statString).toBe('Сообщений за последние 24 часа: test2 test2 (3), test1 test1 (2)');
+    expect(statString).toBe('*Сообщений за последние 24 часа:* test2 test2 (3), test1 test1 (2)');
   });
 
   test('empty data', async () => {
@@ -44,6 +44,6 @@ describe('statByDay', () => {
 
     const statString = todayMessageCountStat.render(collection);
 
-    expect(statString).toBe('Сообщений за последние 24 часа: ');
+    expect(statString).toBe('*Сообщений за последние 24 часа:* ');
   });
 });
