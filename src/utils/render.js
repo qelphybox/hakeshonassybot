@@ -6,7 +6,6 @@ const getUserStatString = ({
 }) => `${getFullUserName({ first_name, last_name })} (${count})`;
 /* eslint-enable camelcase */
 
-
 module.exports = {
   getUserLink, getUserStatString, getFullUserName,
 };
