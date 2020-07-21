@@ -25,7 +25,6 @@ const collect = async ({ chat, date }) => {
 
 const render = (collectedStat) => `*Сообщений за последний час:* ${collectedStat.map(getUserStatString).join(', ')}`;
 
-
 module.exports = {
   render,
   collect,

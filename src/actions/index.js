@@ -33,5 +33,4 @@ const onMessage = async (slimbot, message) => {
   }
 };
 
-
 module.exports = { onMessage };
