@@ -10,9 +10,12 @@
 ```
 /stats
 
-Сообщений за последние 24 часа: @kirillbobykin (1)
-Сообщений за последний час: @kirillbobykin (1)
-@kirillbobykin - безработный
+Сообщений за последние 24 часа: Aram Azbekian (11), Ki Rill (7)
+Сообщений за последний час: Сергей (5), Leonid Markizov (5)
+Aram Azbekian - безработный
+Leonid Markizov - поставщик контента
+Aram Azbekian - худший юзер чата
+Leonid Markizov - стикерпакер
 ```
 
 ## Ачивки
@@ -34,6 +37,7 @@ echo "TELEGRAM_BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11" > .env
 make dev
 ```
 5) Можешь писать своему боту в личку или создать себе тестовую группу и добавить его туда.
+6) Чтобы бот правильно работал когда добавлен в группу, ему нужно выключить [Privacy mode](https://core.telegram.org/bots#privacy-mode) это можно сделать в настройках бота у [BotFather](https://t.me/botfather) `@tvoy_bot > Bot settings > Group privacy > Turn off`. В списке юзеров группы, рядом с юзернэймом бота появится `has access to messages`
 
 ## Запуск автотестов
 
