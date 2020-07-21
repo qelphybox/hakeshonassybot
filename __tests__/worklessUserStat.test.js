@@ -32,7 +32,6 @@ describe('worklessUser', () => {
     const collection = await worklessUserStat.collect({ chat: { id: 1 }, date: 1588982400 });
     expect(collection).toEqual([]);
 
-
     const statString = worklessUserStat.render(collection);
 
     expect(statString).toBe('');
