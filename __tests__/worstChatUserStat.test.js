@@ -32,7 +32,6 @@ describe('worstChatUser', () => {
     const collection = await worstChatUserStat.collect({ chat: { id: 1 }, date: 1588982400 });
     expect(collection).toEqual([]);
 
-
     const statString = worstChatUserStat.render(collection);
 
     expect(statString).toBe('');
