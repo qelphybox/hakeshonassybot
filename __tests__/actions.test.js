@@ -549,4 +549,42 @@ describe('manual create messages', () => {
 
     await onMessage(slimbot, statMessage);
   });
+
+  test('maybe died', async () => {
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch('*user1* - наверное помер');
+    });
+
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1591786800, type: 'text',
+    }, onMessage, slimbot);
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1591786900, type: 'text',
+    }, onMessage, slimbot);
+
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1591787100, type: 'text',
+    }, onMessage, slimbot);
+
+    await sendTestMessage({
+      userId: 3, firstName: 'user3', date: 1591786700, type: 'text',
+    }, onMessage, slimbot);
+    await sendTestMessage({
+      userId: 3, firstName: 'user3', date: 1591786800, type: 'text',
+    }, onMessage, slimbot);
+    await sendTestMessage({
+      userId: 3, firstName: 'user3', date: 1591787000, type: 'text',
+    }, onMessage, slimbot);
+
+    const statMessage = {
+      chat: {
+        id: 1,
+      },
+      date: 1591887600,
+      text: '/stats',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, statMessage);
+  });
 });
