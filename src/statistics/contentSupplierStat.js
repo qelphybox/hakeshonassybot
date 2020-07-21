@@ -64,8 +64,8 @@ const collect = async ({ chat, date }) => {
 
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
-    const topUesr = collectedStat[0];
-    return `*${getFullUserName(topUesr)}* - поставщик контента (картинок - ${topUesr.photoCount}, видео - ${topUesr.videoCount})`;
+    const topUser = collectedStat[0];
+    return `*${getFullUserName(topUser)}* - поставщик контента (картинок - ${topUser.photoCount}, видео - ${topUser.videoCount})`;
   }
   return '';
 };
