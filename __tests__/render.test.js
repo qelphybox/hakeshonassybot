@@ -1,4 +1,3 @@
-
 const { getUserLink, getUserStatString } = require('../src/utils/render');
 
 describe('getUserStatString', () => {
@@ -12,7 +11,6 @@ describe('getUserStatString', () => {
     })).toBe('test test (2)');
   });
 });
-
 
 describe('getUserLink', () => {
   test('first_name and last_name', () => {

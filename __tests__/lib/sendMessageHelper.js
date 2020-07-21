@@ -53,7 +53,6 @@ const messageContentByType = {
   }),
 };
 
-
 const sendTestMessage = async ({
   userId, firstName, date, type,
 }, onMessage, slimbot, messageContentObj) => {

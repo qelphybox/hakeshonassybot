@@ -16,7 +16,6 @@ const buildProxySettings = () => {
 };
 const slimbot = new Slimbot(process.env.TELEGRAM_BOT_TOKEN, buildProxySettings());
 
-
 // Register listeners
 slimbot.on('message', onMessage.bind(null, slimbot));
 
