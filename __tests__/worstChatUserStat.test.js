@@ -25,7 +25,7 @@ describe('worstChatUser', () => {
 
     const statString = worstChatUserStat.render(collection);
 
-    expect(statString).toBe('*test1 test1* - худший юзер чата худший юзер чата (послал ы голосовых)');
+    expect(statString).toBe('*test1 test1* - худший юзер чата (послал 3 голосовых)');
   });
 
   test('empty data', async () => {
