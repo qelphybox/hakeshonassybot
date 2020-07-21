@@ -36,7 +36,8 @@ const collect = async ({ chat }) => {
 
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
-    return `*${getFullUserName(collectedStat[0])}* - стикерпакер`;
+    const topUser = collectedStat[0];
+    return `*${getFullUserName(topUser)}* - стикерпакер (юзает ${topUser.count} стикерпака)`;
   }
   return '';
 };
