@@ -24,7 +24,8 @@ const collect = async ({ chat }) => {
 
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
-    return `*${getFullUserName(collectedStat[0])}* - худший юзер чата`;
+    const topUser = collectedStat[0];
+    return `*${getFullUserName(topUser)}* - худший юзер чата (послал ${topUser.count} голосовых)`;
   }
   return '';
 };
