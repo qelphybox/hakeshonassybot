@@ -25,7 +25,7 @@ describe('worklessUser', () => {
 
     const statString = worklessUserStat.render(collection);
 
-    expect(statString).toBe('*test2 test2* - безработный');
+    expect(statString).toBe('*test2 test2* - безработный (2 сообщения в рабочее время за неделю)');
   });
 
   test('empty data', async () => {
@@ -53,6 +53,6 @@ describe('worklessUser', () => {
 
     const statString = worklessUserStat.render(collection);
 
-    expect(statString).toBe('*test2 test2* - безработный');
+    expect(statString).toBe('*test2 test2* - безработный (2 сообщения в рабочее время за неделю)');
   });
 });
