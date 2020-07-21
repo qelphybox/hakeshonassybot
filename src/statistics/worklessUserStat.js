@@ -53,7 +53,8 @@ const collect = async ({ chat, date }) => {
 
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
-    return `*${getFullUserName(collectedStat[0])}* - безработный`;
+    const topUser = collectedStat[0];
+    return `*${getFullUserName(topUser)}* - безработный (${topUser.count} сообщения в рабочее время за неделю)`;
   }
   return '';
 };

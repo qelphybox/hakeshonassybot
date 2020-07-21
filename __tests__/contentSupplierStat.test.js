@@ -19,13 +19,16 @@ describe('contentSupplierStat', () => {
         count: 3,
         first_name: 'test1',
         last_name: 'test1',
+        photoCount: 2,
         username: 'test1',
+        videoCount: 1,
+
       }],
     );
 
     const statString = contentSupplierStat.render(collection);
 
-    expect(statString).toBe('*test1 test1* - поставщик контента');
+    expect(statString).toBe('*test1 test1* - поставщик контента (картинок - 2, видео - 1)');
   });
 
   test('empty data', async () => {

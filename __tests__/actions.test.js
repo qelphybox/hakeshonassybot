@@ -39,8 +39,8 @@ describe('auto create messages', () => {
 
     const expectedText = `*Сообщений за последние 24 часа:* test1 test1 (2)
 *Сообщений за последний час:* test1 test1 (2)
-*test1 test1* - безработный
-*test1 test1* - поставщик контента`;
+*test1 test1* - безработный (3 сообщения в рабочее время за неделю)
+*test1 test1* - поставщик контента (картинок - 2, видео - 1)`;
 
     const slimbot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch(expectedText);
@@ -63,7 +63,7 @@ describe('auto create messages', () => {
 
     const expectedText = `*Сообщений за последние 24 часа:* test1 test1 (2)
 *Сообщений за последний час:* test1 test1 (2)
-*test2 test2* - безработный`;
+*test2 test2* - безработный (3 сообщения в рабочее время за неделю)`;
 
     const slimbot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch(expectedText);
@@ -85,7 +85,7 @@ describe('auto create messages', () => {
 describe('manual create messages', () => {
   test('workless user', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user1* - безработный');
+      expect(text).toMatch('*user1* - безработный (2 сообщения в рабочее время за неделю)');
     });
 
     await sendTestMessage({
@@ -123,7 +123,7 @@ describe('manual create messages', () => {
 
   test('worst user', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - худший юзер чата');
+      expect(text).toMatch('*user2* - худший юзер чата (послал 2 голосовых)');
     });
 
     await sendTestMessage({
@@ -151,7 +151,7 @@ describe('manual create messages', () => {
 
   test('content supplier', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - поставщик контента');
+      expect(text).toMatch('*user2* - поставщик контента (картинок - 1, видео - 2)');
     });
 
     await sendTestMessage({
@@ -160,6 +160,9 @@ describe('manual create messages', () => {
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'photo',
+    }, onMessage, slimbot);
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1591790400, type: 'video',
     }, onMessage, slimbot);
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'video',
@@ -292,7 +295,7 @@ describe('manual create messages', () => {
 
   test('workless user monday messages, tuesday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user1* - безработный');
+      expect(text).toMatch('*user1* - безработный (2 сообщения в рабочее время за неделю)');
     });
 
     await sendTestMessage({
@@ -320,7 +323,7 @@ describe('manual create messages', () => {
 
   test('cintent supplier monday messages, tuesday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - поставщик контента');
+      expect(text).toMatch('*user2* - поставщик контента ');
     });
 
     await sendTestMessage({
@@ -348,7 +351,7 @@ describe('manual create messages', () => {
 
   test('workless user monday messages, sunday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user1* - безработный');
+      expect(text).toMatch('*user1* - безработный (2 сообщения в рабочее время за неделю)');
     });
 
     await sendTestMessage({
@@ -376,7 +379,7 @@ describe('manual create messages', () => {
 
   test('content supplier monday messages, sunday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - поставщик контента');
+      expect(text).toMatch('*user2* - поставщик контента (картинок - 1, видео - 1)');
     });
 
     await sendTestMessage({
@@ -404,7 +407,7 @@ describe('manual create messages', () => {
 
   test('workless user monday messages, monday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user1* - безработный');
+      expect(text).toMatch('*user1* - безработный (2 сообщения в рабочее время за неделю)');
     });
 
     await sendTestMessage({
@@ -432,7 +435,7 @@ describe('manual create messages', () => {
 
   test('content supplier monday messages, monday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - поставщик контента');
+      expect(text).toMatch('*user2* - поставщик контента (картинок - 1, видео - 1)');
     });
 
     await sendTestMessage({
@@ -460,7 +463,7 @@ describe('manual create messages', () => {
 
   test('content supplier thursday messages, monday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - поставщик контента');
+      expect(text).toMatch('*user2* - поставщик контента (картинок - 1, видео - 1)');
     });
 
     await sendTestMessage({
@@ -488,7 +491,7 @@ describe('manual create messages', () => {
 
   test('workless user thursday messages, monday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user1* - безработный');
+      expect(text).toMatch('*user1* - безработный (2 сообщения в рабочее время за неделю)');
     });
 
     await sendTestMessage({
@@ -516,7 +519,7 @@ describe('manual create messages', () => {
 
   test('sticker packer', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user1* - стикерпакер');
+      expect(text).toMatch('*user1* - стикерпакер (юзает 2 стикерпака)');
     });
 
     await sendTestMessage({
