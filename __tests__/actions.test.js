@@ -42,7 +42,7 @@ describe('auto create messages', () => {
     const expectedText = `*Сообщений за последние 24 часа:* test1 test1 (2)
 *Сообщений за последний час:* test1 test1 (2)
 *test1 test1* - безработный (3 сообщения в рабочее время за неделю)
-*test1 test1* - поставщик контента (картинок - 2, видео - 1)`;
+*test1 test1* - поставщик контента (2 картинки, 1 видео)`;
 
     const slimbot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch(expectedText);
@@ -123,6 +123,27 @@ describe('manual create messages', () => {
     await onMessage(slimbot, statMessage);
   });
 
+  test('workless user one message', async () => {
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch('*user1* - безработный (1 сообщение в рабочее время за неделю)');
+    });
+
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1591786800, type: 'text',
+    }, onMessage, slimbot);
+
+    const statMessage = {
+      chat: {
+        id: 1,
+      },
+      date: 1591887600,
+      text: '/stats',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, statMessage);
+  });
+
   test('worst user', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user2* - худший юзер чата (послал 2 голосовых)');
@@ -151,9 +172,30 @@ describe('manual create messages', () => {
     await onMessage(slimbot, statMessage);
   });
 
+  test('worst user one message', async () => {
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch('*user2* - худший юзер чата (послал 1 голосовое)');
+    });
+
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1591790400, type: 'voice',
+    }, onMessage, slimbot);
+
+    const statMessage = {
+      chat: {
+        id: 1,
+      },
+      date: 1591887600,
+      text: '/stats',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, statMessage);
+  });
+
   test('content supplier', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - поставщик контента (картинок - 1, видео - 2)');
+      expect(text).toMatch('*user2* - поставщик контента (1 картинка, 2 видео)');
     });
 
     await sendTestMessage({
@@ -381,7 +423,7 @@ describe('manual create messages', () => {
 
   test('content supplier monday messages, sunday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - поставщик контента (картинок - 1, видео - 1)');
+      expect(text).toMatch('*user2* - поставщик контента (1 картинка, 1 видео)');
     });
 
     await sendTestMessage({
@@ -437,7 +479,7 @@ describe('manual create messages', () => {
 
   test('content supplier monday messages, monday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - поставщик контента (картинок - 1, видео - 1)');
+      expect(text).toMatch('*user2* - поставщик контента (1 картинка, 1 видео)');
     });
 
     await sendTestMessage({
@@ -465,7 +507,7 @@ describe('manual create messages', () => {
 
   test('content supplier thursday messages, monday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - поставщик контента (картинок - 1, видео - 1)');
+      expect(text).toMatch('*user2* - поставщик контента (1 картинка, 1 видео)');
     });
 
     await sendTestMessage({
@@ -555,11 +597,32 @@ describe('manual create messages', () => {
     await onMessage(slimbot, statMessage);
   });
 
+  test('sticker packer one message', async () => {
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch('*user1* - стикерпакер (юзает 1 стикерпак)');
+    });
+
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1591866060, type: 'sticker',
+    }, onMessage, slimbot, { setName: 'Pojelaniepchelki' });
+
+    const statMessage = {
+      chat: {
+        id: 1,
+      },
+      date: 1592222400,
+      text: '/stats',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, statMessage);
+  });
+
   test('maybe died', async () => {
     MockDate.set(moment('06/23/2020').toDate());
 
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user1* - наверное помер (писал 12 дня назад)');
+      expect(text).toMatch('*user1* - наверное помер (писал 12 дней назад)');
     });
 
     await sendTestMessage({
@@ -599,7 +662,7 @@ describe('manual create messages', () => {
     MockDate.set(moment('06/10/2020').toDate());
 
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user1* - наверное помер (писал 1 дня назад)');
+      expect(text).toMatch('*user1* - наверное помер (писал 1 день назад)');
     });
 
     await sendTestMessage({
