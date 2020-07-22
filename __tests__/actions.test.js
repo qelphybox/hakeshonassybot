@@ -9,6 +9,7 @@ const messagesWorklessUser = require('./__fixtures__/messagesWorklessUser/correc
 const messagesContentSupplier = require('./__fixtures__/messagesContentSupplier/correctData.json');
 
 describeDBSetupTeardown();
+moment.locale('ru');
 
 const addMessages = async (messages) => {
   await dbClient.queryMessages((col) => col.insertMany(messages));
@@ -619,7 +620,8 @@ describe('manual create messages', () => {
   });
 
   test('maybe died', async () => {
-    MockDate.set(moment('06/23/2020').toDate());
+    const dateToTest = 1592870400000; // 23.06.2020
+    MockDate.set(moment(dateToTest));
 
     const slimbot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user1* - наверное помер (писал 12 дней назад)');
@@ -659,7 +661,8 @@ describe('manual create messages', () => {
   });
 
   test('maybe died (less than one day)', async () => {
-    MockDate.set(moment('06/10/2020').toDate());
+    const dateToTest = 1591747200000; // 10.06.2020
+    MockDate.set(moment(dateToTest));
 
     const slimbot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user1* - наверное помер (писал 1 день назад)');
