@@ -1,3 +1,4 @@
+const proschet = require('proschet').default;
 const { dbClient } = require('../dbClient');
 const { getFullUserName } = require('../utils/render');
 
@@ -25,7 +26,10 @@ const collect = async ({ chat }) => {
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
     const topUser = collectedStat[0];
-    return `*${getFullUserName(topUser)}* - худший юзер чата (послал ${topUser.count} голосовых)`;
+
+    const voices = ['голосовое', 'голосовых'];
+    const getVoices = proschet(voices);
+    return `*${getFullUserName(topUser)}* - худший юзер чата (послал ${topUser.count} ${getVoices(topUser.count)})`;
   }
   return '';
 };

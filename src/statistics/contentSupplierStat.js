@@ -1,4 +1,5 @@
 const moment = require('moment');
+const proschet = require('proschet').default;
 const { dbClient } = require('../dbClient');
 const { getFullUserName } = require('../utils/render');
 
@@ -65,7 +66,11 @@ const collect = async ({ chat, date }) => {
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
     const topUser = collectedStat[0];
-    return `*${getFullUserName(topUser)}* - поставщик контента (картинок - ${topUser.photoCount}, видео - ${topUser.videoCount})`;
+
+    const pickers = ['картинка', 'картинки', 'картинок'];
+    const getPickers = proschet(pickers);
+
+    return `*${getFullUserName(topUser)}* - поставщик контента (${topUser.photoCount} ${getPickers(topUser.photoCount)}, ${topUser.videoCount} видео)`;
   }
   return '';
 };
