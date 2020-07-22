@@ -28,7 +28,7 @@ describe('contentSupplierStat', () => {
 
     const statString = contentSupplierStat.render(collection);
 
-    expect(statString).toBe('*test1 test1* - поставщик контента (картинок - 2, видео - 1)');
+    expect(statString).toBe('*test1 test1* - поставщик контента (2 картинки, 1 видео)');
   });
 
   test('empty data', async () => {
