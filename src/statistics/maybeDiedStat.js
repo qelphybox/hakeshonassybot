@@ -1,4 +1,5 @@
 const moment = require('moment');
+const proschet = require('proschet').default;
 const { dbClient } = require('../dbClient');
 const { getFullUserName } = require('../utils/render');
 
@@ -27,10 +28,13 @@ const render = (collectedStat) => {
   if (collectedStat.length > 0) {
     const topUser = collectedStat[0];
 
+    const days = ['день', 'дня', 'дней'];
+    const getDays = proschet(days);
+
     const today = moment();
     const lastMessageDate = moment(topUser.date * 1000);
-    const diff = today.diff(lastMessageDate, 'days');
-    return `*${getFullUserName(topUser)}* - наверное помер (писал ${diff || 1} дня назад)`;
+    const diff = today.diff(lastMessageDate, 'days') || 1;
+    return `*${getFullUserName(topUser)}* - наверное помер (писал ${diff} ${getDays(diff)} назад)`;
   }
   return '';
 };

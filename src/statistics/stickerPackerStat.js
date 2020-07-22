@@ -1,3 +1,4 @@
+const proschet = require('proschet').default;
 const { dbClient } = require('../dbClient');
 const { getFullUserName } = require('../utils/render');
 
@@ -37,7 +38,11 @@ const collect = async ({ chat }) => {
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
     const topUser = collectedStat[0];
-    return `*${getFullUserName(topUser)}* - стикерпакер (юзает ${topUser.count} стикерпака)`;
+
+    const stickerpacks = ['стикерпак', 'стикерпака', 'стикерпаков'];
+    const getStickerpacks = proschet(stickerpacks);
+
+    return `*${getFullUserName(topUser)}* - стикерпакер (юзает ${topUser.count} ${getStickerpacks(topUser.count)})`;
   }
   return '';
 };
