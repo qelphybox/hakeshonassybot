@@ -1,3 +1,4 @@
+const moment = require('moment');
 const { dbClient } = require('../dbClient');
 const { getFullUserName } = require('../utils/render');
 
@@ -24,7 +25,12 @@ const collect = async ({ chat }) => {
 
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
-    return `*${getFullUserName(collectedStat[0])}* - наверное помер`;
+    const topUser = collectedStat[0];
+
+    const today = moment();
+    const lastMessageDate = moment(topUser.date * 1000);
+    const diff = today.diff(lastMessageDate, 'days');
+    return `*${getFullUserName(topUser)}* - наверное помер (писал ${diff || 1} дня назад)`;
   }
   return '';
 };
