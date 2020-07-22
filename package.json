@@ -15,7 +15,9 @@
   "dependencies": {
     "moment": "^2.27.0",
     "mongodb": "^3.5.3",
-    "slimbot": "^4.8.0"
+    "proschet": "^1.0.1",
+    "slimbot": "^4.8.0",
+    "mockdate": "^3.0.2"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.1",
