@@ -21,32 +21,8 @@ const stats = async (slimbot, message) => {
   );
 };
 
-const onMessage = async (slimbot, message) => {
-  if (isCommand(message)) {
-    if (message.text.startsWith('/stats')) {
-      await stats(slimbot, message);
-    }
-  } else {
-    await dbClient.queryMessages(async (messages) => {
-      await messages.insertOne(message);
-    });
-  }
-};
-
-const onMessage2 = async (slimbot, message) => {
-  if (isCommand(message)) {
-    if (message.text.startsWith('/rick')) {
-      await rick(slimbot, message);
-    }
-  } else {
-    await dbClient.queryMessages(async (messages) => {
-      await messages.insertOne(message);
-    });
-  }
-};
-
-const rick = async (slimbot, message) => {
-  const text = renderMessage('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+const rickroll = async (slimbot, message) => {
+  const text = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
   await slimbot.sendMessage(
     message.chat.id,
     text,
@@ -54,4 +30,19 @@ const rick = async (slimbot, message) => {
   );
 };
 
-module.exports = { onMessage, onMessage2 };
+const onMessage = async (slimbot, message) => {
+  if (isCommand(message)) {
+    if (message.text.startsWith('/stats')) {
+      await stats(slimbot, message);
+    }
+    if (message.text.startsWith('/rickroll')) {
+      await rickroll(slimbot, message);
+    }
+  } else {
+    await dbClient.queryMessages(async (messages) => {
+      await messages.insertOne(message);
+    });
+  }
+};
+
+module.exports = { onMessage };
