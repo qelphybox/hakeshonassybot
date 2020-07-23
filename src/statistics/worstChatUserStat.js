@@ -27,7 +27,7 @@ const render = (collectedStat) => {
   if (collectedStat.length > 0) {
     const topUser = collectedStat[0];
 
-    const voices = ['голосовое', 'голосовых'];
+    const voices = ['голосовое', 'голосовых', 'голосовых'];
     const getVoices = proschet(voices);
     return `*${getFullUserName(topUser)}* - худший юзер чата (послал ${topUser.count} ${getVoices(topUser.count)})`;
   }
