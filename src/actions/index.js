@@ -33,5 +33,25 @@ const onMessage = async (slimbot, message) => {
   }
 };
 
+const onMessage2 = async (slimbot, message) => {
+  if (isCommand(message)) {
+    if (message.text.startsWith('/rick')) {
+      await rick(slimbot, message);
+    }
+  } else {
+    await dbClient.queryMessages(async (messages) => {
+      await messages.insertOne(message);
+    });
+  }
+};
 
-module.exports = { onMessage };
+const rick = async (slimbot, message) => {
+  const text = renderMessage('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+  await slimbot.sendMessage(
+    message.chat.id,
+    text,
+    { disable_web_page_preview: true, parse_mode: 'Markdown' },
+  );
+};
+
+module.exports = { onMessage, onMessage2 };
