@@ -1,4 +1,5 @@
 const moment = require('moment');
+const proschet = require('proschet').default;
 const { dbClient } = require('../dbClient');
 const { getFullUserName } = require('../utils/render');
 
@@ -53,7 +54,12 @@ const collect = async ({ chat, date }) => {
 
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
-    return `${getFullUserName(collectedStat[0])} - безработный`;
+    const topUser = collectedStat[0];
+
+    const messages = ['сообщение', 'сообщения', 'сообщений'];
+    const getMessages = proschet(messages);
+
+    return `*${getFullUserName(topUser)}* - безработный (${topUser.count} ${getMessages(topUser.count)} в рабочее время за неделю)`;
   }
   return '';
 };

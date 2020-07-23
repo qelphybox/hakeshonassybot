@@ -1,4 +1,5 @@
 const moment = require('moment');
+const proschet = require('proschet').default;
 const { dbClient } = require('../dbClient');
 const { getFullUserName } = require('../utils/render');
 
@@ -26,6 +27,8 @@ const collect = async ({ chat, date }) => {
           'from.username': 1,
           'from.first_name': 1,
           'from.last_name': 1,
+          photo: 1,
+          video: 1,
           dayOfWeekOfMessageTimestamp: {
             $dayOfWeek: { date: { $toDate: { $multiply: ['$date', 1000] } }, timezone: '+03:00' },
           },
@@ -47,6 +50,8 @@ const collect = async ({ chat, date }) => {
           username: { $first: '$from.username' },
           first_name: { $first: '$from.first_name' },
           last_name: { $first: '$from.last_name' },
+          photoCount: { $sum: { $cond: { if: '$photo', then: 1, else: 0 } } },
+          videoCount: { $sum: { $cond: { if: '$video', then: 1, else: 0 } } },
         },
       },
       { $sort: { count: -1 } },
@@ -54,12 +59,18 @@ const collect = async ({ chat, date }) => {
     ],
   )
     .toArray());
+
   return data;
 };
 
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
-    return `${getFullUserName(collectedStat[0])} - поставщик контента`;
+    const topUser = collectedStat[0];
+
+    const pickers = ['картинка', 'картинки', 'картинок'];
+    const getPickers = proschet(pickers);
+
+    return `*${getFullUserName(topUser)}* - поставщик контента (${topUser.photoCount} ${getPickers(topUser.photoCount)}, ${topUser.videoCount} видео)`;
   }
   return '';
 };
