@@ -67,10 +67,10 @@ const render = (collectedStat) => {
   if (collectedStat.length > 0) {
     const topUser = collectedStat[0];
 
-    const pickers = ['картинка', 'картинки', 'картинок'];
-    const getPickers = proschet(pickers);
+    const pictures = ['картинка', 'картинки', 'картинок'];
+    const gePictures = proschet(pictures);
 
-    return `*${getFullUserName(topUser)}* - поставщик контента (${topUser.photoCount} ${getPickers(topUser.photoCount)}, ${topUser.videoCount} видео)`;
+    return `*${getFullUserName(topUser)}* - поставщик контента (${topUser.photoCount} ${gePictures(topUser.photoCount)}, ${topUser.videoCount} видео)`;
   }
   return '';
 };
