@@ -23,7 +23,7 @@ const stats = async (slimbot, message) => {
 
 const rickroll = async (slimbot, message) => {
   const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-  const text = `[Самый сильный младенец купил бмв](${ url })`;
+  const text = `[Самый сильный младенец купил бмв](${url})`;
   await slimbot.sendMessage(
     message.chat.id,
     text,
