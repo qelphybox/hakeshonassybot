@@ -699,7 +699,7 @@ describe('manual create messages', () => {
 
   test('rickroll', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      expect(text).toMatch('[Самый сильный младенец купил бмв](https://www.youtube.com/watch?v=dQw4w9WgXcQ)');
     });
 
     const rickMessage = {
