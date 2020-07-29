@@ -21,10 +21,23 @@ const stats = async (slimbot, message) => {
   );
 };
 
+const rickroll = async (slimbot, message) => {
+  const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+  const text = `[Самый сильный младенец купил бмв](${url})`;
+  await slimbot.sendMessage(
+    message.chat.id,
+    text,
+    { disable_web_page_preview: true, parse_mode: 'Markdown' },
+  );
+};
+
 const onMessage = async (slimbot, message) => {
   if (isCommand(message)) {
     if (message.text.startsWith('/stats')) {
       await stats(slimbot, message);
+    }
+    if (message.text.startsWith('/rickroll')) {
+      await rickroll(slimbot, message);
     }
   } else {
     await dbClient.queryMessages(async (messages) => {
