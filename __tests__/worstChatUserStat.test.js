@@ -25,13 +25,12 @@ describe('worstChatUser', () => {
 
     const statString = worstChatUserStat.render(collection);
 
-    expect(statString).toBe('test1 test1 - худший юзер чата');
+    expect(statString).toBe('*test1 test1* - худший юзер чата (послал 3 голосовых)');
   });
 
   test('empty data', async () => {
     const collection = await worstChatUserStat.collect({ chat: { id: 1 }, date: 1588982400 });
     expect(collection).toEqual([]);
-
 
     const statString = worstChatUserStat.render(collection);
 

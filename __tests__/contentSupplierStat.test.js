@@ -19,19 +19,21 @@ describe('contentSupplierStat', () => {
         count: 3,
         first_name: 'test1',
         last_name: 'test1',
+        photoCount: 2,
         username: 'test1',
+        videoCount: 1,
+
       }],
     );
 
     const statString = contentSupplierStat.render(collection);
 
-    expect(statString).toBe('test1 test1 - поставщик контента');
+    expect(statString).toBe('*test1 test1* - поставщик контента (2 картинки, 1 видео)');
   });
 
   test('empty data', async () => {
     const collection = await contentSupplierStat.collect({ chat: { id: 1 }, date: 1588982400 });
     expect(collection).toEqual([]);
-
 
     const statString = contentSupplierStat.render(collection);
 

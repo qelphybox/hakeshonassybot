@@ -25,13 +25,12 @@ describe('worklessUser', () => {
 
     const statString = worklessUserStat.render(collection);
 
-    expect(statString).toBe('test2 test2 - безработный');
+    expect(statString).toBe('*test2 test2* - безработный (3 сообщения в рабочее время за неделю)');
   });
 
   test('empty data', async () => {
     const collection = await worklessUserStat.collect({ chat: { id: 1 }, date: 1588982400 });
     expect(collection).toEqual([]);
-
 
     const statString = worklessUserStat.render(collection);
 
@@ -53,6 +52,6 @@ describe('worklessUser', () => {
 
     const statString = worklessUserStat.render(collection);
 
-    expect(statString).toBe('test2 test2 - безработный');
+    expect(statString).toBe('*test2 test2* - безработный (3 сообщения в рабочее время за неделю)');
   });
 });

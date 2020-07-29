@@ -1,3 +1,4 @@
+const moment = require('moment');
 const proschet = require('proschet').default;
 const { dbClient } = require('../dbClient');
 const { getFullUserName } = require('../utils/render');
@@ -5,17 +6,17 @@ const { getFullUserName } = require('../utils/render');
 const collect = async ({ chat }) => {
   const data = await dbClient.queryMessages((messages) => messages.aggregate(
     [
-      { $match: { 'chat.id': chat.id, voice: { $exists: true } } },
+      { $match: { 'chat.id': chat.id } },
       {
         $group: {
           _id: '$from.id',
-          count: { $sum: 1 },
+          date: { $max: '$date' },
           username: { $first: '$from.username' },
           first_name: { $first: '$from.first_name' },
           last_name: { $first: '$from.last_name' },
         },
       },
-      { $sort: { count: -1 } },
+      { $sort: { date: 1 } },
       { $limit: 1 },
     ],
   )
@@ -27,9 +28,13 @@ const render = (collectedStat) => {
   if (collectedStat.length > 0) {
     const topUser = collectedStat[0];
 
-    const voices = ['голосовое', 'голосовых', 'голосовых'];
-    const getVoices = proschet(voices);
-    return `*${getFullUserName(topUser)}* - худший юзер чата (послал ${topUser.count} ${getVoices(topUser.count)})`;
+    const days = ['день', 'дня', 'дней'];
+    const getDays = proschet(days);
+
+    const today = moment();
+    const lastMessageDate = moment(topUser.date * 1000);
+    const diff = today.diff(lastMessageDate, 'days') || 1;
+    return `*${getFullUserName(topUser)}* - наверное помер (писал ${diff} ${getDays(diff)} назад)`;
   }
   return '';
 };
