@@ -683,4 +683,20 @@ describe('manual create messages', () => {
 
     await onMessage(slimbot, statMessage);
   });
+
+  test('rickroll', async () => {
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+    });
+
+    const rickMessage = {
+      chat: {
+        id: 1,
+      },
+      text: '/rickroll',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, rickMessage);
+  });
 });
