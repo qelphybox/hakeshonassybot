@@ -25,7 +25,7 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^23.19.0",
     "jest": "^26.0.1",
-    "uuid": "^8.2.0",
+    "uuid": "^8.3.0",
     "mockdate": "^3.0.2"
   }
 }
