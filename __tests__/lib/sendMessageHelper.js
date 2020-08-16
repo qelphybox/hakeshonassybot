@@ -51,6 +51,7 @@ const messageContentByType = {
     set_name: setName,
     is_animated: false,
   }),
+  question: () => uuidv4().includes('?'),
 };
 
 const sendTestMessage = async ({
