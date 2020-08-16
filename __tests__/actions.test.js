@@ -379,7 +379,7 @@ describe('manual create messages', () => {
     await onMessage(slimbot, statMessage);
   });
 
-  test('cintent supplier monday messages, tuesday stats', async () => {
+  test('content supplier monday messages, tuesday stats', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user2* - поставщик контента ');
     });
