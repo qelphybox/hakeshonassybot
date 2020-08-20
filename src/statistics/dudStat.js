@@ -5,7 +5,7 @@ const { getFullUserName } = require('../utils/render');
 const collect = async ({ chat }) => {
   const data = await dbClient.queryMessages((messages) => messages.aggregate(
     [
-      { $match: { 'chat.id': chat.id, question: { $exists: true } } },
+      { $match: { 'chat.id': chat.id, text:  /\?/ } },
       {
         $group: {
           _id: '$from.id',
