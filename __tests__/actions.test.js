@@ -704,16 +704,14 @@ describe('manual create messages', () => {
 
     await sendTestMessage({
       userId: 1, firstName: 'user1', date: 1591786800, type: 'text',
-      messageContentObj: { text: 'Как дела?' },
     }, onMessage, slimbot, 'Как дела?');
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-      messageContentObj: { text: '?' },
     }, onMessage, slimbot, '?');
+
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-      messageContentObj: { text: 'Норм. А у тебя?' },
     }, onMessage, slimbot, 'Норм. А у тебя?' );
 
     const statMessage = {
@@ -735,12 +733,11 @@ describe('manual create messages', () => {
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-      messageContentObj: { text: 'Как дела?' },
-    }, onMessage, slimbot);
+    }, onMessage, slimbot, 'Как дела?');
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, { text: '?' });
+    }, onMessage, slimbot, '?' );
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
@@ -748,12 +745,10 @@ describe('manual create messages', () => {
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-      messageContentObj: { text: '??' },
-    }, onMessage, slimbot);
+    }, onMessage, slimbot, '??');
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-      messageContentObj: { text: '?' },
     }, onMessage, slimbot, '?');
 
     const statMessage = {

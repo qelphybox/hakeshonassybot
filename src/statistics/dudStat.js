@@ -5,7 +5,7 @@ const { getFullUserName } = require('../utils/render');
 const collect = async ({ chat }) => {
   const data = await dbClient.queryMessages((messages) => messages.aggregate(
     [
-      { $match: { 'chat.id': chat.id, text:  /\?/ } },
+      { $match: { 'chat.id': chat.id, text: /\?/ } },
       {
         $group: {
           _id: '$from.id',
@@ -24,14 +24,14 @@ const collect = async ({ chat }) => {
 };
 
 const render = (collectedStat) => {
-  if (collectedStat.length > 0) {
-    const topUser = collectedStat[0];
-
-    const questions = ['вопрос', 'вопроса', 'вопросов'];
-    const getQuestions = proschet(questions);
-    return `*${getFullUserName(topUser)}* - Дудь (задал ${topUser.count} ${getQuestions(topUser.count)})`;
+  if (collectedStat.length == 0) {
+    return '';
   }
-  return '';
+  const topUser = collectedStat[0];
+
+  const questions = ['вопрос', 'вопроса', 'вопросов'];
+  const getQuestions = proschet(questions);
+  return `*${getFullUserName(topUser)}* - Дудь (задал ${topUser.count} ${getQuestions(topUser.count)})`;
 };
 
 module.exports = {
