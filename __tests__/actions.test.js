@@ -712,7 +712,7 @@ describe('manual create messages', () => {
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Норм. А у тебя?' );
+    }, onMessage, slimbot, 'Норм. А у тебя?');
 
     const statMessage = {
       chat: {
@@ -737,7 +737,7 @@ describe('manual create messages', () => {
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, '?' );
+    }, onMessage, slimbot, '?');
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'text',

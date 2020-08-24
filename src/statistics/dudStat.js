@@ -24,7 +24,7 @@ const collect = async ({ chat }) => {
 };
 
 const render = (collectedStat) => {
-  if (collectedStat.length == 0) {
+  if (collectedStat.length === 0) {
     return '';
   }
   const topUser = collectedStat[0];
