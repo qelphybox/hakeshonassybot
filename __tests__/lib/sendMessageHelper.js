@@ -1,7 +1,7 @@
 const uuidv4 = require('uuid').v4;
 
 const messageContentByType = {
-  text: () => uuidv4(),
+  text: (text) => text || uuidv4(),
   voice: () => ({
     duration: 0,
     mime_type: 'audio/ogg',
