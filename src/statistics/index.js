@@ -5,6 +5,7 @@ const contentSupplierStat = require('./contentSupplierStat');
 const worstChatUserStat = require('./worstChatUserStat');
 const maybeDiedStat = require('./maybeDiedStat');
 const stickerPackerStat = require('./stickerPackerStat');
+const dudStat = require('./dudStat');
 
 const statsArray = [
   todayMessageCountStat,
@@ -14,6 +15,7 @@ const statsArray = [
   worstChatUserStat,
   stickerPackerStat,
   maybeDiedStat,
+  dudStat,
 ];
 
 // TODO: tests for this two functions
