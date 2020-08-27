@@ -66,8 +66,6 @@ const collect = async ({ chat, date }) => {
   )
     .toArray());
 
-  console.log(data);
-
   return data;
 };
 
