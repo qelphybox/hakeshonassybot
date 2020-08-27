@@ -17,7 +17,12 @@ const collect = async ({ chat, date }) => {
         $match: {
           'chat.id': chat.id,
           date: { $gt: dayTimestamp },
-          $or: [{ photo: { $exists: true } }, { video: { $exists: true } }],
+          $or: [
+            { photo: { $exists: true } },
+            { video: { $exists: true } },
+            { $and: [{ text: { $in: [/.*youtu.be*/, /.*youtube.com*/] } }] }, // , { 'entities.type.0': 'url' }
+            { $and: [{ text: { $in: [/.*.jpg/, /.*.png/] } }] }, // , { 'entities.type.0': 'url' }
+          ],
         },
       },
       {
@@ -29,6 +34,7 @@ const collect = async ({ chat, date }) => {
           'from.last_name': 1,
           photo: 1,
           video: 1,
+          text: 1,
           dayOfWeekOfMessageTimestamp: {
             $dayOfWeek: { date: { $toDate: { $multiply: ['$date', 1000] } }, timezone: '+03:00' },
           },
@@ -50,8 +56,8 @@ const collect = async ({ chat, date }) => {
           username: { $first: '$from.username' },
           first_name: { $first: '$from.first_name' },
           last_name: { $first: '$from.last_name' },
-          photoCount: { $sum: { $cond: { if: '$photo', then: 1, else: 0 } } },
-          videoCount: { $sum: { $cond: { if: '$video', then: 1, else: 0 } } },
+          photoCount: { $sum: { $cond: { if: { $or: ['$photo', { $regexMatch: { input: '$text', regex: /.*.jpg|.png/ } }] }, then: 1, else: 0 } } },
+          videoCount: { $sum: { $cond: { if: { $or: ['$video', { $regexMatch: { input: '$text', regex: /.*youtube.com|youtu.be*/ } }] }, then: 1, else: 0 } } },
         },
       },
       { $sort: { count: -1 } },
@@ -59,6 +65,8 @@ const collect = async ({ chat, date }) => {
     ],
   )
     .toArray());
+
+  console.log(data);
 
   return data;
 };
