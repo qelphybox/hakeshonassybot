@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "moment": "^2.27.0",
-    "mongodb": "^3.6.0",
+    "mongodb": "^3.6.1",
     "proschet": "^1.0.1",
     "slimbot": "^4.9.0"
   },
