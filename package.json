@@ -14,17 +14,17 @@
   "license": "ISC",
   "dependencies": {
     "moment": "^2.27.0",
-    "mongodb": "^3.5.9",
+    "mongodb": "^3.6.0",
     "proschet": "^1.0.1",
     "slimbot": "^4.9.0"
   },
   "devDependencies": {
-    "@shelf/jest-mongodb": "^1.2.1",
-    "eslint": "^7.5.0",
+    "@shelf/jest-mongodb": "^1.2.2",
+    "eslint": "^7.7.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jest": "^23.19.0",
-    "jest": "^26.1.0",
+    "eslint-plugin-jest": "^23.20.0",
+    "jest": "^26.4.2",
     "uuid": "^8.3.0",
     "mockdate": "^3.0.2"
   }

@@ -209,7 +209,7 @@ describe('manual create messages', () => {
 
   test('content supplier', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - поставщик контента (1 картинка, 2 видео)');
+      expect(text).toMatch('*user2* - поставщик контента (3 картинки, 4 видео)');
     });
 
     await sendTestMessage({
@@ -225,6 +225,22 @@ describe('manual create messages', () => {
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'video',
     }, onMessage, slimbot);
+
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
+    }, onMessage, slimbot, 'https://www.youtube.com/watch?v=rHIfa7L0sww');
+
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
+    }, onMessage, slimbot, 'https://www.youtu.be/watch?v=rHIfa7L0sww');
+
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
+    }, onMessage, slimbot, 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/VK.com-logo.svg/1200px-VK.com-logo.svg.png');
+
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
+    }, onMessage, slimbot, 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/VK.com-logo.svg/1200px-VK.com-logo.svg.jpg');
 
     const statMessage = {
       chat: {
