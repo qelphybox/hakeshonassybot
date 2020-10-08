@@ -19,7 +19,7 @@
     "slimbot": "^4.9.0"
   },
   "devDependencies": {
-    "@shelf/jest-mongodb": "^1.2.2",
+    "@shelf/jest-mongodb": "^1.2.3",
     "eslint": "^7.7.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.0",
