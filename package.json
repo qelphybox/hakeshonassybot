@@ -24,7 +24,7 @@
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^24.1.0",
-    "jest": "^26.4.2",
+    "jest": "^26.5.2",
     "uuid": "^8.3.0",
     "mockdate": "^3.0.2"
   }
