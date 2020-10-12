@@ -6,7 +6,7 @@
   "scripts": {
     "bot": "node src/bot.js",
     "migrate": "node src/migrate.js",
-    "test": "jest",
+    "test": "jest -i",
     "lint": "eslint \"**/*.js\"",
     "lint-fix": "eslint \"**/*.js\" --fix"
   },
