@@ -6,8 +6,4 @@ const config = {
   ],
 };
 
-if (process.env.CI) {
-  config.preset = '@shelf/jest-mongodb';
-}
-
 module.exports = config;
