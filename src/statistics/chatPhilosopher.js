@@ -48,8 +48,7 @@ const collect = async ({ chat }) => {
           }
         }
       },
-      { $sort: { median: 1 } },
-      { $limit: 1 },
+      { $sort: { median: -1 , count: -1 } },
     ],
   )
     .toArray());
@@ -58,7 +57,16 @@ const collect = async ({ chat }) => {
 
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
-    return `${getFullUserName(collectedStat[0])} - философ чата`;
+    const topUser = collectedStat[0];
+    const topMedian = topUser.median;
+    const filteredByTopMedian = collectedStat.filter((collection) => collection.median === topMedian);
+    if (filteredByTopMedian.length === 1) {
+      return `*${getFullUserName(topUser)}* - философ чата (медианная длина сообщений ${ topMedian })`;
+    }
+    if (filteredByTopMedian.length > 1) {
+      const chatPhilosophers = filteredByTopMedian.map((collection) => `${getFullUserName(collection)}`).join(', ');
+      return `*${chatPhilosophers}* - философы чата (медианная длина сообщений ${topMedian})`;
+    }
   }
   return '';
 };
