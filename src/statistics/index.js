@@ -6,7 +6,7 @@ const worstChatUserStat = require('./worstChatUserStat');
 const maybeDiedStat = require('./maybeDiedStat');
 const stickerPackerStat = require('./stickerPackerStat');
 const dudStat = require('./dudStat');
-const chatPhilosopher = require('./chatPhilosopher')
+const chatPhilosopher = require('./chatPhilosopher');
 
 const statsArray = [
   todayMessageCountStat,
