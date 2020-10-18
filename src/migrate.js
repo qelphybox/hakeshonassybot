@@ -18,6 +18,11 @@ const createDbCollection = async () => {
     .db(dbName)
     .collection('messages')
     .createIndex({ date: -1 });
+
+  await client
+    .db(dbName)
+    .collection('messages')
+    .createIndex({ message_id: 1 });
 };
 
 console.log('Start migration...');
