@@ -30,19 +30,6 @@ describe('chatPhilosopher', () => {
         middle_index_less: 1,
         median: 12,
       },
-      {
-        _id: 2,
-        count: 4,
-        first_name: 'test2',
-        last_name: 'test2',
-        username: 'test2',
-        all_msg_len_array: [
-          3, 3, 3, 3,
-        ],
-        middle_index: 2,
-        middle_index_less: 1,
-        median: 3,
-      },
     ]);
     const statString = await chatPholosopher.render(collection);
 
@@ -64,19 +51,6 @@ describe('chatPhilosopher', () => {
         middle_index: 2,
         middle_index_less: 1,
         median: 12,
-      },
-      {
-        _id: 2,
-        count: 3,
-        first_name: 'test2',
-        last_name: 'test2',
-        username: 'test2',
-        all_msg_len_array: [
-          3, 3, 3,
-        ],
-        middle_index: 1,
-        middle_index_less: 0,
-        median: 3,
       },
     ]);
     const statString = await chatPholosopher.render(collection);
@@ -112,19 +86,6 @@ describe('chatPhilosopher', () => {
         middle_index: 1,
         middle_index_less: 0,
         median: 12,
-      },
-      {
-        _id: 3,
-        count: 3,
-        first_name: 'test3',
-        last_name: 'test3',
-        username: 'test3',
-        all_msg_len_array: [
-          3, 3, 3,
-        ],
-        middle_index: 1,
-        middle_index_less: 0,
-        median: 3,
       },
     ]);
     const statString = await chatPholosopher.render(collection);
