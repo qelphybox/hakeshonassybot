@@ -2,6 +2,8 @@ const { MongoClient } = require('mongodb');
 
 class DBClient {
   constructor(url, dbName) {
+    console.log(url);
+    console.log(dbName);
     this.url = url;
     this.dbName = dbName;
     this.client = new MongoClient(this.url);
