@@ -1,9 +1,9 @@
-const chatPholosopher = require('../src/statistics/chatPhilosopher');
+const chatPhilosopher = require('../src/statistics/chatPhilosopher');
 
 const { describeDBSetupTeardown } = require('./lib/dbHelper');
 const { dbClient } = require('../src/dbClient');
-const evenNumberOfMessages = require('./__fixtures__/chatPhilosopher/chatPholosopherEvenNumbersOfMessages.json');
-const notEvenNumberOfMessages = require('./__fixtures__/chatPhilosopher/chatPholosopherNotEvenNumbersOfMessages.json');
+const evenNumberOfMessages = require('./__fixtures__/chatPhilosopher/chatPhilosopherEvenNumbersOfMessages.json');
+const notEvenNumberOfMessages = require('./__fixtures__/chatPhilosopher/chatPhilosopherNotEvenNumbersOfMessages.json');
 const severalChatPhilosophers = require('./__fixtures__/chatPhilosopher/severalChatPhilosophers.json');
 
 describeDBSetupTeardown();
@@ -15,7 +15,7 @@ const addMessages = async (messages) => {
 describe('chatPhilosopher', () => {
   test('evenNumberOfMessages', async () => {
     await addMessages(evenNumberOfMessages);
-    const collection = await chatPholosopher.collect({ chat: { id: 1 } });
+    const collection = await chatPhilosopher.collect({ chat: { id: 1 } });
     expect(collection).toEqual([
       {
         _id: 1,
@@ -31,13 +31,13 @@ describe('chatPhilosopher', () => {
         median: 12,
       },
     ]);
-    const statString = await chatPholosopher.render(collection);
+    const statString = await chatPhilosopher.render(collection);
 
     expect(statString).toBe('*test1 test1* - философ чата (медианная длина сообщений 12)');
   });
   test('notEvenNumberOfMessages', async () => {
     await addMessages(notEvenNumberOfMessages);
-    const collection = await chatPholosopher.collect({ chat: { id: 1 } });
+    const collection = await chatPhilosopher.collect({ chat: { id: 1 } });
     expect(collection).toEqual([
       {
         _id: 1,
@@ -53,13 +53,13 @@ describe('chatPhilosopher', () => {
         median: 12,
       },
     ]);
-    const statString = await chatPholosopher.render(collection);
+    const statString = await chatPhilosopher.render(collection);
 
     expect(statString).toBe('*test1 test1* - философ чата (медианная длина сообщений 12)');
   });
   test('severalChatPhilosophers', async () => {
     await addMessages(severalChatPhilosophers);
-    const collection = await chatPholosopher.collect({ chat: { id: 1 } });
+    const collection = await chatPhilosopher.collect({ chat: { id: 1 } });
     expect(collection).toEqual([
       {
         _id: 1,
@@ -88,15 +88,15 @@ describe('chatPhilosopher', () => {
         median: 12,
       },
     ]);
-    const statString = await chatPholosopher.render(collection);
+    const statString = await chatPhilosopher.render(collection);
 
     expect(statString).toBe('*test1 test1, test2 test2* - философы чата (медианная длина сообщений 12)');
   });
   test('empty data', async () => {
-    const collection = await chatPholosopher.collect({ chat: { id: 1 } });
+    const collection = await chatPhilosopher.collect({ chat: { id: 1 } });
     expect(collection).toStrictEqual([]);
 
-    const statString = await chatPholosopher.render(collection);
+    const statString = await chatPhilosopher.render(collection);
     expect(statString).toBe('');
   });
 });
