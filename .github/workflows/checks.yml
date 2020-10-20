@@ -12,6 +12,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:4.2.6
+        ports:
+          - 27017:27017
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 13.x
@@ -23,6 +28,7 @@ jobs:
       - run: npm test
         env:
           MONGO_DB_NAME: hakeshonassydb_test
+          MONGO_URL: mongodb://localhost:27017
   lint:
     runs-on: ubuntu-latest
     steps:
