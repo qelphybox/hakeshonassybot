@@ -798,44 +798,22 @@ describe('manual create messages', () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user2* - философ чата (медианная длина сообщений 14)');
     });
-    await sendTestMessage({
-      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Привет, я тут придумал');
+    [5, 5, 5, 5, 3, 3, 3, 3].forEach(async (messageLength, i) => {
+      await sendTestMessage({
+        userId: 1, firstName: 'user1', date: 1591790400 + i, type: 'text',
+      }, onMessage, slimbot, 'a'.repeat(messageLength));
+    });
 
-    await sendTestMessage({
-      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Ага, так и сказал');
-
-    await sendTestMessage({
-      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Как дела?');
-
-    await sendTestMessage({
-      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Прикольно');
-
-    await sendTestMessage({
-      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Ладно, я пошёл');
-    await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Привет');
-
-    await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Ага');
-
-    await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Норм');
-
-    await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Лол');
-
-    await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Пока');
+    [14, 14, 14, 14, 14, 3, 3, 3, 3].forEach(async (messageLength, i) => {
+      await sendTestMessage({
+        userId: 2, firstName: 'user2', date: 1591790400 + i, type: 'text',
+      }, onMessage, slimbot, 'a'.repeat(messageLength));
+    });
+    [5, 3, 3, 3, 3, 3].forEach(async (messageLength, i) => {
+      await sendTestMessage({
+        userId: 3, firstName: 'user3', date: 1591790400 + i, type: 'text',
+      }, onMessage, slimbot, 'a'.repeat(messageLength));
+    });
 
     const statMessage = {
       chat: {
@@ -853,63 +831,22 @@ describe('manual create messages', () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user1, user2* - философы чата (медианная длина сообщений 14)');
     });
-    await sendTestMessage({
-      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Привет, я тут придумал');
+    [14, 14, 14, 14, 14, 14, 3, 3, 3, 3].forEach(async (messageLength, i) => {
+      await sendTestMessage({
+        userId: 1, firstName: 'user1', date: 1591790400 + i, type: 'text',
+      }, onMessage, slimbot, 'a'.repeat(messageLength));
+    });
 
-    await sendTestMessage({
-      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Ага, так и сказал');
-
-    await sendTestMessage({
-      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Как дела?');
-
-    await sendTestMessage({
-      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Прикольно');
-
-    await sendTestMessage({
-      userId: 2, firstName: 'user2', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Ладно, я пошёл');
-    await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Привет, я тут придумал');
-
-    await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Ага, так и сказал');
-
-    await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Как дела?');
-
-    await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Прикольно');
-
-    await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Ладно, я пошёл');
-
-    await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'А нет ещё пока');
-    await sendTestMessage({
-      userId: 3, firstName: 'user3', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Ага');
-
-    await sendTestMessage({
-      userId: 3, firstName: 'user3', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Кек');
-
-    await sendTestMessage({
-      userId: 3, firstName: 'user3', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Прикольно');
-
-    await sendTestMessage({
-      userId: 3, firstName: 'user3', date: 1591790400, type: 'text',
-    }, onMessage, slimbot, 'Ладно');
+    [14, 14, 14, 14, 14, 3, 3, 3, 3].forEach(async (messageLength, i) => {
+      await sendTestMessage({
+        userId: 2, firstName: 'user2', date: 1591790400 + i, type: 'text',
+      }, onMessage, slimbot, 'a'.repeat(messageLength));
+    });
+    [5, 3, 3, 3, 3, 3].forEach(async (messageLength, i) => {
+      await sendTestMessage({
+        userId: 3, firstName: 'user3', date: 1591790400 + i, type: 'text',
+      }, onMessage, slimbot, 'a'.repeat(messageLength));
+    });
 
     const statMessage = {
       chat: {
