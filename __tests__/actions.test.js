@@ -796,7 +796,7 @@ describe('manual create messages', () => {
 });
 
 describe('on message edit action', () => {
-  test('workless user', async () => {
+  test('updates message in collection', async () => {
     const chat = {
       id: -379023065,
       title: 'hakeshonassybot_develop_bot',
