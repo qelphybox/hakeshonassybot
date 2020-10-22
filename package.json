@@ -6,7 +6,7 @@
   "scripts": {
     "bot": "node src/bot.js",
     "migrate": "node src/migrate.js",
-    "test": "jest",
+    "test": "jest -i",
     "lint": "eslint \"**/*.js\"",
     "lint-fix": "eslint \"**/*.js\" --fix"
   },
@@ -19,12 +19,11 @@
     "slimbot": "^4.9.0"
   },
   "devDependencies": {
-    "@shelf/jest-mongodb": "^1.2.3",
     "eslint": "^7.10.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.1.0",
-    "jest": "^26.5.2",
+    "jest": "^26.5.3",
     "uuid": "^8.3.1",
     "mockdate": "^3.0.2"
   }
