@@ -1,12 +1,11 @@
 const moment = require('moment');
 const { onMessage } = require('../src/actions');
+const { createMockedSlimbot } = require('./lib/sendMessageHelper');
 
 const { describeDBSetupTeardown } = require('./lib/dbHelper');
 
 describeDBSetupTeardown();
 moment.locale('ru');
-
-const createMockedSlimbot = (sendMessageFn) => ({ sendMessage: jest.fn(sendMessageFn) });
 
 describe('manual create messages', () => {
   test('rickroll', async () => {

@@ -2,13 +2,12 @@ const moment = require('moment');
 const MockDate = require('mockdate');
 const { onMessage } = require('../src/actions');
 const { sendTestMessage } = require('./lib/sendMessageHelper');
+const { createMockedSlimbot } = require('./lib/sendMessageHelper');
 
 const { describeDBSetupTeardown } = require('./lib/dbHelper');
 
 describeDBSetupTeardown();
 moment.locale('ru');
-
-const createMockedSlimbot = (sendMessageFn) => ({ sendMessage: jest.fn(sendMessageFn) });
 
 describe('maybe dead', () => {
   test('maybe died', async () => {
