@@ -1,102 +1,92 @@
-const chatPhilosopher = require('../src/statistics/chatPhilosopher');
+const moment = require('moment');
+const { onMessage } = require('../src/actions');
+const { sendTestMessage, createMockedSlimbot } = require('./lib/sendMessageHelper');
 
 const { describeDBSetupTeardown } = require('./lib/dbHelper');
-const { dbClient } = require('../src/dbClient');
-const evenNumberOfMessages = require('./__fixtures__/chatPhilosopher/chatPhilosopherEvenNumbersOfMessages.json');
-const notEvenNumberOfMessages = require('./__fixtures__/chatPhilosopher/chatPhilosopherNotEvenNumbersOfMessages.json');
-const severalChatPhilosophers = require('./__fixtures__/chatPhilosopher/severalChatPhilosophers.json');
 
 describeDBSetupTeardown();
-
-const addMessages = async (messages) => {
-  await dbClient.queryMessages((collection) => collection.insertMany(messages));
-};
+moment.locale('ru');
 
 describe('chatPhilosopher', () => {
-  test('evenNumberOfMessages', async () => {
-    await addMessages(evenNumberOfMessages);
-    const collection = await chatPhilosopher.collect({ chat: { id: 1 } });
-    expect(collection).toEqual([
-      {
-        _id: 1,
-        count: 4,
-        first_name: 'test1',
-        last_name: 'test1',
-        username: 'test1',
-        all_msg_len_array: [
-          10, 12, 12, 14,
-        ],
-        middle_index: 2,
-        middle_index_less: 1,
-        median: 12,
-      },
-    ]);
-    const statString = await chatPhilosopher.render(collection);
-
-    expect(statString).toBe('*test1 test1* - философ чата (медианная длина сообщений 12)');
-  });
-  test('notEvenNumberOfMessages', async () => {
-    await addMessages(notEvenNumberOfMessages);
-    const collection = await chatPhilosopher.collect({ chat: { id: 1 } });
-    expect(collection).toEqual([
-      {
-        _id: 1,
-        count: 5,
-        first_name: 'test1',
-        last_name: 'test1',
-        username: 'test1',
-        all_msg_len_array: [
-          10, 12, 12, 12, 14,
-        ],
-        middle_index: 2,
-        middle_index_less: 1,
-        median: 12,
-      },
-    ]);
-    const statString = await chatPhilosopher.render(collection);
-
-    expect(statString).toBe('*test1 test1* - философ чата (медианная длина сообщений 12)');
-  });
-  test('severalChatPhilosophers', async () => {
-    await addMessages(severalChatPhilosophers);
-    const collection = await chatPhilosopher.collect({ chat: { id: 1 } });
-    expect(collection).toEqual([
-      {
-        _id: 1,
-        count: 5,
-        first_name: 'test1',
-        last_name: 'test1',
-        username: 'test1',
-        all_msg_len_array: [
-          10, 12, 12, 12, 14,
-        ],
-        middle_index: 2,
-        middle_index_less: 1,
-        median: 12,
-      },
-      {
-        _id: 2,
-        count: 3,
-        first_name: 'test2',
-        last_name: 'test2',
-        username: 'test2',
-        all_msg_len_array: [
-          12, 12, 12,
-        ],
-        middle_index: 1,
-        middle_index_less: 0,
-        median: 12,
-      },
-    ]);
-    const statString = await chatPhilosopher.render(collection);
-
-    expect(statString).toBe('*test1 test1, test2 test2* - философы чата (медианная длина сообщений 12)');
-  });
   test('empty data', async () => {
-    const collection = await chatPhilosopher.collect({ chat: { id: 1 } });
-    expect(collection).toStrictEqual([]);
+    const expectedText = '';
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch(expectedText);
+    });
 
-    const statString = await chatPhilosopher.render(collection);
-    expect(statString).toBe('');
+    const message = {
+      chat: {
+        id: 0,
+      },
+      text: '/stats',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, message);
+  });
+  test('oneChatPhilosopher', async () => {
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch('*user2* - философ чата (медианная длина сообщений 14)');
+    });
+    [5, 5, 5, 5, 3, 3, 3, 3].forEach(async (messageLength, i) => {
+      await sendTestMessage({
+        userId: 1, firstName: 'user1', date: 1591790400 + i, type: 'text',
+      }, onMessage, slimbot, 'a'.repeat(messageLength));
+    });
+
+    [14, 14, 14, 14, 14, 3, 3, 3, 3].forEach(async (messageLength, i) => {
+      await sendTestMessage({
+        userId: 2, firstName: 'user2', date: 1591790400 + i, type: 'text',
+      }, onMessage, slimbot, 'a'.repeat(messageLength));
+    });
+    [5, 3, 3, 3, 3, 3].forEach(async (messageLength, i) => {
+      await sendTestMessage({
+        userId: 3, firstName: 'user3', date: 1591790400 + i, type: 'text',
+      }, onMessage, slimbot, 'a'.repeat(messageLength));
+    });
+
+    const statMessage = {
+      chat: {
+        id: 1,
+      },
+      date: 1591887600,
+      text: '/stats',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, statMessage);
+  });
+
+  test('twoChatPhilosopher', async () => {
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch('*user1, user2* - философы чата (медианная длина сообщений 14)');
+    });
+    [14, 14, 14, 14, 14, 14, 3, 3, 3, 3].forEach(async (messageLength, i) => {
+      await sendTestMessage({
+        userId: 1, firstName: 'user1', date: 1591790400 + i, type: 'text',
+      }, onMessage, slimbot, 'a'.repeat(messageLength));
+    });
+
+    [14, 14, 14, 14, 14, 3, 3, 3, 3].forEach(async (messageLength, i) => {
+      await sendTestMessage({
+        userId: 2, firstName: 'user2', date: 1591790400 + i, type: 'text',
+      }, onMessage, slimbot, 'a'.repeat(messageLength));
+    });
+    [5, 3, 3, 3, 3, 3].forEach(async (messageLength, i) => {
+      await sendTestMessage({
+        userId: 3, firstName: 'user3', date: 1591790400 + i, type: 'text',
+      }, onMessage, slimbot, 'a'.repeat(messageLength));
+    });
+
+    const statMessage = {
+      chat: {
+        id: 1,
+      },
+      date: 1591887600,
+      text: '/stats',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, statMessage);
   });
 });

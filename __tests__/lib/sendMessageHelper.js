@@ -72,5 +72,6 @@ const sendTestMessage = async ({
 
   await onMessage(slimbot, userMessage);
 };
+const createMockedSlimbot = (sendMessageFn) => ({ sendMessage: jest.fn(sendMessageFn) });
 
-module.exports = { sendTestMessage };
+module.exports = { sendTestMessage, createMockedSlimbot };
