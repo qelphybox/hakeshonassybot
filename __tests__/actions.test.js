@@ -83,7 +83,6 @@ describe('auto create messages', () => {
   });
 });
 
-
 describe('on message edit action', () => {
   test('updates message in collection', async () => {
     const chat = {
