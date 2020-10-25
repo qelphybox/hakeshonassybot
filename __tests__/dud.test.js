@@ -10,7 +10,7 @@ moment.locale('ru');
 describe('manual create messages', () => {
   test('dud', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - Дудь (задал 2 вопроса)');
+      expect(text).toMatch('*user2* - Дудь (задал 2 вопроса за неделю)');
     });
 
     await sendTestMessage({
@@ -39,7 +39,7 @@ describe('manual create messages', () => {
 
   test('dud five messages', async () => {
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user2* - Дудь (задал 5 вопросов)');
+      expect(text).toMatch('*user2* - Дудь (задал 5 вопросов за неделю)');
     });
 
     await sendTestMessage({
@@ -67,6 +67,37 @@ describe('manual create messages', () => {
         id: 1,
       },
       date: 1591887600,
+      text: '/stats',
+      entities: [{ type: 'bot_command' }],
+    };
+
+    await onMessage(slimbot, statMessage);
+  });
+
+  test('dud sunday and monday messages, next sunday stats', async () => {
+    const slimbot = createMockedSlimbot((chatId, text) => {
+      expect(text).toMatch('*user1* - Дудь (задал 2 вопроса за неделю)');
+    });
+
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1592125260, type: 'text',
+    }, onMessage, slimbot, 'Как дела?');
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1592211660, type: 'text',
+    }, onMessage, slimbot, 'Как дела?');
+    await sendTestMessage({
+      userId: 1, firstName: 'user1', date: 1592211660, type: 'text',
+    }, onMessage, slimbot, '??');
+
+    await sendTestMessage({
+      userId: 2, firstName: 'user2', date: 1592211660, type: 'text',
+    }, onMessage, slimbot, '?');
+
+    const statMessage = {
+      chat: {
+        id: 1,
+      },
+      date: 1592730060,
       text: '/stats',
       entities: [{ type: 'bot_command' }],
     };
