@@ -1,9 +1,5 @@
 const moment = require('moment');
-<<<<<<< HEAD
-const { onMessage } = require('../src/actions');
-=======
 const { onMessage, onMessageEdit } = require('../src/actions');
->>>>>>> upstream/master
 const { dbClient } = require('../src/dbClient');
 
 const { describeDBSetupTeardown } = require('./lib/dbHelper');
@@ -86,8 +82,6 @@ describe('auto create messages', () => {
     await onMessage(slimbot, message);
   });
 });
-<<<<<<< HEAD
-=======
 
 describe('on message edit action', () => {
   test('updates message in collection', async () => {
@@ -141,4 +135,3 @@ describe('on message edit action', () => {
     });
   });
 });
->>>>>>> upstream/master
