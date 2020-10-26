@@ -46,4 +46,13 @@ const onMessage = async (slimbot, message) => {
   }
 };
 
-module.exports = { onMessage };
+const onMessageEdit = async (slimbot, editedMessage) => {
+  await dbClient.queryMessages(async (messages) => {
+    await messages.updateOne(
+      { message_id: editedMessage.message_id },
+      { $set: editedMessage },
+    );
+  });
+};
+
+module.exports = { onMessage, onMessageEdit };
