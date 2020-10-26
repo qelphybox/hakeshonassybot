@@ -55,7 +55,7 @@ describe('maybe dead', () => {
     MockDate.set(moment(dateToTest));
 
     const slimbot = createMockedSlimbot((chatId, text) => {
-      expect(text).toMatch('*user1* - наверное помер (писал менее 1 дня назад)')
+      expect(text).toMatch('*user1* - наверное помер (писал менее 1 дня назад)');
     });
 
     await sendTestMessage({
