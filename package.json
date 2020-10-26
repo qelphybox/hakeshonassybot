@@ -11,7 +11,7 @@
     "lint-fix": "eslint \"**/*.js\" --fix"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "moment": "^2.29.1",
     "mongodb": "^3.6.2",
