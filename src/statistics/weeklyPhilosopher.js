@@ -1,10 +1,19 @@
+const moment = require('moment');
 const { dbClient } = require('../dbClient');
 const { getFullUserName } = require('../utils/render');
 
-const collect = async ({ chat }) => {
+moment.locale('ru');
+
+const collect = async ({ chat, date }) => {
+  const queryDate = new Date(date * 1000);
+  const currentWeekMonday = moment(queryDate).subtract(7, 'days').set({
+    hour: 0, minute: 0, second: 0, millisecond: 0,
+  });
+  const dayTimestamp = currentWeekMonday / 1000;
   const data = await dbClient.queryMessages((messages) => messages.aggregate(
     [
       { $match: { 'chat.id': chat.id, text: { $exists: true } } },
+      { $match: { date: { $gt: dayTimestamp } } },
       {
         $project: {
           _id: 1,
@@ -68,9 +77,9 @@ const render = (collectedStat) => {
   const topMedian = collectedStat[0].median;
   if (collectedStat.length > 1) {
     const chatPhilosophers = collectedStat.map((col) => `${getFullUserName(col)}`).join(', ');
-    return `*${chatPhilosophers}* - философы чата (медианная длина сообщений ${topMedian})`;
+    return `*${chatPhilosophers}* - философы недели (медианная длина сообщений ${topMedian})`;
   }
-  return `*${getFullUserName(collectedStat[0])}* - философ чата (медианная длина сообщений ${topMedian})`;
+  return `*${getFullUserName(collectedStat[0])}* - философ недели (медианная длина сообщений ${topMedian})`;
 };
 module.exports = {
   render,
