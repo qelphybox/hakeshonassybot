@@ -33,8 +33,10 @@ const render = (collectedStat) => {
 
     const today = moment();
     const lastMessageDate = moment(topUser.date * 1000);
-    const diff = today.diff(lastMessageDate, 'days') || 1;
-    return `*${getFullUserName(topUser)}* - наверное помер (писал ${diff} ${getDays(diff)} назад)`;
+    const diff = today.diff(lastMessageDate, 'days');
+    const timeMessage = diff < 1 ? 'менее 1 дня' : `${diff} ${getDays(diff)}`;
+
+    return `*${getFullUserName(topUser)}* - наверное помер (писал ${timeMessage} назад)`;
   }
   return '';
 };
