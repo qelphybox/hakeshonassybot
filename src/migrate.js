@@ -13,6 +13,7 @@ const createDbCollection = async () => {
   }
   await messages.createIndex({ 'chat.id': 1 });
   await messages.createIndex({ date: -1 });
+  await messages.createIndex({ message_id: 1 });
 };
 
 console.log('Start migration...');
