@@ -80,10 +80,10 @@ describe('manual create messages', () => {
     });
 
     await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1592125260, type: 'text',
+      userId: 1, firstName: 'user1', date: 1592125260, type: 'text', // Sunday, 14-Jun-20 09:01:00 UTC
     }, onMessage, slimbot, 'Как дела?');
     await sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1592211660, type: 'text',
+      userId: 1, firstName: 'user1', date: 1592211660, type: 'text', // Monday, 15-Jun-20 09:01:00 UTC
     }, onMessage, slimbot, 'Как дела?');
     await sendTestMessage({
       userId: 1, firstName: 'user1', date: 1592211660, type: 'text',
@@ -97,7 +97,7 @@ describe('manual create messages', () => {
       chat: {
         id: 1,
       },
-      date: 1592730060,
+      date: 1592730060, // Sunday, 21-Jun-20 09:01:00 UTC
       text: '/stats',
       entities: [{ type: 'bot_command' }],
     };
