@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "moment": "^2.29.1",
-    "mongodb": "^3.6.2",
+    "mongodb": "^3.6.3",
     "proschet": "^1.0.1",
     "slimbot": "^4.9.0"
   },
