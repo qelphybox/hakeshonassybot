@@ -1,6 +1,6 @@
 const Slimbot = require('slimbot');
 
-const { onMessage, onMessageEdit } = require('./actions');
+const { onMessage, onMessageEdit } = require('./bot/actions');
 
 const { dbClient } = require('./dbClient');
 

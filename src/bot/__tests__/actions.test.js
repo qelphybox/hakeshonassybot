@@ -1,6 +1,6 @@
 const moment = require('moment');
-const { onMessage, onMessageEdit } = require('../src/actions');
-const { dbClient } = require('../src/dbClient');
+const { onMessage, onMessageEdit } = require('../actions');
+const { dbClient } = require('../../dbClient');
 
 const { describeDBSetupTeardown } = require('./lib/dbHelper');
 const messagesWorklessUser = require('./__fixtures__/messagesWorklessUser/correctData.json');

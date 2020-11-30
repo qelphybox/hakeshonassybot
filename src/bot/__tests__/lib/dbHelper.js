@@ -1,4 +1,4 @@
-const { dbClient } = require('../../src/dbClient');
+const { dbClient } = require('../../../dbClient');
 
 const describeDBSetupTeardown = () => {
   beforeAll(async () => {

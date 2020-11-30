@@ -1,5 +1,5 @@
 const moment = require('moment');
-const { dbClient } = require('../dbClient');
+const { dbClient } = require('../../dbClient');
 const { getFullUserName } = require('../utils/render');
 
 moment.locale('ru');
