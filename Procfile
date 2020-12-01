@@ -1,2 +1,3 @@
 bot: npm run bot
-release: npm run migrate
+api: npm run api
+release: npm run production-setup
