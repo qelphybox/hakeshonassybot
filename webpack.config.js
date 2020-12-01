@@ -14,16 +14,12 @@ module.exports = {
     rules: [
       {
         test: /\.(sa|sc|c)ss$/,
-        include: path.resolve(__dirname, 'src/client'),
         use: [
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
               sourceMap: true,
-              modules: {
-                localIdentName: '[local]___[hash:base64:5]',
-              },
             },
           },
           'sass-loader',
@@ -31,7 +27,6 @@ module.exports = {
       },
       {
         test: /\.m?js$/,
-        include: path.resolve(__dirname, 'src/client'),
         use: {
           loader: 'babel-loader',
           options: {
@@ -41,7 +36,6 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        include: path.resolve(__dirname, 'src/client'),
         use: ['file-loader'],
       },
     ],
@@ -57,4 +51,7 @@ module.exports = {
       scriptLoading: 'defer',
     }),
   ],
+  resolve: {
+    modules: ['node_modules', 'src/client'],
+  },
 };
