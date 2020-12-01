@@ -14,6 +14,20 @@ migrate:
 dev:
 	docker-compose up
 
+dev-down:
+	docker-compose down
+
+dev-down-v:
+	docker-compose down -v
+
+dev-build:
+	docker-compose build
+
+dev-setup:
+	docker-compose run --rm api npm install
+
+dev-reset: dev-down-v dev-build dev-setup
+
 test:
 	$(COMPOSE_RUN) -e MONGO_DB_NAME=hakeshonassydb_test bot npm test
 
