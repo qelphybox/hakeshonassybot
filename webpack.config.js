@@ -15,7 +15,19 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         include: path.resolve(__dirname, 'src/client'),
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: {
+                localIdentName: '[local]___[hash:base64:5]',
+              },
+            },
+          },
+          'sass-loader',
+        ],
       },
       {
         test: /\.m?js$/,
@@ -35,7 +47,9 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({
+      cleanAfterEveryBuildPatterns: ['!index.html'],
+    }),
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       title: 'Hake Shonassy Bot',

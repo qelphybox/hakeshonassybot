@@ -8,7 +8,7 @@ volumes:
 services:
   api:
     build: .
-    command: npm run api
+    command: npm run api:watch
     restart: always
     ports:
       - 3000:3000
