@@ -4,23 +4,31 @@ import Footer from 'react-bulma-components/lib/components/footer';
 import Container from 'react-bulma-components/lib/components/container';
 import Content from 'react-bulma-components/lib/components/content';
 import Hero from 'react-bulma-components/lib/components/hero';
+import Heading from 'react-bulma-components/src/components/heading';
+import WelcomeImage from './welcome.svg';
 
 function App() {
   return (
     <div>
-      <b>hake</b>
       <Hero size="fullheight">
         <Hero.Head renderAs="header" />
         <Hero.Body>
+          <Container style={ { display: 'flex' } }>
+            <div style={ {
+              display: 'flex', alignContent: 'center', justifyContent: 'center', flexDirection: 'column',
+            } }>
+              <Heading size={1} renderAs="p">HakeShonassyBot</Heading>
+              <Heading subtitle renderAs="p">Телеграм бот раздающий глупые ачивки участникам чата</Heading>
+            </div>
+            <img src={WelcomeImage} alt='welcome image'/>
+          </Container>
         </Hero.Body>
         <Hero.Footer>
           <Footer>
             <Container>
               <Content style={{ textAlign: 'center' }}>
                 <p>
-                  <strong>Bulma</strong> by <a href="http://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-                  <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-                  is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                  <strong>HakeShonassyBot</strong> Исходный код лицензирован <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
                 </p>
               </Content>
             </Container>
