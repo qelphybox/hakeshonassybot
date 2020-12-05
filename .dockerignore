@@ -2,6 +2,7 @@ prod
 node_modules
 __tests__
 .github
+.idea
 .env
 .dockerignore
 .eslintignore
