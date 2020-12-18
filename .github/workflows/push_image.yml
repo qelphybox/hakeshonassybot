@@ -1,0 +1,19 @@
+---
+name: Push image
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set docker credentials
+        env:
+          DOCKER_PASSWORD: ${{ secrets.SuperSecret }}
+        run: echo "$DOCKER_PASSWORD" > docker_password.txt
+      - run: make docker-release
