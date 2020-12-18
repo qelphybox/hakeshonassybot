@@ -4,5 +4,11 @@ services:
   bot:
     image: kirillbobykin/hakeshonassybot:lastest
     restart: always
-    env_file:
-      - .env.prod
+    environment:
+      DOTENV_CONFIG_PATH: /run/secrets/production_config
+    secrets:
+      - production_config
+
+secrets:
+  production_config:
+    file: .env.production
