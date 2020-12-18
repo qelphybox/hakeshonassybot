@@ -34,6 +34,9 @@ docker-build:
 docker-login:
 	cat docker_password.txt | docker login --username $(DOCKER_USERNAME) --password-stdin
 
+docker-login-ci:
+	docker login --username $(DOCKER_USERNAME) --password $(DOCKER_PASSWORD)
+
 docker-tag-latest:
 	docker tag $(IMAGE_TAG) $(IMAGE_TAG_LATEST)
 
@@ -43,5 +46,5 @@ docker-push:
 docker-push-latest:
 	docker push $(IMAGE_TAG_LATEST)
 
-docker-release: docker-build docker-login docker-push
+docker-release: docker-build docker-push
 docker-release-latest: docker-release docker-tag-latest docker-push-latest

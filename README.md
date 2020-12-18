@@ -52,6 +52,7 @@ MONGO_DB_NAME=hakeshonassydb
 ## Релиз
 Инструкция для мэйнтейнеров
 1. Записать свой пароль от [DockerHub](https://hub.docker.com/) в файл `docker_password.txt` в корень проекта
+1. Выполнить `make docker-login`
 1. Выполнить `make docker-release-latest` (остальные задачи релиза см. [Makefile](Makefile))
 
 ## Приватность данных

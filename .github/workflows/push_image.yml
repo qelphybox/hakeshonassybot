@@ -8,12 +8,14 @@ on:
     branches: [ master ]
 
 jobs:
-  lint:
+  push_image:
+    name: Push image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set docker credentials
+      - name: Login docker
         env:
           DOCKER_PASSWORD: ${{ secrets.SuperSecret }}
-        run: echo "$DOCKER_PASSWORD" > docker_password.txt
-      - run: make docker-release
+        run: make docker-login-ci
+      - name: Release image
+        run: make docker-release
