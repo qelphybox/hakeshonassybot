@@ -1,5 +1,5 @@
 ---
-name: Push image
+name: Deploy latest
 
 on:
   push:
