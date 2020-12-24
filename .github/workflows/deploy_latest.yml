@@ -8,8 +8,8 @@ on:
     branches: [ master ]
 
 jobs:
-  push_image:
-    name: Push image
+  deploy_latest:
+    name: Deploy latest
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,17 +18,15 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: make docker-login-ci
       - name: Release image
-        run: make docker-release
-  deploy_image:
-    name: Deploy image
-    runs-on: ubuntu-latest
-    needs: push_image
-    steps:
+        run: make docker-release-latest
       - name: Deploy to swarm
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DOCKER_SWARM_SSH_HOST }}
-          username: ${{ secrets.DOCKER_SWARM_SSH_USERNAME }}
+          username: hakeshonassy
           key: ${{ secrets.DOCKER_SWARM_SSH_PRIVATE_KEY }}
           port: ${{ secrets.DOCKER_SWARM_SSH_PORT }}
-          script: docker service update --image kirillbobykin/hakeshonassybot:${GITHUB_SHA::8} hakeshonassybot_bot
+          script: >
+            docker service update
+            --image kirillbobykin/hakeshonassybot:`echo ${{ github.sha }} | cut -c1-7`
+            hakeshonassybot_bot
