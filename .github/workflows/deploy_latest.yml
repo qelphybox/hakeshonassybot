@@ -1,0 +1,32 @@
+---
+name: Deploy latest
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy_latest:
+    name: Deploy latest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login docker
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: make docker-login-ci
+      - name: Set version
+        run: echo ${{ github.sha }} > version.txt
+      - name: Release image
+        run: make docker-release-latest
+      - name: Deploy to swarm
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DOCKER_SWARM_SSH_HOST }}
+          username: hakeshonassy
+          key: ${{ secrets.DOCKER_SWARM_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.DOCKER_SWARM_SSH_PORT }}
+          script: >
+            docker service update
+            --image kirillbobykin/hakeshonassybot:`echo ${{ github.sha }} | cut -c1-7`
+            hakeshonassybot_bot

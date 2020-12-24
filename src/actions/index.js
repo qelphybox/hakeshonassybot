@@ -1,3 +1,5 @@
+const fs = require('fs');
+const util = require('util');
 const { statsArray } = require('../statistics');
 const { dbClient } = require('../dbClient');
 
@@ -31,6 +33,17 @@ const rickroll = async (slimbot, message) => {
   );
 };
 
+const readFile = util.promisify(fs.readFile);
+const version = async (slimbot, message) => {
+  const versionFilePath = `${__dirname}/../../version.txt`;
+  try {
+    const text = await readFile(versionFilePath, 'utf8');
+    await slimbot.sendMessage(message.chat.id, text);
+  } catch (e) {
+    console.err(e);
+  }
+};
+
 const onMessage = async (slimbot, message) => {
   if (isCommand(message)) {
     if (message.text.startsWith('/stats')) {
@@ -38,6 +51,9 @@ const onMessage = async (slimbot, message) => {
     }
     if (message.text.startsWith('/rickroll')) {
       await rickroll(slimbot, message);
+    }
+    if (message.text.startsWith('/version')) {
+      await version(slimbot, message);
     }
   } else {
     await dbClient.queryMessages(async (messages) => {

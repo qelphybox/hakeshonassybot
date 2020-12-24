@@ -4,7 +4,9 @@
   "description": "Bot gives achieves for telegram groups users",
   "main": "src/bot.js",
   "scripts": {
+    "dotenv:bot": "node -r dotenv/config src/bot.js",
     "bot": "node src/bot.js",
+    "dotenv:migrate": "node -r dotenv/config src/migrate.js",
     "migrate": "node src/migrate.js",
     "test": "jest -i",
     "lint": "eslint \"**/*.js\"",
@@ -13,6 +15,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "moment": "^2.29.1",
     "mongodb": "^3.6.3",
     "proschet": "^1.0.1",

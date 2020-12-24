@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  bot:
+    image: kirillbobykin/hakeshonassybot:lastest
+    restart: always
+    environment:
+      DOTENV_CONFIG_PATH: /run/secrets/production_config
+    secrets:
+      - production_config
+
+secrets:
+  production_config:
+    file: .env.production
