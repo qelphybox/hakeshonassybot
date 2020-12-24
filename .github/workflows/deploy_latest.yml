@@ -17,8 +17,10 @@ jobs:
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: make docker-login-ci
+      - name: Set version
+        run: echo ${{ github.sha }} > version.txt
       - name: Release image
-        run: echo ${{ github.sha }} > version.txt; make docker-release-latest
+        run: make docker-release-latest
       - name: Deploy to swarm
         uses: appleboy/ssh-action@master
         with:
