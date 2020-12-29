@@ -19,10 +19,10 @@
     "moment": "^2.29.1",
     "mongodb": "^3.6.3",
     "proschet": "^1.0.1",
-    "slimbot": "^4.9.0"
+    "slimbot": "^5.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.14.0",
+    "eslint": "^7.16.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.1.3",
