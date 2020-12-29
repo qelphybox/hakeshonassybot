@@ -5,7 +5,6 @@
   "main": "src/bot.js",
   "scripts": {
     "dotenv:bot": "node -r dotenv/config src/bot.js",
-    "bot": "node src/bot.js",
     "dotenv:migrate": "node -r dotenv/config src/migrate.js",
     "production-setup": "npm run client:build && npm run migrate",
     "heroku-prebuild": "npm install --dev",
