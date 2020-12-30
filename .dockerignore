@@ -13,8 +13,12 @@ botStatsComand.gif
 *.md
 Makefile
 docker-compose.yml
+docker-compose.prod.yml
 LICENSE
 jest.config.js
 Procfile
 prod.Dockerfile
 Dockerfile
+public
+docker_password.txt
+tmp

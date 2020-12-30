@@ -7,8 +7,6 @@
     "dotenv:bot": "node -r dotenv/config src/bot.js",
     "dotenv:migrate": "node -r dotenv/config src/migrate.js",
     "production-setup": "npm run client:build && npm run migrate",
-    "heroku-prebuild": "npm install --dev",
-    "heroku-postbuild": "npm run client:build:production && npm run migrate",
     "client:dev": "npm run client:build -- --watch",
     "client:build": "webpack",
     "client:build:production": "npm run client:build -- --mode production",
@@ -38,6 +36,11 @@
     "slimbot": "^4.9.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-react": "^7.12.7",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.1",
     "clean-webpack-plugin": "^3.0.0",
     "eslint": "^7.16.0",
     "eslint-config-airbnb": "^18.2.1",

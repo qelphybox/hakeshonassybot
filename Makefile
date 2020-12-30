@@ -61,5 +61,8 @@ docker-push:
 docker-push-latest:
 	docker push $(IMAGE_TAG_LATEST)
 
+docker-run-image:
+	docker run -it --rm $(IMAGE_TAG) sh
+
 docker-release: docker-build docker-push
 docker-release-latest: docker-release docker-tag-latest docker-push-latest
