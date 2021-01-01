@@ -31,7 +31,7 @@ jobs:
           script: >
             docker service update
             --image kirillbobykin/hakeshonassybot:`echo ${{ github.sha }} | cut -c1-7`
-            hakeshonassybot_bot
+            hakeshonassybot_bot;
             docker service update
             --image kirillbobykin/hakeshonassybot:`echo ${{ github.sha }} | cut -c1-7`
             hakeshonassybot_api
