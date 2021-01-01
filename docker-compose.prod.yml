@@ -3,7 +3,7 @@ version: '3.7'
 services:
   bot:
     image: kirillbobykin/hakeshonassybot:lastest
-    restart: always
+    restart: unless-stopped
     environment:
       DOTENV_CONFIG_PATH: /run/secrets/production_config
     secrets:
@@ -12,9 +12,9 @@ services:
   api:
     image: kirillbobykin/hakeshonassybot:lastest
     command: npm run api
-    restart: always
+    restart: unless-stopped
     ports:
-      - 80:3000/tcp
+      - 80:3000
     environment:
       DOTENV_CONFIG_PATH: /run/secrets/production_config
     secrets:
