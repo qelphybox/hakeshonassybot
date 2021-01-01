@@ -1,5 +1,5 @@
 const moment = require('moment');
-const { onMessage } = require('../src/actions');
+const { onMessage } = require('../actions');
 const { createMockedSlimbot } = require('./lib/sendMessageHelper');
 
 const { describeDBSetupTeardown } = require('./lib/dbHelper');

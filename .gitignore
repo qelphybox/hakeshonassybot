@@ -197,4 +197,6 @@ modules.xml
 # End of https://www.gitignore.io/api/node,webstorm+all
 
 prod/data
+
+public/
 /docker_password.txt

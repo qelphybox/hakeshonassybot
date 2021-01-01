@@ -1,7 +1,7 @@
 const fs = require('fs');
 const util = require('util');
 const { statsArray } = require('../statistics');
-const { dbClient } = require('../dbClient');
+const { dbClient } = require('../../dbClient');
 
 const isCommand = ({ entities }) => !!entities && entities.some((entity) => entity.type === 'bot_command');
 

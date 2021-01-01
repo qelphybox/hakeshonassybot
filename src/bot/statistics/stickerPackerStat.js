@@ -1,5 +1,5 @@
 const proschet = require('proschet').default;
-const { dbClient } = require('../dbClient');
+const { dbClient } = require('../../dbClient');
 const { getFullUserName } = require('../utils/render');
 
 const collect = async ({ chat }) => {

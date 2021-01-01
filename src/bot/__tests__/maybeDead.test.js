@@ -1,6 +1,6 @@
 const moment = require('moment');
 const MockDate = require('mockdate');
-const { onMessage } = require('../src/actions');
+const { onMessage } = require('../actions');
 const { sendTestMessage, createMockedSlimbot } = require('./lib/sendMessageHelper');
 
 const { describeDBSetupTeardown } = require('./lib/dbHelper');

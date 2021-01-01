@@ -2,7 +2,7 @@ const Slimbot = require('slimbot');
 
 const { onMessage, onMessageEdit } = require('./actions');
 
-const { dbClient } = require('./dbClient');
+const { dbClient } = require('../dbClient');
 
 const buildProxySettings = () => {
   let socks5;

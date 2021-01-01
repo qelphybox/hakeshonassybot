@@ -1,2 +1,2 @@
 bot: npm run bot
-release: npm run migrate
+web: npm run api

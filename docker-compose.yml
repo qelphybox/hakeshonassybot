@@ -3,8 +3,37 @@ version: '3.7'
 volumes:
   db_data:
   node_modules:
+  public:
 
 services:
+  api:
+    build: .
+    command: npm run api:watch
+    restart: always
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017
+      - MONGO_DB_NAME=hakeshonassydb
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules:cached
+      - public:/app/public
+    depends_on:
+      - mongodb
+
+  client:
+    build: .
+    command: npm run client:dev
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules:cached
+      - public:/app/public
+    depends_on:
+      - api
+
   bot:
     build: .
     command: npm run bot
@@ -16,7 +45,7 @@ services:
       - MONGO_DB_NAME=hakeshonassydb
     volumes:
       - ./:/app
-      - node_modules:/app/node_modules
+      - node_modules:/app/node_modules:cached
     depends_on:
       - mongodb
 
