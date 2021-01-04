@@ -33,7 +33,7 @@
     "react": "^17.0.1",
     "react-bulma-components": "^3.4.0",
     "react-dom": "^17.0.1",
-    "slimbot": "^4.9.0"
+    "slimbot": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
