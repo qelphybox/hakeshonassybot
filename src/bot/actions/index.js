@@ -35,12 +35,12 @@ const rickroll = async (slimbot, message) => {
 
 const readFile = util.promisify(fs.readFile);
 const version = async (slimbot, message) => {
-  const versionFilePath = `${__dirname}/../../version.txt`;
+  const versionFilePath = `${__dirname}/../../../version.txt`;
   try {
     const text = await readFile(versionFilePath, 'utf8');
     await slimbot.sendMessage(message.chat.id, text);
   } catch (e) {
-    console.err(e);
+    console.error(e);
   }
 };
 
