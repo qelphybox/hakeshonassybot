@@ -21,9 +21,13 @@ slimbot.on('message', onMessage.bind(null, slimbot));
 
 slimbot.on('edited_message', onMessageEdit.bind(null, slimbot));
 
-dbClient.connect().then(() => {
-  slimbot.startPolling();
-});
+dbClient.connect()
+  .then(() => {
+    slimbot.startPolling();
+  })
+  .catch((e) => {
+    console.error('Database connection error', e);
+  });
 
 process.on('exit', async (code) => {
   console.log(`Exit with code ${code}, stopping...`);
