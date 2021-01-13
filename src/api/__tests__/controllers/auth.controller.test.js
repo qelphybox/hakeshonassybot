@@ -53,12 +53,3 @@ describe('AuthController', () => {
     expect(mockResponse.status).toBeCalledWith(200);
   });
 });
-
-/*
-auth_date: 1610484415
-first_name: "Sergey"
-hash: "bc2bb8bd7d81cd5c4e1498d4124135cc74408c0de8d316f21772ead661ec6061"
-id: 309091867
-last_name: "Vyborov"
-username: "svyborov"
- */
