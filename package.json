@@ -14,7 +14,7 @@
     "api:watch": "onchange -i -k 'src/api/**/*.js' -- npm run api",
     "bot": "node src/bot/index.js",
     "migrate": "node src/migrate.js",
-    "test": "jest -i --watchAll ./src/api",
+    "test": "jest -i",
     "lint": "eslint \"**/*.js\"",
     "lint:fix": "npm run lint -- --fix"
   },
