@@ -17,7 +17,7 @@ app.get('/api', (_req, res) => {
   res.send('Hello World!');
 });
 
-app.get('/auth', authRouter);
+app.use('/auth', authRouter);
 
 // todo: delete after test
 app.get('/test-auth', (req, res) => {
