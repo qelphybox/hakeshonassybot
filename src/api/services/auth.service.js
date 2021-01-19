@@ -1,26 +1,35 @@
 const crypto = require('crypto');
 
-const getDataString = (dataObject) => {
-  const keys = Object.keys(dataObject).filter((key) => key !== 'hash');
-  return keys
-    .sort((a, b) => a.localeCompare(b))
-    .map((key) => `${key}=${dataObject[key]}`)
-    .join('\n');
-};
+const getDataString = (dataObject) => Object.entries(dataObject)
+  .map((e) => e.join('='))
+  .sort((a, b) => a.localeCompare(b))
+  .join('\n');
 
-const secretKey = crypto
-  .createHash('sha256')
-  .update(process.env.TELEGRAM_BOT_TOKEN)
-  .digest();
+const checkHmacToken = (token, hash, dataObject) => {
+  console.log(token);
+  console.log(hash);
+  console.log(dataObject);
+  const secretKey = crypto
+    .createHash('sha256')
+    .update(token)
+    .digest();
 
-const checkHmacToken = (dataObject) => {
   const dataString = getDataString(dataObject);
-  const hash = crypto
+  const hashFromData = crypto
     .createHmac('sha256', secretKey)
     .update(dataString)
     .digest('hex');
 
-  return dataObject.hash === hash;
+  console.log(hash);
+  console.log(hashFromData);
+  console.log(dataString);
+
+  return hash === hashFromData;
 };
 
-module.exports = { checkHmacToken };
+const validateTelegramAuth = ({ hash, ...userData }) => {
+  const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
+  return checkHmacToken(telegramToken, hash, userData);
+};
+
+module.exports = { checkHmacToken, validateTelegramAuth };

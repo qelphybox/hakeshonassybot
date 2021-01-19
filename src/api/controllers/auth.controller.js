@@ -2,7 +2,7 @@ const AuthService = require('../services/auth.service');
 
 const callback = (req, res) => {
   const user = { ...req.query };
-  const isTokenCorrect = AuthService.checkHmacToken(user);
+  const isTokenCorrect = AuthService.validateTelegramAuth(user);
   if (isTokenCorrect) {
     res.cookie('user', user, { httpOnly: true });
     res.redirect('/?auth=success');
