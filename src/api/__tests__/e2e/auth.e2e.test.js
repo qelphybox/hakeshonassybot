@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { extractCookies } = require('../utils');
+const { extractCookies } = require('../utils/utils');
 const app = require('../../server');
 
 describe('Post Endpoints', () => {
