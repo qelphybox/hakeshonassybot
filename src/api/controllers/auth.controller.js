@@ -4,7 +4,8 @@ const callback = (req, res) => {
   const user = { ...req.query };
   const isTokenCorrect = AuthService.validateTelegramAuth(user);
   if (isTokenCorrect) {
-    res.cookie('user', user, { httpOnly: true });
+    const userString = JSON.stringify(user);
+    res.cookie('user', userString, { httpOnly: true });
     res.redirect('/?auth=success');
     return;
   }

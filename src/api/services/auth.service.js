@@ -6,9 +6,6 @@ const getDataString = (dataObject) => Object.entries(dataObject)
   .join('\n');
 
 const checkHmacToken = (token, hash, dataObject) => {
-  console.log(token);
-  console.log(hash);
-  console.log(dataObject);
   const secretKey = crypto
     .createHash('sha256')
     .update(token)
@@ -19,10 +16,6 @@ const checkHmacToken = (token, hash, dataObject) => {
     .createHmac('sha256', secretKey)
     .update(dataString)
     .digest('hex');
-
-  console.log(hash);
-  console.log(hashFromData);
-  console.log(dataString);
 
   return hash === hashFromData;
 };
