@@ -3,7 +3,6 @@ const { extractCookies } = require('../utils/utils');
 const app = require('../../server');
 
 describe('Post Endpoints', () => {
-  process.env.TELEGRAM_BOT_TOKEN = '1197051926:AAUFLOWkvEX8J2HSd1boO2LFtgUG382drnY';
   const user = {
     id: 30908482,
     first_name: 'TestFirst',

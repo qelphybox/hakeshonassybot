@@ -5,6 +5,9 @@ const config = {
     '/__mocks__/',
     '/utils/',
   ],
+  setupFiles: [
+    './.jest/dotenv-test.js',
+  ],
 };
 
 module.exports = config;

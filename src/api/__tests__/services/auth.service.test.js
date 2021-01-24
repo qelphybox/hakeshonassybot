@@ -11,7 +11,7 @@ describe('AuthService', () => {
 
   const hash = '334871437604f2f1c57a1ec2f5fb0171f99220c3f6c91d6b1188d26e8f9ae2f7';
 
-  const telegramBotToken = '1197051926:AAUFLOWkvEX8J2HSd1boO2LFtgUG382drnY';
+  const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
 
   it('checkHmacToken should return true if data correct', () => {
     const result = AuthService.checkHmacToken(telegramBotToken, hash, dataObject);

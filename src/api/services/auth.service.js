@@ -1,5 +1,7 @@
 const crypto = require('crypto');
 
+const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+
 const getDataString = (dataObject) => Object.entries(dataObject)
   .map((e) => e.join('='))
   .sort((a, b) => a.localeCompare(b))
@@ -20,9 +22,8 @@ const checkHmacToken = (token, hash, dataObject) => {
   return hash === hashFromData;
 };
 
-const validateTelegramAuth = ({ hash, ...userData }) => {
-  const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
-  return checkHmacToken(telegramToken, hash, userData);
-};
+const validateTelegramAuth = ({ hash, ...userData }) => checkHmacToken(
+  TELEGRAM_TOKEN, hash, userData,
+);
 
 module.exports = { checkHmacToken, validateTelegramAuth };
