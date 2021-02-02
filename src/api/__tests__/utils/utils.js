@@ -1,3 +1,5 @@
+const { getDataObjectHash } = require('../../services/auth.service');
+
 const extractCookies = (headers) => {
   const cookies = headers['set-cookie'][0];
 
@@ -13,4 +15,9 @@ const extractCookies = (headers) => {
     }, {});
 };
 
-module.exports = { extractCookies };
+const generateUserSession = (tgToken, userData) => {
+  const hash = getDataObjectHash(tgToken, userData);
+  return { hash, ...userData };
+};
+
+module.exports = { extractCookies, generateUserSession };
