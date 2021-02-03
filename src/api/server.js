@@ -5,6 +5,7 @@ const logger = require('morgan');
 const path = require('path');
 
 const app = express();
+const authRouter = require('./routes/auth.router');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -12,13 +13,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('public'));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../../public/index.html'));
+app.get('/api', (_req, res) => {
+  res.send('Hello World!');
+});
+
+app.use('/auth', authRouter);
+
+// todo: delete after test
+app.get('/test-auth', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './controllers/test-auth-pages/home.html'));
   res.status(200);
 });
 
-app.get('/api', (_req, res) => {
-  res.send('Hello World!');
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../../public/index.html'));
+  res.status(200);
 });
 
 // catch 404 and forward to error handler

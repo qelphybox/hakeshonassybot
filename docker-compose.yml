@@ -12,8 +12,6 @@ services:
     restart: always
     ports:
       - 3000:3000
-    env_file:
-      - .env
     environment:
       - MONGO_URL=mongodb://mongodb:27017
       - MONGO_DB_NAME=hakeshonassydb
@@ -36,10 +34,8 @@ services:
 
   bot:
     build: .
-    command: npm run bot
+    command: npm run dotenv:bot
     restart: always
-    env_file:
-      - .env
     environment:
       - MONGO_URL=mongodb://mongodb:27017
       - MONGO_DB_NAME=hakeshonassydb
