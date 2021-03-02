@@ -22,19 +22,19 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^8.2.0",
     "cookie-parser": "^1.4.5",
     "debug": "^4.3.1",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http-errors": "^1.8.0",
     "moment": "^2.29.1",
     "mongodb": "^3.6.4",
     "morgan": "^1.10.0",
+    "node-telegram-bot-api": "^0.51.0",
     "proschet": "^1.0.1",
     "react": "^17.0.1",
     "react-bulma-components": "^3.4.0",
-    "react-dom": "^17.0.1",
-    "slimbot": "^5.0.0"
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.17",

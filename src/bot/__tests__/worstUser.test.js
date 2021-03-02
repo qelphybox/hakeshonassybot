@@ -9,20 +9,20 @@ moment.locale('ru');
 
 describe('worst user', () => {
   test('worst user', async () => {
-    const slimbot = createMockedSlimbot((chatId, text) => {
+    const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user2* - худший юзер чата (послал 2 голосовых)');
     });
 
     await sendTestMessage({
       userId: 1, firstName: 'user1', date: 1591786800, type: 'voice',
-    }, onMessage, slimbot);
+    }, onMessage, bot);
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'voice',
-    }, onMessage, slimbot);
+    }, onMessage, bot);
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'voice',
-    }, onMessage, slimbot);
+    }, onMessage, bot);
 
     const statMessage = {
       chat: {
@@ -33,30 +33,30 @@ describe('worst user', () => {
       entities: [{ type: 'bot_command' }],
     };
 
-    await onMessage(slimbot, statMessage);
+    await onMessage(bot, statMessage);
   });
 
   test('worst user five messages', async () => {
-    const slimbot = createMockedSlimbot((chatId, text) => {
+    const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user2* - худший юзер чата (послал 5 голосовых)');
     });
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'voice',
-    }, onMessage, slimbot);
+    }, onMessage, bot);
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'voice',
-    }, onMessage, slimbot);
+    }, onMessage, bot);
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'voice',
-    }, onMessage, slimbot);
+    }, onMessage, bot);
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'voice',
-    }, onMessage, slimbot);
+    }, onMessage, bot);
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591790400, type: 'voice',
-    }, onMessage, slimbot);
+    }, onMessage, bot);
 
     const statMessage = {
       chat: {
@@ -67,6 +67,6 @@ describe('worst user', () => {
       entities: [{ type: 'bot_command' }],
     };
 
-    await onMessage(slimbot, statMessage);
+    await onMessage(bot, statMessage);
   });
 });

@@ -9,7 +9,7 @@ moment.locale('ru');
 
 describe('manual create messages', () => {
   test('24 hours', async () => {
-    const slimbot = createMockedSlimbot((chatId, text) => {
+    const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*Сообщений за последние 24 часа:* user1 (23), user2 (11), user3 (7)');
     });
     const start24HourDate = 1591833600; // 11.06.2020 00:00
@@ -25,7 +25,7 @@ describe('manual create messages', () => {
     ) {
       sendMessagesArray.push(sendTestMessage({
         userId: 1, firstName: 'user1', date: sendMessageDate, type: 'text',
-      }, onMessage, slimbot));
+      }, onMessage, bot));
     }
 
     // user2 sends message every two hours
@@ -36,7 +36,7 @@ describe('manual create messages', () => {
     ) {
       sendMessagesArray.push(sendTestMessage({
         userId: 2, firstName: 'user2', date: sendMessageDate, type: 'text',
-      }, onMessage, slimbot));
+      }, onMessage, bot));
     }
 
     // user3 sends message every three hours
@@ -47,7 +47,7 @@ describe('manual create messages', () => {
     ) {
       sendMessagesArray.push(sendTestMessage({
         userId: 3, firstName: 'user3', date: sendMessageDate, type: 'text',
-      }, onMessage, slimbot));
+      }, onMessage, bot));
     }
 
     await Promise.all(sendMessagesArray);
@@ -61,11 +61,11 @@ describe('manual create messages', () => {
       entities: [{ type: 'bot_command' }],
     };
 
-    await onMessage(slimbot, statMessage);
+    await onMessage(bot, statMessage);
   });
 
   test('one hour', async () => {
-    const slimbot = createMockedSlimbot((chatId, text) => {
+    const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*Сообщений за последний час:* user1 (59), user2 (5), user3 (2)');
     });
 
@@ -82,7 +82,7 @@ describe('manual create messages', () => {
     ) {
       sendMessagesArray.push(sendTestMessage({
         userId: 1, firstName: 'user1', date: sendMessageDate, type: 'text',
-      }, onMessage, slimbot));
+      }, onMessage, bot));
     }
 
     // user2 sends message every ten minutes
@@ -93,7 +93,7 @@ describe('manual create messages', () => {
     ) {
       sendMessagesArray.push(sendTestMessage({
         userId: 2, firstName: 'user2', date: sendMessageDate, type: 'text',
-      }, onMessage, slimbot));
+      }, onMessage, bot));
     }
 
     // user3 sends message every twenty minutes
@@ -104,7 +104,7 @@ describe('manual create messages', () => {
     ) {
       sendMessagesArray.push(sendTestMessage({
         userId: 3, firstName: 'user3', date: sendMessageDate, type: 'text',
-      }, onMessage, slimbot));
+      }, onMessage, bot));
     }
 
     await Promise.all(sendMessagesArray);
@@ -118,6 +118,6 @@ describe('manual create messages', () => {
       entities: [{ type: 'bot_command' }],
     };
 
-    await onMessage(slimbot, statMessage);
+    await onMessage(bot, statMessage);
   });
 });

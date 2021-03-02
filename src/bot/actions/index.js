@@ -9,24 +9,24 @@ const renderMessage = (statsStringsArray) => statsStringsArray
   .filter((statString) => statString.length > 0)
   .join('\n');
 
-const stats = async (slimbot, message) => {
+const stats = async (bot, message) => {
   const statsText = await Promise.all(statsArray.map(async ({ render, collect }) => {
     const collection = await collect(message);
     return render(collection);
   }));
 
   const text = renderMessage(statsText);
-  slimbot.sendMessage(
+  bot.sendMessage(
     message.chat.id,
     text,
     { disable_web_page_preview: true, parse_mode: 'Markdown' },
   );
 };
 
-const rickroll = async (slimbot, message) => {
+const rickroll = async (bot, message) => {
   const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
   const text = `[Самый сильный младенец купил бмв](${url})`;
-  await slimbot.sendMessage(
+  await bot.sendMessage(
     message.chat.id,
     text,
     { disable_web_page_preview: true, parse_mode: 'Markdown' },
@@ -34,26 +34,26 @@ const rickroll = async (slimbot, message) => {
 };
 
 const readFile = util.promisify(fs.readFile);
-const version = async (slimbot, message) => {
+const version = async (bot, message) => {
   const versionFilePath = `${__dirname}/../../../version.txt`;
   try {
     const text = await readFile(versionFilePath, 'utf8');
-    await slimbot.sendMessage(message.chat.id, text);
+    await bot.sendMessage(message.chat.id, text);
   } catch (e) {
     console.error(e);
   }
 };
 
-const onMessage = async (slimbot, message) => {
+const onMessage = async (bot, message) => {
   if (isCommand(message)) {
     if (message.text.startsWith('/stats')) {
-      await stats(slimbot, message);
+      await stats(bot, message);
     }
     if (message.text.startsWith('/rickroll')) {
-      await rickroll(slimbot, message);
+      await rickroll(bot, message);
     }
     if (message.text.startsWith('/version')) {
-      await version(slimbot, message);
+      await version(bot, message);
     }
   } else {
     await dbClient.queryMessages(async (messages) => {
@@ -62,7 +62,7 @@ const onMessage = async (slimbot, message) => {
   }
 };
 
-const onMessageEdit = async (slimbot, editedMessage) => {
+const onMessageEdit = async (bot, editedMessage) => {
   await dbClient.queryMessages(async (messages) => {
     await messages.updateOne(
       { message_id: editedMessage.message_id },
