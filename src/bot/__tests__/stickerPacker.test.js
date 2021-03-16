@@ -9,28 +9,28 @@ moment.locale('ru');
 
 describe('sticker packer', () => {
   test('sticker packer', async () => {
-    const slimbot = createMockedSlimbot((chatId, text) => {
+    const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user1* - стикерпакер (юзает 2 стикерпака)');
     });
 
     await sendTestMessage({
       userId: 1, firstName: 'user1', date: 1591866060, type: 'sticker',
-    }, onMessage, slimbot, { setName: 'Pojelaniepchelki' });
+    }, onMessage, bot, { setName: 'Pojelaniepchelki' });
     await sendTestMessage({
       userId: 1, firstName: 'user1', date: 1591866060, type: 'sticker',
-    }, onMessage, slimbot, { setName: 'ultrarjombav2' });
+    }, onMessage, bot, { setName: 'ultrarjombav2' });
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591866060, type: 'sticker',
-    }, onMessage, slimbot, { setName: 'ultrarjombav2' });
+    }, onMessage, bot, { setName: 'ultrarjombav2' });
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591866060, type: 'sticker',
-    }, onMessage, slimbot, { setName: 'ultrarjombav2' });
+    }, onMessage, bot, { setName: 'ultrarjombav2' });
 
     await sendTestMessage({
       userId: 2, firstName: 'user2', date: 1591866060, type: 'sticker',
-    }, onMessage, slimbot, { setName: 'ultrarjombav2' });
+    }, onMessage, bot, { setName: 'ultrarjombav2' });
 
     const statMessage = {
       chat: {
@@ -41,17 +41,17 @@ describe('sticker packer', () => {
       entities: [{ type: 'bot_command' }],
     };
 
-    await onMessage(slimbot, statMessage);
+    await onMessage(bot, statMessage);
   });
 
   test('sticker packer one message', async () => {
-    const slimbot = createMockedSlimbot((chatId, text) => {
+    const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user1* - стикерпакер (юзает 1 стикерпак)');
     });
 
     await sendTestMessage({
       userId: 1, firstName: 'user1', date: 1591866060, type: 'sticker',
-    }, onMessage, slimbot, { setName: 'Pojelaniepchelki' });
+    }, onMessage, bot, { setName: 'Pojelaniepchelki' });
 
     const statMessage = {
       chat: {
@@ -62,6 +62,6 @@ describe('sticker packer', () => {
       entities: [{ type: 'bot_command' }],
     };
 
-    await onMessage(slimbot, statMessage);
+    await onMessage(bot, statMessage);
   });
 });

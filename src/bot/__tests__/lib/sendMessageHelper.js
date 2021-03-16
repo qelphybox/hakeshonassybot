@@ -55,7 +55,7 @@ const messageContentByType = {
 
 const sendTestMessage = async ({
   userId, firstName, date, type,
-}, onMessage, slimbot, messageContentObj) => {
+}, onMessage, bot, messageContentObj) => {
   const userMessage = {
     message_id: uuidv4(),
     from: {
@@ -70,7 +70,7 @@ const sendTestMessage = async ({
     [type]: messageContentByType[type](messageContentObj),
   };
 
-  await onMessage(slimbot, userMessage);
+  await onMessage(bot, userMessage);
 };
 const createMockedSlimbot = (sendMessageFn) => ({ sendMessage: jest.fn(sendMessageFn) });
 

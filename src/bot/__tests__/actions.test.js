@@ -20,7 +20,7 @@ describe('auto create messages', () => {
     const expectedText = `*Сообщений за последние 24 часа:* 
 *Сообщений за последний час:* `;
 
-    const slimbot = createMockedSlimbot((chatId, text) => {
+    const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch(expectedText);
     });
 
@@ -32,7 +32,7 @@ describe('auto create messages', () => {
       entities: [{ type: 'bot_command' }],
     };
 
-    await onMessage(slimbot, message);
+    await onMessage(bot, message);
   });
 
   test('messagesContentSupplier', async () => {
@@ -43,7 +43,7 @@ describe('auto create messages', () => {
 *test1 test1* - безработный (3 сообщения в рабочее время за неделю)
 *test1 test1* - поставщик контента (2 картинки, 1 видео)`;
 
-    const slimbot = createMockedSlimbot((chatId, text) => {
+    const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch(expectedText);
     });
 
@@ -56,7 +56,7 @@ describe('auto create messages', () => {
       entities: [{ type: 'bot_command' }],
     };
 
-    await onMessage(slimbot, message);
+    await onMessage(bot, message);
   });
 
   test('messagesWorklessUser', async () => {
@@ -66,7 +66,7 @@ describe('auto create messages', () => {
 *Сообщений за последний час:* test1 test1 (2)
 *test2 test2* - безработный (3 сообщения в рабочее время за неделю)`;
 
-    const slimbot = createMockedSlimbot((chatId, text) => {
+    const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch(expectedText);
     });
 
@@ -79,7 +79,7 @@ describe('auto create messages', () => {
       entities: [{ type: 'bot_command' }],
     };
 
-    await onMessage(slimbot, message);
+    await onMessage(bot, message);
   });
 });
 

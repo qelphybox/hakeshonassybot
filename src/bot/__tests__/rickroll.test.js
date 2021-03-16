@@ -9,7 +9,7 @@ moment.locale('ru');
 
 describe('manual create messages', () => {
   test('rickroll', async () => {
-    const slimbot = createMockedSlimbot((chatId, text) => {
+    const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('[Самый сильный младенец купил бмв](https://www.youtube.com/watch?v=dQw4w9WgXcQ)');
     });
 
@@ -21,6 +21,6 @@ describe('manual create messages', () => {
       entities: [{ type: 'bot_command' }],
     };
 
-    await onMessage(slimbot, rickMessage);
+    await onMessage(bot, rickMessage);
   });
 });

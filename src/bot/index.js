@@ -1,29 +1,19 @@
-const Slimbot = require('slimbot');
+const TelegramBot = require('node-telegram-bot-api');
 
 const { onMessage, onMessageEdit } = require('./actions');
 
 const { dbClient } = require('../dbClient');
 
-const buildProxySettings = () => {
-  let socks5;
-  if (process.env.SOCKS5_HOST || process.env.SOCKS5_PORT) {
-    socks5 = {
-      socksHost: process.env.SOCKS5_HOST,
-      socksPort: process.env.SOCKS5_PORT,
-    };
-  }
-  return socks5;
-};
-const slimbot = new Slimbot(process.env.TELEGRAM_BOT_TOKEN, buildProxySettings());
+const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN);
 
 // Register listeners
-slimbot.on('message', onMessage.bind(null, slimbot));
+bot.on('message', onMessage.bind(null, bot));
 
-slimbot.on('edited_message', onMessageEdit.bind(null, slimbot));
+bot.on('edited_message', onMessageEdit.bind(null, bot));
 
 dbClient.connect()
   .then(() => {
-    slimbot.startPolling();
+    bot.startPolling();
   })
   .catch((e) => {
     console.error('Database connection error', e);
@@ -31,7 +21,7 @@ dbClient.connect()
 
 process.on('exit', async (code) => {
   console.log(`Exit with code ${code}, stopping...`);
-  slimbot.stopPolling();
+  bot.stopPolling();
   await dbClient.disconnect();
   console.log('Bye!');
 });
