@@ -32,5 +32,6 @@ const dbClient = new DBClient(
   process.env.MONGO_URL,
   process.env.MONGO_DB_NAME,
 );
+
 Object.freeze(dbClient);
 module.exports = { dbClient };
