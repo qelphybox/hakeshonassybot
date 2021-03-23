@@ -7,13 +7,14 @@ const { dbClient } = require('../dbClient');
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN);
 
 // Register listeners
-bot.on('message', onMessage.bind(null, bot));
+bot.on("message", onMessage.bind(null, bot));
 
 bot.on('edited_message', onMessageEdit.bind(null, bot));
 
 dbClient.connect()
   .then(() => {
     bot.startPolling();
+
   })
   .catch((e) => {
     console.error('Database connection error', e);
