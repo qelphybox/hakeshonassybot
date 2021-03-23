@@ -43,6 +43,6 @@ jobs:
       - name: eslint
         uses: reviewdog/action-eslint@v1
         with:
-          fain_on_error: true
+          fail_on_error: true
           reporter: github-pr-review # Change reporter.
           eslint_flags: 'src/'
