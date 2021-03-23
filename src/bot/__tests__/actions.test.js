@@ -131,7 +131,7 @@ describe('on message edit action', () => {
 
     await dbClient.queryMessages(async (col) => {
       const message = await col.findOne({ message_id: firstMessage.message_id });
-      expect(message).toMatchObject(editedMessage);
+      expect(message).toMatchObject(1);
     });
   });
 });

@@ -44,4 +44,3 @@ jobs:
         with:
           reporter: github-check # Change reporter.
           eslint_flags: 'src/'
-      - run: npm run lint
