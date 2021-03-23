@@ -19,7 +19,7 @@ dbClient.connect()
     console.error('Database connection error', e);
   });
 
-process.on("exit", async (code) => {
+process.on('exit', async (code) => {
   console.log(`Exit with code ${code}, stopping...`);
   bot.stopPolling();
   await dbClient.disconnect();
