@@ -35,8 +35,7 @@ jobs:
         env:
           MONGO_DB_NAME: hakeshonassydb_test
           MONGO_URL: mongodb://localhost:27017
-  eslint:
-    name: runner / eslint
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -44,5 +43,5 @@ jobs:
         uses: reviewdog/action-eslint@v1
         with:
           fail_on_error: true
-          reporter: github-check
+          reporter: github-pr-review # Change reporter.
           eslint_flags: 'src/'
