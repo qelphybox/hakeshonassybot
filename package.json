@@ -32,9 +32,9 @@
     "morgan": "^1.10.0",
     "node-telegram-bot-api": "^0.51.0",
     "proschet": "^1.0.1",
-    "react": "^17.0.1",
+    "react": "^17.0.2",
     "react-bulma-components": "^3.4.0",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
