@@ -10,6 +10,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 13.x ]
     services:
       mongodb:
         image: mongo:4.2.6
@@ -17,15 +20,15 @@ jobs:
           - 27017:27017
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 13.x
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v1
         with:
-          node-version: 13.x
+          node-version: ${{ matrix.node }}
       - name: Cache Node.js modules
         uses: actions/cache@v2
         with:
           path: '**/node_modules'
-          key: ${{ runner.OS }}-modules-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.OS }}-node-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
