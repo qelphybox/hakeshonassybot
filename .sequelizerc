@@ -1,0 +1,10 @@
+'use strict';
+
+require('dotenv').config();    // don't forget to require dotenv
+const path = require('path');
+
+module.exports = {
+  'url': process.env.PG_URL,
+  'models-path': path.resolve('src', 'db', 'models'),
+  'migrations-path': path.resolve('src', 'db', 'migrations')
+};

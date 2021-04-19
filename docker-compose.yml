@@ -2,6 +2,7 @@ version: '3.7'
 
 volumes:
   db_data:
+  pgdata:
   node_modules:
   public:
 
@@ -56,3 +57,14 @@ services:
     ports:
       - 27017:27017
     command: mongod --logpath=/dev/null # --quiet
+
+  postgres:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
