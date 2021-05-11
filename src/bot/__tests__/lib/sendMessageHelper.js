@@ -47,7 +47,7 @@ const messageContentByType = {
   sticker: ({ setName }) => ({
     width: 512,
     height: 512,
-    emoji: '🐝',
+    emoji: '😆',
     set_name: setName,
     is_animated: false,
   }),
@@ -72,6 +72,28 @@ const sendTestMessage = async ({
 
   await onMessage(bot, userMessage);
 };
+
+const sendTestReplyMessage = async ({
+  userId, firstName, date, type, massageForReplay,
+}, onMessage, bot, messageContentObj) => {
+  const replyToMessage = {
+    message_id: uuidv4(),
+    from: {
+      id: userId,
+      is_bot: false,
+      first_name: firstName,
+    },
+    chat: {
+      id: 1,
+    },
+    date,
+    [type]: messageContentByType[type](messageContentObj),
+    reply_to_message: massageForReplay,
+  };
+
+  await onMessage(bot, replyToMessage);
+};
+
 const createMockedSlimbot = (sendMessageFn) => ({ sendMessage: jest.fn(sendMessageFn) });
 
-module.exports = { sendTestMessage, createMockedSlimbot };
+module.exports = { sendTestMessage, sendTestReplyMessage, createMockedSlimbot };
