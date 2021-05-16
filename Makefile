@@ -11,6 +11,10 @@ workdir:
 
 migrate:
 	$(COMPOSE_RUN) bot npm run migrate
+
+migrate-pg:
+	$(COMPOSE_RUN) bot npm run db:migration:run
+
 dev:
 	docker-compose up
 
