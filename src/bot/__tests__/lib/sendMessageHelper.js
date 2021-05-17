@@ -74,7 +74,7 @@ const sendTestMessage = async ({
 };
 
 const sendTestReplyMessage = async ({
-  userId, firstName, date, type, massageForReplay,
+  userId, firstName, date, type, messageForReplay,
 }, onMessage, bot, messageContentObj) => {
   const replyToMessage = {
     message_id: uuidv4(),
@@ -88,7 +88,7 @@ const sendTestReplyMessage = async ({
     },
     date,
     [type]: messageContentByType[type](messageContentObj),
-    reply_to_message: massageForReplay,
+    reply_to_message: messageForReplay,
   };
 
   await onMessage(bot, replyToMessage);

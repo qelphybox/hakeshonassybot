@@ -16,8 +16,9 @@ const collect = async ({ chat, date }) => {
           'chat.id': chat.id,
           date: { $gt: dayTimestamp },
           reply_to_message: { $exists: true },
+          $expr: { $ne: ['$from.id', '$reply_to_message.from.id'] },
           $or: [
-            { text: /^хах|^кек|^лол|ахах|хаха|азаз|ъаъ|]f]|hah|\[f\[|F}F|F{F/gim },
+            { text: /([^а-я]|^)(хах|кек|лол)([^а-я]|$)|ахах|хаха|азаз|ъаъ|]f]|hah|\[f\[|F}F|F{F/gim },
             { text: /😆|😅|🤣|😂|😸|😹|😀|😃|😄|😁/gm },
             { 'sticker.emoji': /😆|😅|🤣|😂|😸|😹|😀|😃|😄|😁/gm },
           ],
