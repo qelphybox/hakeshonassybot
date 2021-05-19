@@ -1,4 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
+const Chat = require('./chat.model');
 const { dbClient } = require('../dbClientPg');
 
 class User extends Model {}
@@ -15,5 +16,7 @@ User.init({
   modelName: 'User', // We need to choose the model name
   tableName: 'users',
 });
+
+User.belongsToMany(Chat, { through: 'UserChat' });
 
 module.exports = User;

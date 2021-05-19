@@ -13,7 +13,7 @@ UserChat.init({
   tableName: 'users_chats',
 });
 
-Chat.belongsToMany(User, { through: UserChat });
-User.belongsToMany(Chat, { through: UserChat });
+Chat.belongsToMany(User, { through: 'UserChat' });
+User.belongsToMany(Chat, { through: 'UserChat' });
 
 module.exports = UserChat;
