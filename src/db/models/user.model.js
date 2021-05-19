@@ -9,8 +9,11 @@ User.init({
   lastName: DataTypes.STRING,
 }, {
   // Other model options go here
+  underscored: true,
+  timestamps: false,
   sequelize: dbClient.client, // We need to pass the connection instance
   modelName: 'User', // We need to choose the model name
+  tableName: 'users',
 });
 
 module.exports = User;

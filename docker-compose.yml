@@ -35,7 +35,7 @@ services:
 
   bot:
     build: .
-    command: npm run dotenv:bot
+    command: npm run bot:watch
     restart: always
     environment:
       - MONGO_URL=mongodb://mongodb:27017

@@ -14,13 +14,14 @@
     "api": "node src/api/index.js",
     "api:watch": "onchange -i -k 'src/api/**/*.js' -- npm run dotenv:api",
     "bot": "node src/bot/index.js",
+    "bot:watch": "onchange -i -k 'src/bot/**/*.js' -- npm run dotenv:bot",
     "migrate": "node src/migrate.js",
     "test": "jest -i",
     "lint": "eslint \"**/*.js\"",
     "lint:fix": "npm run lint -- --fix",
-    "db:migration:generate": "node -r dotenv/config npm run sequelize migration:generate --name",
+    "db:migration:generate": "node -r dotenv/config node_modules/.bin/sequelize migration:generate --name",
     "db:migration:run": "node -r dotenv/config node_modules/.bin/sequelize db:migrate",
-    "db:migration:undo": "node -r dotenv/config npm run sequelize db:migrate:undo"
+    "db:migration:undo": "node -r dotenv/config node_modules/.bin/sequelize db:migrate:undo"
   },
   "author": "",
   "license": "MIT",

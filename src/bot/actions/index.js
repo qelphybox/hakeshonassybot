@@ -1,5 +1,8 @@
 const fs = require('fs');
 const util = require('util');
+const User = require('../../db/models/user.model');
+const Chat = require('../../db/models/chat.model');
+const UserChat = require('../../db/models/user-chat.model');
 const { statsArray } = require('../statistics');
 const { dbClient } = require('../../dbClient');
 
@@ -56,6 +59,28 @@ const onMessage = async (bot, message) => {
       await version(bot, message);
     }
   } else {
+    console.log(message);
+    const chat = await Chat.create({
+      name: message.chat.title,
+    });
+    console.log('chat: ', chat);
+    const user = await User.create({
+      firstName: message.from.first_name,
+      lastName: message.from.last_name,
+    });
+
+    console.log('user: ', user);
+
+    console.log(user.id);
+    console.log(chat.id);
+    const userChatss = {
+      user,
+      chat,
+    };
+
+    console.log('userChatss: ', userChatss);
+    const userChat = await UserChat.create(userChatss);
+    console.log('userChat: ', userChat);
     await dbClient.queryMessages(async (messages) => {
       await messages.insertOne(message);
     });

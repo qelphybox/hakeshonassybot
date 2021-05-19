@@ -2,7 +2,7 @@ const TelegramBot = require('node-telegram-bot-api');
 
 const { onMessage, onMessageEdit } = require('./actions');
 
-const { dbClient } = require('../dbClient');
+const { dbClient } = require('../db/dbClientPg');
 
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN);
 

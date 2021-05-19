@@ -21,18 +21,6 @@ class DBClient {
   close() {
     return this.client.close();
   }
-
-  // get db() {
-  //   return this.client.db(this.dbName);
-  // }
-  //
-  // query(callback) {
-  //   return callback(this.db);
-  // }
-  //
-  // queryMessages(callback) {
-  //   return this.query((db) => callback(db.collection('messages')));
-  // }
 }
 
 const dbClient = new DBClient(
