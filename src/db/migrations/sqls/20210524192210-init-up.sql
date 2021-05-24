@@ -1,19 +1,5 @@
 BEGIN TRANSACTION;
 
--- message_metrics
--- -------
--- id:serial
--- tg_id:int
--- timestamp:datetime
--- users_chats_id:int
--- photoCount:int
--- videoCount:int
--- questionCount: int
--- stickerSetName:string
--- textLength:int
--- voiceCount:int
--- lolReplyForUser:int
-
 CREATE TABLE message_metrics
 (
     id              SERIAL PRIMARY KEY,

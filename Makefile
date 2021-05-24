@@ -15,8 +15,8 @@ migrate:
 migrate-pg:
 	$(COMPOSE_RUN) bot npm run db:migration:up
 
-migrate-undo-pg:
-	$(COMPOSE_RUN) bot npm run db:migration:undo
+migrate-down-pg:
+	$(COMPOSE_RUN) bot npm run db:migration:down
 
 dev:
 	docker-compose up
