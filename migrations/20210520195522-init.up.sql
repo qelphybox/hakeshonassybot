@@ -23,7 +23,7 @@ CREATE TABLE message_metrics
     photoCount      integer     NOT NULL,
     videoCount      integer     NOT NULL,
     questionCount   integer     NOT NULL,
-    stickerSetName  varchar(40) NOT NULL,
+    stickerSetName  varchar NOT NULL,
     textLength      integer     NOT NULL,
     voiceCount      integer     NOT NULL,
     lolReplyForUser integer     NOT NULL
@@ -33,15 +33,15 @@ CREATE TABLE users
 (
     id         SERIAL PRIMARY KEY,
     tg_id      integer     NOT NULL,
-    first_name varchar(40) NOT NULL,
-    last_name  varchar(40) NOT NULL
+    first_name varchar NOT NULL,
+    last_name  varchar NOT NULL
 );
 
 CREATE TABLE chats
 (
     id     SERIAL PRIMARY KEY,
     tg_id  integer     NOT NULL,
-    string varchar(40) NOT NULL
+    string varchar NOT NULL
 );
 
 CREATE TABLE users_chats
