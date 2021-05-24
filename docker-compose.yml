@@ -2,6 +2,7 @@ version: '3.7'
 
 volumes:
   db_data:
+  pgdata:
   node_modules:
   public:
 
@@ -34,7 +35,7 @@ services:
 
   bot:
     build: .
-    command: npm run dotenv:bot
+    command: npm run bot:watch
     restart: always
     environment:
       - MONGO_URL=mongodb://mongodb:27017
@@ -56,3 +57,15 @@ services:
     ports:
       - 27017:27017
     command: mongod --logpath=/dev/null # --quiet
+
+  postgres:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=hakeshonassydb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
