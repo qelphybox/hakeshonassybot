@@ -3,7 +3,6 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const path = require('path');
-const AuthService = require('./services/auth.service');
 
 const app = express();
 const authRouter = require('./routes/auth.router');
@@ -26,15 +25,13 @@ app.get('/test-auth', (req, res) => {
   res.status(200);
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../../public/index.html'));
-  res.status(200);
-});
-
-app.get('/api/stupid_achievments', authRouter, (req, res) => {
-  const user = { ...req.query };
-  if (AuthService.validateTelegramAuth(user)) {
-    res.send({
+app.get('/api/stupid_achievments', (req, res) => {
+  const { user } = req.cookies;
+  console.log(req.headers);
+  console.log(req.cookies);
+  // res.send('Hello World!');
+  if (user) {
+    res.status(200).send({
       status: 'ok',
       stupid_achievments: [
         { title: 'Количество сообщений', name: 'messages_count' },
@@ -48,11 +45,14 @@ app.get('/api/stupid_achievments', authRouter, (req, res) => {
         { title: 'Юморист', name: 'humorist' },
       ],
     });
-    res.status(200);
   } else {
-    res.send({ status: 'forbidden' });
-    res.status(403);
+    res.status(403).send({ status: 'forbidden' });
   }
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../../public/index.html'));
+  res.status(200);
 });
 
 // catch 404 and forward to error handler
