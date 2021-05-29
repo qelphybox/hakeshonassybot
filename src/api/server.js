@@ -27,9 +27,7 @@ app.get('/test-auth', (req, res) => {
 
 app.get('/api/stupid_achievments', (req, res) => {
   const { user } = req.cookies;
-  console.log(req.headers);
-  console.log(req.cookies);
-  // res.send('Hello World!');
+
   if (user) {
     res.status(200).send({
       status: 'ok',

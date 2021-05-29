@@ -33,7 +33,6 @@ describe('Post Endpoints', () => {
         .get('/auth/callback')
         .query(user)
         .send();
-      console.log(authResponse.headers['set-cookie']);
 
       const cookies = extractCookies(authResponse.headers);
 
@@ -45,13 +44,9 @@ describe('Post Endpoints', () => {
 
       const response = await request(app)
         .get('/api/stupid_achievments')
-        .query(user)
-        .set('set-cookie', authResponse.headers['set-cookie'])
+        .set('Cookie', authResponse.headers['set-cookie'])
         .send();
 
-      // console.log(response.headers);
-      // console.log(response.statusCode);
-      // console.log(response.body);
       expect(authResponse.statusCode).toBe(302);
       expect(authResponse.headers.location).toBe('/?auth=success');
       expect(rejectedUser).toMatchObject(user);
@@ -60,14 +55,11 @@ describe('Post Endpoints', () => {
     });
 
     it('should return forbidden', async () => {
-      const badUser = { ...user, username: 'bad' };
       const response = await request(app)
         .get('/api/stupid_achievments')
-        .query(badUser)
         .send();
 
       const forbidden = { status: 'forbidden' };
-      // const cookies = response.headers['set-cookie'];
 
       expect(response.statusCode).toBe(403);
       expect(response.body).toMatchObject(forbidden);
