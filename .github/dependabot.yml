@@ -1,0 +1,78 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "02:00"
+  open-pull-requests-limit: 10
+  assignees:
+  - qelphybox
+  ignore:
+  - dependency-name: webpack
+    versions:
+    - 5.18.0
+    - 5.20.0
+    - 5.20.1
+    - 5.20.2
+    - 5.24.0
+    - 5.24.1
+    - 5.24.4
+    - 5.25.1
+    - 5.26.0
+    - 5.26.2
+    - 5.27.1
+    - 5.28.0
+    - 5.30.0
+    - 5.31.0
+    - 5.32.0
+    - 5.33.2
+    - 5.34.0
+    - 5.35.0
+    - 5.35.1
+    - 5.36.0
+  - dependency-name: mini-css-extract-plugin
+    versions:
+    - 1.4.0
+    - 1.5.0
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.12.16
+    - 7.13.1
+    - 7.13.13
+    - 7.13.15
+  - dependency-name: eslint-plugin-jest
+    versions:
+    - 24.1.4
+    - 24.1.8
+    - 24.1.9
+    - 24.2.0
+    - 24.2.1
+    - 24.3.1
+    - 24.3.5
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+    - 4.0.2
+  - dependency-name: eslint
+    versions:
+    - 7.18.0
+    - 7.23.0
+  - dependency-name: eslint-plugin-react
+    versions:
+    - 7.23.1
+  - dependency-name: css-loader
+    versions:
+    - 5.1.2
+    - 5.2.0
+  - dependency-name: html-webpack-plugin
+    versions:
+    - 5.0.0
+    - 5.3.0
+  - dependency-name: "@babel/preset-env"
+    versions:
+    - 7.13.0
+    - 7.13.8
+  - dependency-name: sass-loader
+    versions:
+    - 11.0.0
