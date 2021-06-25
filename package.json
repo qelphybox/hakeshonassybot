@@ -53,7 +53,7 @@
     "jest": "^27.0.5",
     "mini-css-extract-plugin": "^1.6.0",
     "mockdate": "^3.0.5",
-    "node-sass": "^6.0.0",
+    "node-sass": "^6.0.1",
     "onchange": "^7.1.0",
     "sass-loader": "^12.1.0",
     "style-loader": "^2.0.0",
