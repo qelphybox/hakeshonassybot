@@ -6,6 +6,7 @@ const path = require('path');
 
 const app = express();
 const authRouter = require('./routes/auth.router');
+const AuthService = require('./services/auth.service');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -27,8 +28,14 @@ app.get('/test-auth', (req, res) => {
 
 app.get('/api/stupid_achievments', (req, res) => {
   const { user } = req.cookies;
-
-  if (user) {
+  // const user2 = { ...req.query };
+  // console.log(user2);
+  // console.log(AuthService.validateTelegramAuth(JSON.parse(user)));
+  // console.log(req.cookies);
+  // console.log(JSON.parse(user));
+  console.log(user);
+  // if (user !== undefined) {
+  if (user !== undefined && AuthService.validateTelegramAuth(JSON.parse(user))) {
     res.status(200).send({
       status: 'ok',
       stupid_achievments: [
@@ -46,6 +53,9 @@ app.get('/api/stupid_achievments', (req, res) => {
   } else {
     res.status(403).send({ status: 'forbidden' });
   }
+  // } else {
+  //   res.status(403).send({ status: 'forbidden' });
+  // }
 });
 
 app.get('*', (req, res) => {
