@@ -52,10 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ test, lint ]
     steps:
-      - uses: actions/checkout@v2
-      - uses: ahmadnassri/action-dependabot-auto-merge@v2
+      - uses: fastify/github-action-merge-dependabot@v2.0.0
         with:
-          target: minor
-          approve: false
-          github-token: ${{ secrets.GH_TOKEN }}
-          command: squash and merge
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          api-url: https://fastify-dependabot-merge-app-5uewp47fja-uc.a.run.app/
