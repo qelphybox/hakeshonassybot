@@ -16,6 +16,9 @@ CREATE TABLE message_metrics
     UNIQUE (tg_id)
 );
 
+CREATE UNIQUE INDEX message_metrics_tg_idx ON message_metrics (tg_id);
+CREATE UNIQUE INDEX message_metrics_users_chats_idx ON message_metrics (users_chats_id);
+
 CREATE TABLE users
 (
     id         SERIAL PRIMARY KEY,
@@ -25,14 +28,18 @@ CREATE TABLE users
     UNIQUE (tg_id)
 );
 
+CREATE UNIQUE INDEX users_tg_idx ON users (tg_id);
+
 CREATE TABLE chats
 (
     id    SERIAL PRIMARY KEY,
     tg_id integer NOT NULL,
     name  varchar NOT NULL,
     UNIQUE (tg_id)
-
 );
+
+CREATE UNIQUE INDEX chats_tg_idx ON chats (tg_id);
+
 
 CREATE TABLE users_chats
 (
