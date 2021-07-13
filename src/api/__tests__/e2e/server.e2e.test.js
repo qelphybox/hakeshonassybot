@@ -1,6 +1,7 @@
 const request = require('supertest');
 const { extractCookies } = require('../utils/utils');
 const app = require('../../server');
+const statistics = require('../../../bot/statistics');
 
 describe('Post Endpoints', () => {
   const user = {
@@ -12,22 +13,25 @@ describe('Post Endpoints', () => {
     hash: '334871437604f2f1c57a1ec2f5fb0171f99220c3f6c91d6b1188d26e8f9ae2f7',
   };
 
-  const achievments = {
+  const statisticNamesAndTitles = statistics.statsArray.map(({ title, name }) => ({ title, name }))
+    .filter((achiv) => achiv.title !== undefined && achiv.name !== undefined);
+
+  const responceAchievments = {
     status: 'ok',
-    stupid_achievments: [
-      { title: 'Количество сообщений', name: 'messages_count' },
-      { title: 'Безработный', name: 'workless_user' },
-      { title: 'Поставщик контента', name: 'content_supplier' },
-      { title: 'Худший юзер чата', name: 'worst_chat_user' },
-      { title: 'Стикерпакер', name: 'stickerpacker' },
-      { title: 'Пропавший без вести', name: 'maybe_died' },
-      { title: 'Дудь', name: 'dud' },
-      { title: 'Философ', name: 'philosopher' },
-      { title: 'Юморист', name: 'humorist' },
-    ],
+    stupid_achievments: statisticNamesAndTitles,
   };
 
   describe('/api/stupid_achievments', () => {
+    it('should work with agent', async () => {
+      const agent = request.agent(app);
+
+      await agent.get('/auth/callback').query(user).send();
+      const response = await agent.get('/api/stupid_achievments').send();
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body).toMatchObject(responceAchievments);
+    });
+
     it('should return stupid_achievments', async () => {
       const authResponse = await request(app)
         .get('/auth/callback')
@@ -36,7 +40,7 @@ describe('Post Endpoints', () => {
 
       const cookies = extractCookies(authResponse.headers);
 
-      const rejectedUser = {
+      const acceptedUser = {
         ...cookies.user,
         id: Number(cookies.user.id),
         auth_date: Number(cookies.user.auth_date),
@@ -47,11 +51,9 @@ describe('Post Endpoints', () => {
         .set('Cookie', authResponse.headers['set-cookie'])
         .send();
 
-      expect(authResponse.statusCode).toBe(302);
-      expect(authResponse.headers.location).toBe('/?auth=success');
-      expect(rejectedUser).toMatchObject(user);
+      expect(acceptedUser).toMatchObject(user);
       expect(response.statusCode).toBe(200);
-      expect(response.body).toMatchObject(achievments);
+      expect(response.body).toMatchObject(responceAchievments);
     });
 
     it('should return forbidden', async () => {

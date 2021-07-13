@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const path = require('path');
+const statistics = require('../bot/statistics');
 
 const app = express();
 const authRouter = require('./routes/auth.router');
@@ -28,34 +29,17 @@ app.get('/test-auth', (req, res) => {
 
 app.get('/api/stupid_achievments', (req, res) => {
   const { user } = req.cookies;
-  // const user2 = { ...req.query };
-  // console.log(user2);
-  // console.log(AuthService.validateTelegramAuth(JSON.parse(user)));
-  // console.log(req.cookies);
-  // console.log(JSON.parse(user));
-  console.log(user);
-  // if (user !== undefined) {
+  const statisticNamesAndTitles = statistics.statsArray.map(({ title, name }) => ({ title, name }))
+    .filter((achiv) => achiv.title !== undefined && achiv.name !== undefined);
+
   if (user !== undefined && AuthService.validateTelegramAuth(JSON.parse(user))) {
     res.status(200).send({
       status: 'ok',
-      stupid_achievments: [
-        { title: 'Количество сообщений', name: 'messages_count' },
-        { title: 'Безработный', name: 'workless_user' },
-        { title: 'Поставщик контента', name: 'content_supplier' },
-        { title: 'Худший юзер чата', name: 'worst_chat_user' },
-        { title: 'Стикерпакер', name: 'stickerpacker' },
-        { title: 'Пропавший без вести', name: 'maybe_died' },
-        { title: 'Дудь', name: 'dud' },
-        { title: 'Философ', name: 'philosopher' },
-        { title: 'Юморист', name: 'humorist' },
-      ],
+      stupid_achievments: statisticNamesAndTitles,
     });
   } else {
     res.status(403).send({ status: 'forbidden' });
   }
-  // } else {
-  //   res.status(403).send({ status: 'forbidden' });
-  // }
 });
 
 app.get('*', (req, res) => {
