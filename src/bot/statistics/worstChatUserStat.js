@@ -37,4 +37,6 @@ const render = (collectedStat) => {
 module.exports = {
   render,
   collect,
+  title: 'Худший юзер чата',
+  name: 'worst_chat_user',
 };

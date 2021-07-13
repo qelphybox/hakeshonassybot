@@ -67,4 +67,6 @@ const render = (collectedStat) => {
 module.exports = {
   render,
   collect,
+  title: 'Безработный',
+  name: 'workless_user',
 };

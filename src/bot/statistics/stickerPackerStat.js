@@ -50,4 +50,6 @@ const render = (collectedStat) => {
 module.exports = {
   render,
   collect,
+  title: 'Стикерпакер',
+  name: 'stickerpacker',
 };

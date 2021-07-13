@@ -84,4 +84,6 @@ const render = (collectedStat) => {
 module.exports = {
   render,
   collect,
+  title: 'Поставщик контента',
+  name: 'content_supplier',
 };

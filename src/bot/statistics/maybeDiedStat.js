@@ -44,4 +44,6 @@ const render = (collectedStat) => {
 module.exports = {
   render,
   collect,
+  title: 'Пропавший без вести',
+  name: 'maybe_died',
 };
