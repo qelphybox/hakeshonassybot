@@ -44,6 +44,7 @@ services:
       - ./:/app
       - node_modules:/app/node_modules:cached
     depends_on:
+      - postgres
       - mongodb
 
   mongodb:
@@ -68,4 +69,4 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - 5433:5432
+      - 5432:5432

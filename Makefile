@@ -36,10 +36,10 @@ dev-setup:
 dev-reset: dev-down-v dev-build dev-setup
 
 test:
-	$(COMPOSE_RUN) -e MONGO_DB_NAME=hakeshonassydb_test bot npm test
+	$(COMPOSE_RUN) -e POSTGRES_DB=hakeshonassydb_test bot npm test
 
 setup_test:
-	$(COMPOSE_RUN) -e MONGO_DB_NAME=hakeshonassydb_test bot npm run migrate
+	$(COMPOSE_RUN) -e POSTGRES_DB=hakeshonassydb_test bot npm run migrate
 
 lint:
 	$(COMPOSE_RUN) --no-deps bot npm run lint

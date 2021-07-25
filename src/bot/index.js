@@ -2,7 +2,7 @@ const TelegramBot = require('node-telegram-bot-api');
 
 const { onMessage, onMessageEdit } = require('./actions');
 
-const { dbClient } = require('../dbClient');
+const { dbClient } = require('../db/dbClientPg');
 
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN);
 
@@ -22,6 +22,6 @@ dbClient.connect()
 process.on('exit', async (code) => {
   console.log(`Exit with code ${code}, stopping...`);
   bot.stopPolling();
-  await dbClient.disconnect();
+  await dbClient.close();
   console.log('Bye!');
 });
