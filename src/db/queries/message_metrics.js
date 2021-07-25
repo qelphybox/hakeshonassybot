@@ -25,7 +25,7 @@ const createMessageMetric = async (client, messageMetric, userChat) => {
                                  voiceCount,
                                  lolReplyForUser)
      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-     ON CONFLICT (tg_id) DO NOTHING RETURNING *`,
+     ON CONFLICT (tg_id) DO UPDATE SET tg_id=EXCLUDED.tg_id RETURNING *`,
     getValues(messageMetric, userChat),
   );
   console.log(result);

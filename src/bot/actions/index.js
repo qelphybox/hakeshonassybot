@@ -96,7 +96,7 @@ const onMessage = async (bot, message) => {
 
     const { chat, user, messageMetrics } = fetchMessageMetrics(message);
 
-    const client = await dbClient.connect();
+    const client = await dbClient.getClient();
     try {
       await client.query('BEGIN');
       const chatResult = await createChat(client, chat);

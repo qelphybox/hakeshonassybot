@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+const { Client } = require('pg');
 // const { Client } = require('pg')
 // const client = new Client()
 // await client.connect()
@@ -17,21 +17,21 @@ class DBClient {
   constructor(url) {
     console.log(url);
     this.url = url;
-    this.pool = new Pool({
+    this.client = new Client({
       connectionString: url,
     });
   }
 
   connect() {
-    return this.pool.connect();
+    return this.client.connect();
   }
 
   getClient() {
-    return this.pool.connect();
+    return this.client;
   }
 
   close() {
-    return this.pool.end();
+    return this.client.end();
   }
 }
 
