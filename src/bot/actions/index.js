@@ -97,23 +97,18 @@ const onMessage = async (bot, message) => {
     const { chat, user, messageMetrics } = fetchMessageMetrics(message);
 
     const client = await dbClient.getClient();
-    try {
-      await client.query('BEGIN');
-      const chatResult = await createChat(client, chat);
-      console.log('chatResult: ', chatResult);
-      const userResult = await createUser(client, user);
-      console.log('userResult: ', userResult);
-      const userChatResult = await createUserChat(client, { user: userResult, chat: chatResult });
-      console.log('userChatResult: ', userChatResult);
-      const messageMetricResult = await createMessageMetric(client, messageMetrics, userChatResult);
-      console.log('messageMetricResult: ', messageMetricResult);
-      await client.query('COMMIT');
-    } catch (e) {
-      await client.query('ROLLBACK');
-      throw e;
-    } finally {
-      client.release();
-    }
+    await client.query('BEGIN');
+    const chatResult = await createChat(chat);
+    console.log('chatResult: ', chatResult);
+    const userResult = await createUser(user);
+    console.log('userResult: ', userResult);
+    const userChatResult = await createUserChat({ user: userResult, chat: chatResult });
+    console.log('userChatResult: ', userChatResult);
+    const messageMetricResult = await createMessageMetric(messageMetrics, userChatResult);
+    console.log('messageMetricResult: ', messageMetricResult);
+    await client.query('COMMIT');
+    await client.query('ROLLBACK');
+    // TODO: ВЕРНУТЬ ЗАПИСЬ В МОНГУ
     // await dbClient.queryMessages(async (messages) => {
     //   await messages.insertOne(message);
     // });

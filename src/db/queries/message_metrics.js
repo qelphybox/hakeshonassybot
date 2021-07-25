@@ -1,3 +1,5 @@
+const { dbClient } = require('../dbClientPg');
+
 const getValues = (messageMetric, userChat) => [
   messageMetric.tg_id,
   new Date(), // FIXME: сохранять date из message
@@ -11,8 +13,8 @@ const getValues = (messageMetric, userChat) => [
   messageMetric.lolReplyForUser,
 ];
 
-const createMessageMetric = async (client, messageMetric, userChat) => {
-  console.log(userChat);
+const createMessageMetric = async (messageMetric, userChat) => {
+  const client = dbClient.getClient();
   const result = await client.query(
     `INSERT INTO message_metrics(tg_id,
                                  timestamp,
@@ -28,7 +30,6 @@ const createMessageMetric = async (client, messageMetric, userChat) => {
      ON CONFLICT (tg_id) DO UPDATE SET tg_id=EXCLUDED.tg_id RETURNING *`,
     getValues(messageMetric, userChat),
   );
-  console.log(result);
   return result.rows[0];
 };
 

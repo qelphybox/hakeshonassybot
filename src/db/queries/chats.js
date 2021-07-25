@@ -10,7 +10,6 @@ const createChat = async (chat) => {
      RETURNING *`,
     getValues(chat),
   );
-  console.log(result);
   return result.rows[0];
 };
 
