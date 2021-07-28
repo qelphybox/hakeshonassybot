@@ -17,7 +17,7 @@ CREATE TABLE message_metrics
 );
 
 CREATE UNIQUE INDEX message_metrics_tg_idx ON message_metrics (tg_id);
-CREATE UNIQUE INDEX message_metrics_users_chats_idx ON message_metrics (users_chats_id);
+-- CREATE UNIQUE INDEX message_metrics_users_chats_idx ON message_metrics (users_chats_id);
 
 CREATE TABLE users
 (

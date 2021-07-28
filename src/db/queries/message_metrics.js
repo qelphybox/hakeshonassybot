@@ -14,6 +14,9 @@ const getValues = (messageMetric, userChat) => [
 ];
 
 const createMessageMetric = async (messageMetric, userChat) => {
+  console.log('!!!!!!!!!!!!!!!!!!');
+  console.log('!!!!!!!!!!!!!!!!!!');
+  console.log(messageMetric);
   const client = dbClient.getClient();
   const result = await client.query(
     `INSERT INTO message_metrics(tg_id,
