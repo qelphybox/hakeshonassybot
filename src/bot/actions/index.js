@@ -19,9 +19,28 @@ const getDudCount = (text) => (/\?/.test(text) ? 1 : 0);
 const getStickySetName = (sticker) => (sticker && sticker.set_name ? sticker.set_name : '');
 const getTextLength = (text) => (text ? text.length : 0);
 const getVoiceCount = (voice) => (voice ? 1 : 0);
+const getLoanReplyForUserCount = (replyToMessage, from, text, sticker) => {
+  if (replyToMessage && from.id !== replyToMessage.from.id) {
+    const emoji = /😆|😅|🤣|😂|😸|😹|😀|😃|😄|😁/gm;
+    const ahahaExist = /([^а-я]|^)(хах|кек|лол)([^а-я]|$)|ахах|хаха|азаз|ъаъ|]f]|hah|\[f\[|F}F|F{F/gim.test(text);
+    const emojiExist = emoji.test(text);
+    const stickerExist = sticker && emoji.test(sticker.emoji);
+    if (ahahaExist || emojiExist || stickerExist) return 1;
+  }
+  return 0;
+};
 
 const fetchMessageMetrics = ({
-  from, chat, message_id: messageId, date, photo, video, text, sticker, voice,
+  from,
+  chat,
+  message_id: messageId,
+  date,
+  photo,
+  video,
+  text,
+  sticker,
+  voice,
+  reply_to_message: replyToMessage,
 }) => ({
   user: {
     tg_id: from.id,
@@ -41,7 +60,7 @@ const fetchMessageMetrics = ({
     stickerSetName: getStickySetName(sticker),
     textLength: getTextLength(text),
     voiceCount: getVoiceCount(voice), // ставим 1 если сообщение это голосуха
-    lolReplyForUser: 2, // humoristStat ищем в сообщениии реакцию смеха, и если она есть записываем сюда id юзера из реплая reply_to_message.from.id
+    lolReplyForUser: getLoanReplyForUserCount(replyToMessage, from, text, sticker), // humoristStat ищем в сообщениии реакцию смеха, и если она есть записываем сюда id юзера из реплая reply_to_message.from.id
   },
 });
 
