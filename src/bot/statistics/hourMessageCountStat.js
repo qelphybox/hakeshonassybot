@@ -28,6 +28,6 @@ const render = (collectedStat) => `*Сообщений за последний �
 module.exports = {
   render,
   collect,
-  title: 'Количество сообщений',
-  name: 'messages_count',
+  title: 'Количество сообщений за час',
+  name: 'messages_count_hour',
 };

@@ -9,6 +9,8 @@ const app = express();
 const authRouter = require('./routes/auth.router');
 const AuthService = require('./services/auth.service');
 
+const statisticNamesAndTitles = statistics.statsArray.map(({ title, name }) => ({ title, name }));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,8 +31,7 @@ app.get('/test-auth', (req, res) => {
 
 app.get('/api/stupid_achievments', (req, res) => {
   const { user } = req.cookies;
-  const statisticNamesAndTitles = statistics.statsArray.map(({ title, name }) => ({ title, name }))
-    .filter((achiv) => achiv.title !== undefined && achiv.name !== undefined);
+  console.log(statistics.statsArray.map(({ title, name }) => ({ title, name })));
 
   if (user !== undefined && AuthService.validateTelegramAuth(JSON.parse(user))) {
     res.status(200).send({
