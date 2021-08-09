@@ -20,7 +20,7 @@ describe('Post Endpoints', () => {
   };
 
   describe('/api/stupid_achievments', () => {
-    it('should work with agent', async () => {
+    it('response success to signed user', async () => {
       const agent = request.agent(app);
 
       await agent.get('/auth/callback').query(user).send();
@@ -30,7 +30,7 @@ describe('Post Endpoints', () => {
       expect(response.body).toMatchObject(responceAchievments);
     });
 
-    it('should return forbidden', async () => {
+    it('response forbidden to unsigned user', async () => {
       const response = await request(app)
         .get('/api/stupid_achievments')
         .send();
