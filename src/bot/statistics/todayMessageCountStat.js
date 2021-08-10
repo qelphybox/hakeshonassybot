@@ -28,4 +28,6 @@ const render = (collectedStat) => `*Сообщений за последние 2
 module.exports = {
   render,
   collect,
+  title: 'Количество сообщений за день',
+  name: 'messages_count_day',
 };

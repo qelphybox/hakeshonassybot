@@ -3,9 +3,13 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const path = require('path');
+const statistics = require('../bot/statistics');
 
 const app = express();
 const authRouter = require('./routes/auth.router');
+const AuthService = require('./services/auth.service');
+
+const statisticNamesAndTitles = statistics.statsArray.map(({ title, name }) => ({ title, name }));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -23,6 +27,20 @@ app.use('/auth', authRouter);
 app.get('/test-auth', (req, res) => {
   res.sendFile(path.resolve(__dirname, './controllers/test-auth-pages/home.html'));
   res.status(200);
+});
+
+app.get('/api/stupid_achievments', (req, res) => {
+  const { user } = req.cookies;
+  console.log(statistics.statsArray.map(({ title, name }) => ({ title, name })));
+
+  if (user !== undefined && AuthService.validateTelegramAuth(JSON.parse(user))) {
+    res.status(200).send({
+      status: 'ok',
+      stupid_achievments: statisticNamesAndTitles,
+    });
+  } else {
+    res.status(403).send({ status: 'forbidden' });
+  }
 });
 
 app.get('*', (req, res) => {
