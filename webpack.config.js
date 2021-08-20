@@ -2,6 +2,8 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const dotenv = require('dotenv');
+const { DefinePlugin } = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -49,6 +51,9 @@ module.exports = {
       title: 'Hake Shonassy Bot',
       inject: 'head',
       scriptLoading: 'defer',
+    }),
+    new DefinePlugin({
+      'process.env': JSON.stringify(dotenv.config().parsed) // it will automatically pick up key values from .env file
     }),
   ],
   resolve: {

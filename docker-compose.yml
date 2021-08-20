@@ -70,3 +70,15 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
+
+  localtunnel:
+    image: efrecon/localtunnel
+    restart: on-failure
+    command:
+      --local-host api --port 3000 --subdomain $SUBDOMAIN
+    env_file:
+      - .env
+    links:
+      - api
+    depends_on:
+      - api
