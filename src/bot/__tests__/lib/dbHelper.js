@@ -1,5 +1,5 @@
-const {dbClient} = require('../../../dbClient');
-const {dbClient: dbClientPg} = require('../../../db/dbClientPg');
+const { dbClient } = require('../../../dbClient');
+const { dbClient: dbClientPg } = require('../../../db/dbClientPg');
 
 const describeDBSetupTeardown = () => {
   beforeAll(async () => {
@@ -21,4 +21,4 @@ const describeDBSetupTeardown = () => {
   });
 };
 
-module.exports = {describeDBSetupTeardown};
+module.exports = { describeDBSetupTeardown };
