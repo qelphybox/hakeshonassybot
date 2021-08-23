@@ -43,4 +43,6 @@ const render = (collectedStat) => {
 module.exports = {
   render,
   collect,
+  title: 'Дудь',
+  name: 'dud',
 };

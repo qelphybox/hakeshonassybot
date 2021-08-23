@@ -56,4 +56,6 @@ const render = (collectedStat) => {
 module.exports = {
   render,
   collect,
+  title: 'Юморист',
+  name: 'humorist',
 };
