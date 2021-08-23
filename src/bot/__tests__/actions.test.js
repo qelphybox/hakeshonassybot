@@ -28,6 +28,11 @@ describe('auto create messages', () => {
       chat: {
         id: 0,
       },
+      from: {
+        id: 1,
+        first_name: 'test',
+        last_name: 'test',
+      },
       text: '/stats',
       entities: [{ type: 'bot_command' }],
     };

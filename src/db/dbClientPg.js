@@ -27,5 +27,4 @@ const dbClient = new DBClient(
 );
 
 Object.freeze(dbClient);
-console.log(dbClient);
 module.exports = { dbClient };

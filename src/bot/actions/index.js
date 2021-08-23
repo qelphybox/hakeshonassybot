@@ -1,12 +1,10 @@
 const fs = require('fs');
 const util = require('util');
-const { getStatistic } = require('../../db/queries/statistic');
-const { createMessageMetric } = require('../../db/queries/message_metrics');
-const { createUserChat } = require('../../db/queries/user_chats');
-const { createUser } = require('../../db/queries/users');
-const { createChat } = require('../../db/queries/chats');
 const { statsArray } = require('../statistics');
-const { dbClient } = require('../../db/dbClientPg');
+const { dbClient } = require('../../dbClient');
+const MetricsRepository = require('../../db/repositories/metrics');
+
+const metricsRepository = new MetricsRepository();
 
 const isCommand = ({ entities }) => !!entities && entities.some((entity) => entity.type === 'bot_command');
 
@@ -65,13 +63,7 @@ const fetchMessageMetrics = ({
   },
 });
 
-const getStatByChat = async (chatId) => {
-  const statistic = await getStatistic(chatId);
-};
-
 const stats = async (bot, message) => {
-  const chatId = message.chat.id;
-  const stata = await getStatByChat(chatId);
   const statsText = await Promise.all(statsArray.map(async ({ render, collect }) => {
     const collection = await collect(message);
     return render(collection);
@@ -118,26 +110,12 @@ const onMessage = async (bot, message) => {
       await version(bot, message);
     }
   } else {
-    console.log('message: ', message);
+    const metrics = fetchMessageMetrics(message);
+    await metricsRepository.saveMessageMetricsTranslation(metrics);
 
-    const { chat, user, messageMetrics } = fetchMessageMetrics(message);
-
-    const client = await dbClient.getClient();
-    await client.query('BEGIN');
-    const chatResult = await createChat(chat);
-    console.log('chatResult: ', chatResult);
-    const userResult = await createUser(user);
-    console.log('userResult: ', userResult);
-    const userChatResult = await createUserChat({ user: userResult, chat: chatResult });
-    console.log('userChatResult: ', userChatResult);
-    const messageMetricResult = await createMessageMetric(messageMetrics, userChatResult);
-    console.log('messageMetricResult: ', messageMetricResult);
-    await client.query('COMMIT');
-    await client.query('ROLLBACK');
-    // TODO: ВЕРНУТЬ ЗАПИСЬ В МОНГУ
-    // await dbClient.queryMessages(async (messages) => {
-    //   await messages.insertOne(message);
-    // });
+    await dbClient.queryMessages(async (messages) => {
+      await messages.insertOne(message);
+    });
   }
 };
 
