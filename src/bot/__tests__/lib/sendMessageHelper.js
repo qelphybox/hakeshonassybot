@@ -54,7 +54,7 @@ const messageContentByType = {
 };
 
 const sendTestMessage = async ({
-  userId, firstName, date, type,
+  userId, firstName, date, type, title,
 }, onMessage, bot, messageContentObj) => {
   const userMessage = {
     message_id: uuidv4(),
@@ -65,6 +65,7 @@ const sendTestMessage = async ({
     },
     chat: {
       id: 1,
+      title: title || 'test',
     },
     date,
     [type]: messageContentByType[type](messageContentObj),

@@ -46,7 +46,6 @@ services:
     depends_on:
       - postgres
       - mongodb
-      - postgres
 
   mongodb:
     image: mongo:4.2.6

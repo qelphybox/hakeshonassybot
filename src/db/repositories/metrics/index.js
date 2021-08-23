@@ -55,6 +55,11 @@ class MetricsRepository extends BaseRepository {
     );
     return result.rows[0];
   }
+
+  async getAll() {
+    const result = await this.client.query('SELECT * FROM message_metrics');
+    return result.rows;
+  }
 }
 
 module.exports = MetricsRepository;

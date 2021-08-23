@@ -16,7 +16,7 @@
     "bot": "node src/bot/index.js",
     "bot:watch": "onchange -i -k 'src/bot/**/*.js' -- npm run dotenv:bot",
     "migrate": "node src/migrate.js",
-    "test": "jest -i",
+    "test": "jest -i --watch ./src/bot/__tests__/saveMetricsToPg.test.js",
     "lint": "eslint \"**/*.js\"",
     "lint:fix": "npm run lint -- --fix",
     "db:migration:generate": "node -r dotenv/config node_modules/db-migrate/bin/db-migrate create $npm_config_name -m ./src/db/migrations --sql-file",

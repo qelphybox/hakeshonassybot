@@ -10,7 +10,13 @@ class ChatsRepository extends BaseRepository {
        RETURNING *`,
       values,
     );
+    console.log(result.rows);
     return result.rows[0];
+  }
+
+  async getAll() {
+    const result = await this.client.query('SELECT * FROM chats');
+    return result.rows;
   }
 }
 

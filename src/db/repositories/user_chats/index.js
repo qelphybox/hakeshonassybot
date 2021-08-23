@@ -12,6 +12,11 @@ class UserChatsRepository extends BaseRepository {
     );
     return result.rows[0];
   }
+
+  async getAll() {
+    const result = await this.client.query('SELECT * FROM users_chats');
+    return result.rows;
+  }
 }
 
 module.exports = UserChatsRepository;

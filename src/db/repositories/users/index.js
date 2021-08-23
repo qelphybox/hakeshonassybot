@@ -12,6 +12,11 @@ class UsersRepository extends BaseRepository {
     );
     return result.rows[0];
   }
+
+  async getAll() {
+    const result = await this.client.query('SELECT * FROM users');
+    return result.rows;
+  }
 }
 
 module.exports = UsersRepository;
