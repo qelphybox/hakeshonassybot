@@ -54,17 +54,17 @@ const messageContentByType = {
 };
 
 const sendTestMessage = async ({
-  userId, firstName, date, type, title,
+  userId, firstName, date, type, title, chatId,
 }, onMessage, bot, messageContentObj) => {
   const userMessage = {
-    message_id: uuidv4(),
+    message_id: Math.floor(Math.random() * 1000),
     from: {
       id: userId,
       is_bot: false,
       first_name: firstName,
     },
     chat: {
-      id: 1,
+      id: chatId || 1,
       title: title || 'test',
     },
     date,

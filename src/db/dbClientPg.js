@@ -2,7 +2,6 @@ const { Client } = require('pg');
 
 class DBClient {
   constructor(url) {
-    console.log(url);
     this.url = url;
     this.client = new Client({
       connectionString: url,

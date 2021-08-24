@@ -24,7 +24,7 @@ CREATE TABLE users
     id         SERIAL PRIMARY KEY,
     tg_id      integer NOT NULL,
     first_name varchar NOT NULL,
-    last_name  varchar NOT NULL,
+    last_name  varchar,
     UNIQUE (tg_id)
 );
 

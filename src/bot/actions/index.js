@@ -110,8 +110,6 @@ const onMessage = async (bot, message) => {
       await version(bot, message);
     }
   } else {
-    console.log(message);
-    console.log(message.chat.title);
     const metrics = fetchMessageMetrics(message);
     await metricsRepository.saveMessageMetricsTranslation(metrics);
 

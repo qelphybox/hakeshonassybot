@@ -10,7 +10,6 @@ class ChatsRepository extends BaseRepository {
        RETURNING *`,
       values,
     );
-    console.log(result.rows);
     return result.rows[0];
   }
 
