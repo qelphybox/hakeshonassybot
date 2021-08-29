@@ -17,6 +17,12 @@ jobs:
         image: mongo:4.2.6
         ports:
           - 27017:27017
+      postgres:
+        image: postgres:13-alpine
+        volumes:
+          - pgdata:/var/lib/postgresql/data
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ env.NODE_VERSION }}
