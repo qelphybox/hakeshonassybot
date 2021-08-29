@@ -55,9 +55,11 @@ describe('Weekly philosopher', () => {
     const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user1, user2* - философы недели (медианная длина сообщений 14)');
     });
-    await Promise.all([14, 14, 14, 14, 14, 14, 3, 3, 3, 3].map((messageLength, i) => sendTestMessage({
-      userId: 1, firstName: 'user1', date: 1592391600 + i, type: 'text', // Wed, 17 Jun 2020 11:00:00
-    }, onMessage, bot, 'a'.repeat(messageLength))));
+    await Promise.all([14, 14, 14, 14, 14, 14, 3, 3, 3, 3].map(
+      (messageLength, i) => sendTestMessage({
+        userId: 1, firstName: 'user1', date: 1592391600 + i, type: 'text', // Wed, 17 Jun 2020 11:00:00
+      }, onMessage, bot, 'a'.repeat(messageLength)),
+    ));
 
     await Promise.all([14, 14, 14, 14, 14, 3, 3, 3, 3].map((messageLength, i) => sendTestMessage({
       userId: 2, firstName: 'user2', date: 1592301600 + i, type: 'text', // Tue, 16 Jun 2020 10:00:00
