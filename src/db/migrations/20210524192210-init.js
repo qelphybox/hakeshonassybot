@@ -11,11 +11,6 @@ let Promise;
   * This enables us to not have to rely on NODE_PATH.
   */
 exports.setup = function (options, seedLink) {
-  console.log(options.dbmigrate)
-  console.log(dbm.dataType)
-  console.log(seedLink)
-  console.log(options.Promise)
-
   dbm = options.dbmigrate;
   type = dbm.dataType;
   seed = seedLink;
