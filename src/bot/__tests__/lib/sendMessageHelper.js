@@ -54,14 +54,14 @@ const messageContentByType = {
 };
 
 const sendTestMessage = async ({
-  userId, firstName, date, type, title, chatId,
+  userId, firstName, date, type, title, chatId, messageId,
 }, onMessage, bot, messageContentObj) => {
   const userMessage = {
-    message_id: Math.floor(Math.random() * 1000),
+    message_id: messageId || Math.floor(Math.random() * 1000),
     from: {
-      id: userId,
+      id: userId || 2,
       is_bot: false,
-      first_name: firstName,
+      first_name: firstName || 'first_name',
     },
     chat: {
       id: chatId || 1,
@@ -75,17 +75,18 @@ const sendTestMessage = async ({
 };
 
 const sendTestReplyMessage = async ({
-  userId, firstName, date, type, messageForReply,
+  userId, firstName, date, type, messageForReply, messageId, chatId, title,
 }, onMessage, bot, messageContentObj) => {
   const replyToMessage = {
-    message_id: uuidv4(),
+    message_id: messageId || Math.floor(Math.random() * 1000),
     from: {
-      id: userId,
+      id: userId || 2,
       is_bot: false,
-      first_name: firstName,
+      first_name: firstName || 'first_name',
     },
     chat: {
-      id: 1,
+      id: chatId || 1,
+      title: title || 'test',
     },
     date,
     [type]: messageContentByType[type](messageContentObj),
