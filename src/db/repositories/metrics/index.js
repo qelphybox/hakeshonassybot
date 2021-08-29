@@ -4,6 +4,21 @@ const UserChatsRepository = require('../user_chats');
 
 const BaseRepository = require('../base');
 
+const saveQuery = `INSERT INTO message_metrics(tg_id,
+                                   timestamp,
+                                   users_chats_id,
+                                   photoCount,
+                                   videoCount,
+                                   questionCount,
+                                   stickerSetName,
+                                   textLength,
+                                   voiceCount,
+                                   lolReplyForUser)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+       ON CONFLICT (tg_id) DO UPDATE SET tg_id=EXCLUDED.tg_id RETURNING *`;
+
+const getAllQuery = 'SELECT * FROM message_metrics';
+
 class MetricsRepository extends BaseRepository {
   constructor() {
     super();
@@ -38,26 +53,12 @@ class MetricsRepository extends BaseRepository {
       messageMetric.voiceCount,
       messageMetric.lolReplyForUser,
     ];
-    const result = await this.client.query(
-      `INSERT INTO message_metrics(tg_id,
-                                   timestamp,
-                                   users_chats_id,
-                                   photoCount,
-                                   videoCount,
-                                   questionCount,
-                                   stickerSetName,
-                                   textLength,
-                                   voiceCount,
-                                   lolReplyForUser)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-       ON CONFLICT (tg_id) DO UPDATE SET tg_id=EXCLUDED.tg_id RETURNING *`,
-      values,
-    );
+    const result = await this.client.query(saveQuery, values);
     return result.rows[0];
   }
 
   async getAll() {
-    const result = await this.client.query('SELECT * FROM message_metrics');
+    const result = await this.client.query(getAllQuery);
     return result.rows;
   }
 }
