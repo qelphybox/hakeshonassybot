@@ -45,7 +45,7 @@ jobs:
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
       - name: Query database
-        run: psql -d hakeshonassydb -U postgres -c 'SELECT 1;'
+        run: psql postgres://postgres:mysecretpassword@localhost:5432/hakeshonassydb -c 'SELECT 1;'
         env:
           PGPASSWORD: mysecretpassword
       - name: Setup database
