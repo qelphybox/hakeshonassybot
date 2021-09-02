@@ -49,7 +49,7 @@ jobs:
         env:
           PGPASSWORD: mysecretpassword
       - name: Setup database
-        run: psql -U postgres -c 'CREATE DATABASE "hakeshonassydb";'
+        run: psql postgres://postgres:mysecretpassword@localhost:5432/ 'CREATE DATABASE "hakeshonassydb";'
         env:
           PGPASSWORD: mysecretpassword
       - run: npm install
