@@ -45,7 +45,7 @@ jobs:
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
       - name: Setup database
-        run: psql -U postgres -P mysecretpassword -c 'CREATE DATABASE "hakeshonassydb";'
+        run: export PGPASSWORD=mysecretpassword psql -U postgres -c 'CREATE DATABASE "hakeshonassydb";'
         env:
           PGPASSWORD: postgres
       - run: npm install
