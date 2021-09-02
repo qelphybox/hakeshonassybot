@@ -44,6 +44,10 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
+      - name: Query database
+        run: psql -d hakeshonassydb -U postgres -c 'SELECT 1;'
+        env:
+          PGPASSWORD: mysecretpassword
       - name: Setup database
         run: psql -U postgres -c 'CREATE DATABASE "hakeshonassydb";'
         env:
