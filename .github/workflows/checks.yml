@@ -44,10 +44,6 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
-      - name: Install PostgreSQL client
-        run: |
-          apt-get update
-          apt-get install --yes postgresql-client
       - name: Setup database
         run: psql -U postgres -P mysecretpassword -c 'CREATE DATABASE "hakeshonassydb";'
         env:
