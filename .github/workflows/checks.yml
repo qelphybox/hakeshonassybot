@@ -47,7 +47,7 @@ jobs:
           DATABASE_URL: postgres://postgres:mysecretpassword@postgres:5432/hakeshonassydb
       - run: npm test
         env:
-          DATABASE_URL: postgres://postgres:mysecretpassword@postgres:5432/hakeshonassydb
+          DATABASE_URL: postgres://postgres:mysecretpassword@localhost:5432/hakeshonassydb
           MONGO_DB_NAME: hakeshonassydb_test
           MONGO_URL: mongodb://localhost:27017
   lint:
