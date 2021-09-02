@@ -44,14 +44,6 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-node-
             ${{ runner.OS }}-
-      - name: Query database
-        run: psql postgres://postgres:mysecretpassword@localhost:5432/hakeshonassydb -c 'SELECT 1;'
-        env:
-          PGPASSWORD: mysecretpassword
-      - name: Setup database
-        run: psql postgres://postgres:mysecretpassword@localhost:5432/ 'CREATE DATABASE "hakeshonassydb";'
-        env:
-          PGPASSWORD: mysecretpassword
       - run: npm install
       - run: npm run build --if-present
       - name: Run migrations
