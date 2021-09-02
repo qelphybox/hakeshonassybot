@@ -57,7 +57,7 @@ jobs:
       - name: Run migrations
         run: npm run db:migration:up
         env:
-          DATABASE_URL: postgres://postgres:mysecretpassword@postgres:5432/hakeshonassydb
+          DATABASE_URL: postgres://postgres:mysecretpassword@localhost:5432/hakeshonassydb
       - run: npm test
         env:
           DATABASE_URL: postgres://postgres:mysecretpassword@localhost:5432/hakeshonassydb
