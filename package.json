@@ -19,6 +19,7 @@
     "test": "jest -i",
     "lint": "eslint \"**/*.js\"",
     "lint:fix": "npm run lint -- --fix",
+    "db:create": "node -r dotenv/config node_modules/db-migrate/bin/db-migrate db:create",
     "db:migration:generate": "node -r dotenv/config node_modules/db-migrate/bin/db-migrate create $npm_config_name -m ./src/db/migrations --sql-file",
     "db:migration:up": "node -r dotenv/config node_modules/db-migrate/bin/db-migrate up -m ./src/db/migrations",
     "db:migration:down": "node -r dotenv/config node_modules/db-migrate/bin/db-migrate down -m ./src/db/migrations"
