@@ -24,7 +24,7 @@ function App() {
                   <Heading subtitle renderAs="p" className="has-text-centered-mobile is-size-5-mobile">Телеграм бот раздающий глупые ачивки участникам чата</Heading>
                 </div>
                 <div>
-                  <TelegramLoginButton dataAuthUrl={config.DOMAIN} botName={config.BOT_NAME}/>
+                  <TelegramLoginButton dataAuthUrl={`https://${config.DOMAIN}/`} botName={config.BOT_NAME}/>
                 </div>
               </Columns.Column>
               <Columns.Column>
