@@ -13,5 +13,8 @@ if (process.env.SUBDOMAIN) {
   subdomain = process.env.SUBDOMAIN;
 }
 
-console.log(process.argv[2] === '--full' ? `${subdomain}.loca.lt` : subdomain);
+if (typeof process !== 'undefined') {
+  console.log(process.argv[2] === '--full-url' ? `https://${subdomain}.loca.lt` : subdomain);
+}
+
 module.exports = { subdomain };

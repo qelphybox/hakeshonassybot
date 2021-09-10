@@ -41,11 +41,13 @@ make dev
    ```
 2) Определить домен: выполни
    ```shell
-   make show_local_development_domain
-   # команда вернет домен вроде этого 
-   # haketestkirillbot.loca.lt
+   make show_local_development_url
+   # команда вернет url вроде этого 
+   # https://haketestkirillbot.loca.lt
    ```
-3) Привязать домен к боту: напиши [BotFather](https://t.me/botfather) команду `/setdomain` и следуя инструкциям установи своему боту домен.
+3) Привязать домен к боту: напиши [BotFather](https://t.me/botfather) команду `/setdomain` и следуя инструкциям передай ему свой url.
+
+Если все сделано верно и домен уникальный, после запуска (`make dev`), приложение будет доступно в браузере по твоему домену и логин виджет будет работать.
 
 ## Запуск автотестов
 

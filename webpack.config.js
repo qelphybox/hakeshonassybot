@@ -2,7 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const dotenv = require('dotenv');
+require('dotenv').config();
 const { DefinePlugin } = require('webpack');
 
 module.exports = {
@@ -53,7 +53,8 @@ module.exports = {
       scriptLoading: 'defer',
     }),
     new DefinePlugin({
-      'process.env': JSON.stringify(dotenv.config().parsed), // it will automatically pick up key values from .env file
+      'process.env.BOT_NAME': JSON.stringify(process.env.BOT_NAME),
+      'process.env.SUBDOMAIN': JSON.stringify(process.env.SUBDOMAIN),
     }),
   ],
   resolve: {

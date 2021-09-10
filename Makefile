@@ -74,5 +74,5 @@ docker-run-image:
 docker-release: docker-build docker-push
 docker-release-latest: docker-release docker-tag-latest docker-push-latest
 
-show_local_development_domain:
-	npx node -r dotenv/config ./subdomain.js --full
+show_local_development_url:
+	npx node -r dotenv/config ./subdomain.js --full-url
