@@ -74,8 +74,9 @@ services:
   localtunnel:
     image: efrecon/localtunnel
     restart: on-failure
-    command:
-      --local-host api --port 3000 --subdomain $SUBDOMAIN
+    volumes:
+      - ./subdomain.js:/app/subdomain.js
+    entrypoint: sh -c '/usr/bin/lt --local-host api --port 3000 --subdomain `/app/subdomain.js`'
     env_file:
       - .env
     links:

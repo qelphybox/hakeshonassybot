@@ -53,7 +53,7 @@ module.exports = {
       scriptLoading: 'defer',
     }),
     new DefinePlugin({
-      'process.env': JSON.stringify(dotenv.config().parsed) // it will automatically pick up key values from .env file
+      'process.env': JSON.stringify(dotenv.config().parsed), // it will automatically pick up key values from .env file
     }),
   ],
   resolve: {
