@@ -13,5 +13,5 @@ if (process.env.SUBDOMAIN) {
   subdomain = process.env.SUBDOMAIN;
 }
 
-console.log(subdomain);
+console.log(process.argv[2] === '--full' ? `${subdomain}.loca.lt` : subdomain);
 module.exports = { subdomain };

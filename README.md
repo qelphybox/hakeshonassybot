@@ -32,21 +32,26 @@ make dev
 5) Можешь писать своему боту в личку или создать себе тестовую группу и добавить его туда.
 6) Чтобы бот правильно работал когда добавлен в группу, ему нужно выключить [Privacy mode](https://core.telegram.org/bots#privacy-mode) это можно сделать в настройках бота у [BotFather](https://t.me/botfather) `@tvoy_bot > Bot settings > Group privacy > Turn off`. В списке юзеров группы, рядом с юзернэймом бота появится `has access to messages`
 
+### Получить домен для разработки
+
+Чтобы телеграм логин виджет на главной странице заработал, [требуется привязать домен](https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot) к своему тестовому боту.
+1) Добавить имя бота в файл `.env` под ключ `BOT_NAME`, так приложение будет знать какой бот будет логинить юзеров.
+   ```shell
+   echo "BOT_NAME=haketestkirill_bot" >> .env
+   ```
+2) Определить домен: выполни
+   ```shell
+   make show_local_development_domain
+   # команда вернет домен вроде этого 
+   # haketestkirillbot.loca.lt
+   ```
+3) Привязать домен к боту: напиши [BotFather](https://t.me/botfather) команду `/setdomain` и следуя инструкциям установи своему боту домен.
+
 ## Запуск автотестов
 
 ```bash
 make setup_test
 make test
-```
-
-## Конфигурация
-
-Пример конфигурации
-
-```env
-TELEGRAM_BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
-MONGO_URL=mongodb://localhost:27017
-MONGO_DB_NAME=hakeshonassydb
 ```
 
 ## Релиз

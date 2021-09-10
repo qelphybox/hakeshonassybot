@@ -74,8 +74,5 @@ docker-run-image:
 docker-release: docker-build docker-push
 docker-release-latest: docker-release docker-tag-latest docker-push-latest
 
-# TODO: finish this task
 show_local_development_domain:
-	$(COMPOSE_RUN) --no-deps client \
-		npx -p @babel/core -p @babel/node \
-			babel-node --presets '@babel/env,@babel/react' /app/echoLocalTunnelDomain.js
+	npx node -r dotenv/config ./subdomain.js --full
