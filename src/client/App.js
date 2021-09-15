@@ -21,6 +21,7 @@ function App() {
                 <div>
                   <Heading size={1} renderAs="p" className="has-text-centered-mobile is-size-2-mobile">HakeShonassyBot</Heading>
                   <Heading subtitle renderAs="p" className="has-text-centered-mobile is-size-5-mobile">Телеграм бот раздающий глупые ачивки участникам чата</Heading>
+                  <script async src="https://telegram.org/js/telegram-widget.js?14" data-telegram-login="HakeShonassyBot" data-size="large" data-auth-url="https://github.com/qelphybox/hakeshonassybot/issues/180"></script>
                 </div>
               </Columns.Column>
               <Columns.Column>
@@ -35,9 +36,7 @@ function App() {
               <Content style={{ textAlign: 'center' }}>
                 <p>
                   <strong>HakeShonassyBot</strong> Исходный код лицензирован <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
-                  <a href="https://t.me/kirillbobykin"> Связаться с нами </a>
-                  <a href="https://github.com/qelphybox/hakeshonassybot"> Github </a>
-                  <a href="https://t.me/HakeShonassyBot"> Telegram </a>
+                  <a href="https://github.com/qelphybox/hakeshonassybot"> Github</a>
                 </p>
               </Content>
             </Container>
