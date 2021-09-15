@@ -70,3 +70,16 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
+
+  localtunnel:
+    image: efrecon/localtunnel
+    restart: on-failure
+    volumes:
+      - ./subdomain.js:/app/subdomain.js
+    entrypoint: sh -c '/usr/bin/lt --local-host api --port 3000 --subdomain `/app/subdomain.js`'
+    env_file:
+      - .env
+    links:
+      - api
+    depends_on:
+      - api

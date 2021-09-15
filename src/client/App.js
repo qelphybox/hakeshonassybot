@@ -6,7 +6,9 @@ import Content from 'react-bulma-components/lib/components/content';
 import Hero from 'react-bulma-components/lib/components/hero';
 import Heading from 'react-bulma-components/src/components/heading';
 import Columns from 'react-bulma-components/src/components/columns';
+import TelegramLoginButton from 'react-telegram-login';
 import WelcomeImage from './welcome.svg';
+import config from './config';
 
 function App() {
   return (
@@ -20,6 +22,9 @@ function App() {
                 <div>
                   <Heading size={1} renderAs="p" className="has-text-centered-mobile is-size-2-mobile">HakeShonassyBot</Heading>
                   <Heading subtitle renderAs="p" className="has-text-centered-mobile is-size-5-mobile">Телеграм бот раздающий глупые ачивки участникам чата</Heading>
+                </div>
+                <div>
+                  <TelegramLoginButton dataAuthUrl={`https://${config.DOMAIN}/`} botName={config.BOT_NAME}/>
                 </div>
               </Columns.Column>
               <Columns.Column>
