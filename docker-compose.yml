@@ -35,6 +35,7 @@ services:
 
   bot:
     build: .
+    entrypoint: ./entrypoint.sh
     command: npm run bot:watch
     restart: always
     environment:
