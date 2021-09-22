@@ -50,10 +50,10 @@ migrate-test-pg:
 	$(COMPOSE_RUN) -e DOTENV_CONFIG_PATH='.env.test' bot npm run db:migration:up
 
 lint:
-	$(COMPOSE_RUN) --no-deps bot npm run lint
+	$(COMPOSE_RUN) --no-deps --entrypoint='' bot npm run lint
 
 lint-fix:
-	$(COMPOSE_RUN) --no-deps bot npm run lint:fix
+	$(COMPOSE_RUN) --no-deps --entrypoint='' bot npm run lint:fix
 
 test-coverage:
 	$(COMPOSE_RUN) bot npx jest --coverage
