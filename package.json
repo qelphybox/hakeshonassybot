@@ -64,7 +64,7 @@
     "node-sass": "^6.0.1",
     "onchange": "^7.1.0",
     "sass-loader": "^12.1.0",
-    "style-loader": "^3.2.1",
+    "style-loader": "^3.3.0",
     "supertest": "^6.1.6",
     "uuid": "^8.3.2",
     "webpack": "^5.53.0",
