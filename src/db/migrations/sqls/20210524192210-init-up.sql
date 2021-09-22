@@ -17,14 +17,14 @@ CREATE TABLE message_metrics
 );
 
 CREATE UNIQUE INDEX message_metrics_tg_idx ON message_metrics (tg_id);
-CREATE UNIQUE INDEX message_metrics_users_chats_idx ON message_metrics (users_chats_id);
+CREATE INDEX message_metrics_users_chats_idx ON message_metrics (users_chats_id);
 
 CREATE TABLE users
 (
     id         SERIAL PRIMARY KEY,
     tg_id      integer NOT NULL,
     first_name varchar NOT NULL,
-    last_name  varchar NOT NULL,
+    last_name  varchar,
     UNIQUE (tg_id)
 );
 

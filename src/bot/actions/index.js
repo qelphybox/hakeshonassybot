@@ -2,6 +2,10 @@ const fs = require('fs');
 const util = require('util');
 const { statsArray } = require('../statistics');
 const { dbClient } = require('../../dbClient');
+const MetricsRepository = require('../../db/repositories/metrics');
+const { fetchMessageMetrics } = require('../metrics');
+
+const metricsRepository = new MetricsRepository();
 
 const isCommand = ({ entities }) => !!entities && entities.some((entity) => entity.type === 'bot_command');
 
@@ -56,6 +60,9 @@ const onMessage = async (bot, message) => {
       await version(bot, message);
     }
   } else {
+    const metrics = fetchMessageMetrics(message);
+    await metricsRepository.saveMessageMetricsTranslation(metrics);
+
     await dbClient.queryMessages(async (messages) => {
       await messages.insertOne(message);
     });

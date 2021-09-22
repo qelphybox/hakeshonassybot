@@ -30,16 +30,24 @@ dev-down-v:
 dev-build:
 	docker-compose build
 
-dev-setup:
+install-dependencies:
 	docker-compose run --rm api npm install
+
+dev-setup: install-dependencies migrate-pg
 
 dev-reset: dev-down-v dev-build dev-setup
 
 test:
-	$(COMPOSE_RUN) -e MONGO_DB_NAME=hakeshonassydb_test bot npm test
+	$(COMPOSE_RUN) -e POSTGRES_DB=hakeshonassydb_test bot npm test
 
-setup_test:
-	$(COMPOSE_RUN) -e MONGO_DB_NAME=hakeshonassydb_test bot npm run migrate
+setup_test: create-test-pg-db migrate-test-pg
+	$(COMPOSE_RUN) bot npm run migrate
+
+create-test-pg-db:
+	-$(COMPOSE_RUN) bot npm run db:create -- hakeshonassydb_test
+
+migrate-test-pg:
+	$(COMPOSE_RUN) -e DOTENV_CONFIG_PATH='.env.test' bot npm run db:migration:up
 
 lint:
 	$(COMPOSE_RUN) --no-deps bot npm run lint

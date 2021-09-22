@@ -44,8 +44,8 @@ services:
       - ./:/app
       - node_modules:/app/node_modules:cached
     depends_on:
-      - mongodb
       - postgres
+      - mongodb
 
   mongodb:
     image: mongo:4.2.6
