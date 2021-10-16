@@ -1,81 +1,34 @@
-const fs = require('fs');
-const util = require('util');
-const { statsArray } = require('../statistics');
-const { dbClient } = require('../../dbClient');
-const MetricsRepository = require('../../db/repositories/metrics');
-const { fetchMessageMetrics } = require('../metrics');
-
-const metricsRepository = new MetricsRepository();
+const storeMessage = require('./storeMessage');
+const rickroll = require('./rickroll');
+const stats = require('./stats');
+const version = require('./version');
+const updateMessage = require('./updateMessage');
 
 const isCommand = ({ entities }) => !!entities && entities.some((entity) => entity.type === 'bot_command');
 
-const renderMessage = (statsStringsArray) => statsStringsArray
-  .filter((statString) => statString.length > 0)
-  .join('\n');
-
-const stats = async (bot, message) => {
-  const statsText = await Promise.all(statsArray.map(async ({ render, collect }) => {
-    const collection = await collect(message);
-    return render(collection);
-  }));
-
-  const text = renderMessage(statsText);
-  bot.sendMessage(
-    message.chat.id,
-    text,
-    { disable_web_page_preview: true, parse_mode: 'Markdown' },
-  );
+const commandHandlers = {
+  '/stats': stats,
+  '/rickroll': rickroll,
+  '/version': version,
 };
 
-const rickroll = async (bot, message) => {
-  const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-  const text = `[Самый сильный младенец купил бмв](${url})`;
-  await bot.sendMessage(
-    message.chat.id,
-    text,
-    { disable_web_page_preview: true, parse_mode: 'Markdown' },
-  );
-};
-
-const readFile = util.promisify(fs.readFile);
-const version = async (bot, message) => {
-  const versionFilePath = `${__dirname}/../../../version.txt`;
-  try {
-    const text = await readFile(versionFilePath, 'utf8');
-    await bot.sendMessage(message.chat.id, text);
-  } catch (e) {
-    console.error(e);
+// eslint-disable-next-line consistent-return
+const handleCommand = (bot, message) => {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const command in commandHandlers) {
+    if (message.text.startsWith(command)) {
+      const handler = commandHandlers[command];
+      return handler(bot, message);
+    }
   }
 };
 
 const onMessage = async (bot, message) => {
   if (isCommand(message)) {
-    if (message.text.startsWith('/stats')) {
-      await stats(bot, message);
-    }
-    if (message.text.startsWith('/rickroll')) {
-      await rickroll(bot, message);
-    }
-    if (message.text.startsWith('/version')) {
-      await version(bot, message);
-    }
+    await handleCommand(bot, message);
   } else {
-    const metrics = fetchMessageMetrics(message);
-    await metricsRepository.saveMessageMetricsTranslation(metrics);
-
-    await dbClient.queryMessages(async (messages) => {
-      await messages.insertOne(message);
-    });
+    await storeMessage(message);
   }
 };
 
-const onMessageEdit = async (bot, editedMessage) => {
-  await dbClient.queryMessages(async (messages) => {
-    await messages.updateOne(
-      { message_id: editedMessage.message_id },
-      { $set: editedMessage },
-    );
-  });
-};
-
-module.exports = { onMessage, onMessageEdit };
+module.exports = { onMessage, onMessageEdit: updateMessage };
