@@ -13,7 +13,6 @@ botStatsComand.gif
 *.md
 Makefile
 docker-compose.yml
-docker-compose.prod.yml
 LICENSE
 jest.config.js
 Procfile
