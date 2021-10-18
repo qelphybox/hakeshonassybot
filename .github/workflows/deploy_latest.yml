@@ -3,7 +3,9 @@ name: Deploy latest
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - "*_force_push"
 
 jobs:
   deploy_latest:
