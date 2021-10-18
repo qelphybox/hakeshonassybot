@@ -24,6 +24,7 @@ const handleCommand = (bot, message) => {
 };
 
 const onMessage = async (bot, message) => {
+  console.log('new message: ', message);
   if (isCommand(message)) {
     await handleCommand(bot, message);
   } else {
