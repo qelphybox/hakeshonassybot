@@ -3,19 +3,9 @@ const UsersRepository = require('../users');
 const UserChatsRepository = require('../user_chats');
 
 const BaseRepository = require('../base');
-
-const saveQuery = `INSERT INTO message_metrics(tg_id,
-                                   timestamp,
-                                   users_chats_id,
-                                   photoCount,
-                                   videoCount,
-                                   questionCount,
-                                   stickerSetName,
-                                   textLength,
-                                   voiceCount,
-                                   lolReplyForUser)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-       ON CONFLICT (tg_id) DO UPDATE SET tg_id=EXCLUDED.tg_id RETURNING *`;
+const saveQuery = require('./saveQuery');
+const dayCountQuery = require('./dayCountQuery');
+const hourCountQuery = require('./hourCountQuery');
 
 const getAllQuery = 'SELECT * FROM message_metrics';
 
@@ -61,6 +51,13 @@ class MetricsRepository extends BaseRepository {
     const result = await this.client.query(getAllQuery);
     return result.rows;
   }
+
+  async getMetrics() {
+
+    const result = await this.client.query(getMetricsQuery);
+    return result.rows;
+  };
+
 }
 
 module.exports = MetricsRepository;
