@@ -12,10 +12,10 @@ workdir:
 migrate:
 	$(COMPOSE_RUN) bot npm run migrate
 
-migrate:
+migrate-pg:
 	$(COMPOSE_RUN) bot npm run db:migration:up
 
-migrate-down:
+migrate-down-pg:
 	$(COMPOSE_RUN) bot npm run db:migration:down
 
 up:
@@ -33,9 +33,9 @@ build:
 npm-install:
 	$(COMPOSE_RUN) api npm install
 
-setup: npm-install migrate
+setup: npm-install migrate-pg
 
-dev-reset: down-v build setup
+reset: down-v build setup
 
 test:
 	$(COMPOSE_RUN) -e POSTGRES_DB=hakeshonassydb_test bot npm test
