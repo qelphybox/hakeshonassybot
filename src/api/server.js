@@ -31,7 +31,6 @@ app.get('/test-auth', (req, res) => {
 
 app.get('/api/stupid_achievments', (req, res) => {
   const { user } = req.cookies;
-  console.log(statistics.statsArray.map(({ title, name }) => ({ title, name })));
 
   if (user !== undefined && AuthService.validateTelegramAuth(JSON.parse(user))) {
     res.status(200).send({
