@@ -4,8 +4,8 @@ const UserChatsRepository = require('../user_chats');
 
 const BaseRepository = require('../base');
 const saveQuery = require('./saveQuery');
-const dayCountQuery = require('./dayCountQuery');
-const hourCountQuery = require('./hourCountQuery');
+// const dayCountQuery = require('./dayCountQuery');
+// const hourCountQuery = require('./hourCountQuery');
 
 const getAllQuery = 'SELECT * FROM message_metrics';
 
@@ -52,12 +52,10 @@ class MetricsRepository extends BaseRepository {
     return result.rows;
   }
 
-  async getMetrics() {
-
-    const result = await this.client.query(getMetricsQuery);
-    return result.rows;
-  };
-
+  // async getMetrics() {
+  //   const result = await this.client.query('');
+  //   return result.rows;
+  // }
 }
 
 module.exports = MetricsRepository;
