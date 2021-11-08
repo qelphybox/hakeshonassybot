@@ -4,8 +4,8 @@ const UserChatsRepository = require('../user_chats');
 
 const BaseRepository = require('../base');
 const saveQuery = require('./saveQuery');
-// const dayCountQuery = require('./dayCountQuery');
-// const hourCountQuery = require('./hourCountQuery');
+const dayCountQuery = require('./dayCountQuery');
+const hourCountQuery = require('./hourCountQuery');
 
 const getAllQuery = 'SELECT * FROM message_metrics';
 
@@ -25,7 +25,7 @@ class MetricsRepository extends BaseRepository {
     await this.save(messageMetrics, userChatResult);
   }
 
-  async saveMessageMetricsTranslation(...args) {
+  async saveMessageMetricsTransaction(...args) {
     const saveMessageMetrics = this.queryWithTransaction(this.saveMessageMetrics.bind(this));
     await saveMessageMetrics(...args);
   }
@@ -52,10 +52,22 @@ class MetricsRepository extends BaseRepository {
     return result.rows;
   }
 
-  // async getMetrics() {
-  //   const result = await this.client.query('');
-  //   return result.rows;
-  // }
+  async getHourCount(tgId) {
+    const values = [tgId];
+    const result = await this.client.query(hourCountQuery, values);
+    return result.rows;
+  }
+
+  async getDayCount(tgId) {
+    const values = [tgId];
+    const result = await this.client.query(dayCountQuery, values);
+    return result.rows;
+  }
+
+  async getMetrics() {
+    const result = await this.client.query('');
+    return result.rows;
+  }
 }
 
 module.exports = MetricsRepository;
