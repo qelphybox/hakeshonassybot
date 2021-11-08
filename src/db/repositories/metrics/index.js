@@ -63,11 +63,6 @@ class MetricsRepository extends BaseRepository {
     const result = await this.client.query(dayCountQuery, values);
     return result.rows;
   }
-
-  async getMetrics() {
-    const result = await this.client.query('');
-    return result.rows;
-  }
 }
 
 module.exports = MetricsRepository;
