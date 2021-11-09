@@ -3,7 +3,7 @@ const { getUserStatString } = require('../../utils/render');
 
 const metricsRepository = new MetricsRepository();
 
-const collect = async ({ chat }) => metricsRepository.getDayCount(chat.id);
+const collect = async ({ chat, date }) => metricsRepository.getDayCount(chat.id, date);
 const render = (collectedStat) => `*Сообщений за последние 24 часа:* ${collectedStat.map(getUserStatString).join(', ')}`;
 
 module.exports = {
