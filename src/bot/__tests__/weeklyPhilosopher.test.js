@@ -8,6 +8,7 @@ describeDBSetupTeardown();
 moment.locale('ru');
 
 // TODO: REMOVE SKIP
+/* eslint-disable */
 describe.skip('Weekly philosopher', () => {
   test('empty data', async () => {
     const expectedText = '';

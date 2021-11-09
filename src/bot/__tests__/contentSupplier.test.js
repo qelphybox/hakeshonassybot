@@ -8,6 +8,7 @@ describeDBSetupTeardown();
 moment.locale('ru');
 
 // TODO: REMOVE SKIP
+/* eslint-disable */
 describe.skip('manual create messages', () => {
   test('content supplier', async () => {
     const bot = createMockedSlimbot((chatId, text) => {

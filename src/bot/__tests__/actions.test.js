@@ -11,6 +11,7 @@ moment.locale('ru');
 
 const createMockedSlimbot = (sendMessageFn) => ({ sendMessage: jest.fn(sendMessageFn) });
 // TODO: REMOVE SKIP
+/* eslint-disable */
 describe.skip('auto create messages', () => {
   test('empty data', async () => {
     const expectedText = `*Сообщений за последние 24 часа:* 

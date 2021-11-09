@@ -9,6 +9,7 @@ describeDBSetupTeardown();
 moment.locale('ru');
 
 // TODO: REMOVE SKIP
+/* eslint-disable */
 describe.skip('maybe dead', () => {
   test('maybe died', async () => {
     const dateToTest = 1592870400000; // 23.06.2020
