@@ -14,7 +14,7 @@
     "api:watch": "onchange -i -k 'src/api/**/*.js' -- npm run dotenv:api",
     "bot": "node src/bot/index.js",
     "bot:watch": "onchange -i -k 'src/bot/**/*.js' -- npm run dotenv:bot",
-    "test": "jest -i --watchAll",
+    "test": "jest -i",
     "lint": "eslint \"**/*.js\"",
     "lint:fix": "npm run lint -- --fix",
     "db:create": "node -r dotenv/config node_modules/db-migrate/bin/db-migrate db:create",
