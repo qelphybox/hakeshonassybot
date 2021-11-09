@@ -9,9 +9,6 @@ COMPOSE_RUN=docker-compose run --rm --user=$(USER)
 workdir:
 	$(COMPOSE_RUN) bot sh
 
-migrate:
-	$(COMPOSE_RUN) bot npm run migrate
-
 migrate-pg:
 	$(COMPOSE_RUN) bot npm run db:migration:up
 
@@ -41,7 +38,6 @@ test:
 	$(COMPOSE_RUN) -e POSTGRES_DB=hakeshonassydb_test bot npm test
 
 setup_test: create-test-pg-db migrate-test-pg
-	$(COMPOSE_RUN) bot npm run migrate
 
 create-test-pg-db:
 	$(COMPOSE_RUN) bot npm run db:create -- hakeshonassydb_test
