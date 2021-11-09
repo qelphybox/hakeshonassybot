@@ -11,6 +11,6 @@ module.exports = `
     voiceCount,
     lolReplyForUser
   )
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+  VALUES ($1, to_timestamp($2), $3, $4, $5, $6, $7, $8, $9, $10)
   ON CONFLICT (tg_id) DO UPDATE SET tg_id=EXCLUDED.tg_id RETURNING *
 `;

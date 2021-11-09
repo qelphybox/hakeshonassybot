@@ -5,6 +5,6 @@ module.exports = `
              join chats c on c.id = uc.chat_id
              join users u on u.id = uc.user_id
     where c.tg_id = $1
-      and timestamp between now() - INTERVAL '24 HOURS' and now()
+      and timestamp > to_timestamp($2) - INTERVAL '24 HOURS' and timestamp < to_timestamp($2)
     group by u.id
 `;

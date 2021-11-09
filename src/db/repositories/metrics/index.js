@@ -33,7 +33,7 @@ class MetricsRepository extends BaseRepository {
   async save(messageMetric, userChat) {
     const values = [
       messageMetric.tg_id,
-      new Date(), // FIXME: сохранять date из message
+      messageMetric.timestamp,
       userChat.id,
       messageMetric.photoCount,
       messageMetric.videoCount,
@@ -52,14 +52,15 @@ class MetricsRepository extends BaseRepository {
     return result.rows;
   }
 
-  async getHourCount(tgId) {
-    const values = [tgId];
+  async getHourCount(tgId, date) {
+    const values = [tgId, date];
     const result = await this.client.query(hourCountQuery, values);
     return result.rows;
   }
 
-  async getDayCount(tgId) {
-    const values = [tgId];
+  async getDayCount(tgId, date) {
+    const values = [tgId, date];
+
     const result = await this.client.query(dayCountQuery, values);
     return result.rows;
   }
