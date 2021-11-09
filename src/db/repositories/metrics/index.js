@@ -4,6 +4,7 @@ const UserChatsRepository = require('../user_chats');
 
 const BaseRepository = require('../base');
 const saveQuery = require('./saveQuery');
+const updateQuery = require('./updateQuery');
 const dayCountQuery = require('./dayCountQuery');
 const hourCountQuery = require('./hourCountQuery');
 
@@ -44,6 +45,22 @@ class MetricsRepository extends BaseRepository {
       messageMetric.lolReplyForUser,
     ];
     const result = await this.client.query(saveQuery, values);
+    return result.rows[0];
+  }
+
+  async update(messageMetric) {
+    const values = [
+      messageMetric.tg_id,
+      messageMetric.timestamp,
+      messageMetric.photoCount,
+      messageMetric.videoCount,
+      messageMetric.questionCount,
+      messageMetric.stickerSetName,
+      messageMetric.textLength,
+      messageMetric.voiceCount,
+      messageMetric.lolReplyForUser,
+    ];
+    const result = await this.client.query(updateQuery, values);
     return result.rows[0];
   }
 
