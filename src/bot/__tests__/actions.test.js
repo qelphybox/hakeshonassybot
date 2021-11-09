@@ -113,6 +113,7 @@ describe.skip('on message edit action', () => {
     };
 
     await onMessage(null, firstMessage);
+    // TODO: реализовать получение сообщений для проверки из pg
     //      expect(message).toEqual(firstMessage);
     const editedMessage = {
       message_id: 503,
@@ -131,6 +132,7 @@ describe.skip('on message edit action', () => {
     };
     await onMessageEdit(null, editedMessage);
 
+    // TODO: реализовать получение сообщений для проверки из pg
     // expect(message).toMatchObject(editedMessage);
   });
 });
