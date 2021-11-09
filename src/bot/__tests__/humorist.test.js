@@ -21,7 +21,8 @@ const messageForReply = {
 describeDBSetupTeardown();
 moment.locale('ru');
 
-describe('manual create messages', () => {
+// TODO: REMOVE SKIP
+describe.skip('manual create messages', () => {
   test('humorist text only', async () => {
     const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user1* - Юморист недели (10 кеков)');
