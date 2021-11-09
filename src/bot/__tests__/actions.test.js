@@ -3,7 +3,8 @@ const { onMessage, onMessageEdit } = require('../actions');
 
 const { describeDBSetupTeardown } = require('./lib/dbHelper');
 // const messagesWorklessUser = require('./__fixtures__/messagesWorklessUser/correctData.json');
-// const messagesContentSupplier = require('./__fixtures__/messagesContentSupplier/correctData.json');
+// const messagesContentSupplier =
+// require('./__fixtures__/messagesContentSupplier/correctData.json');
 
 describeDBSetupTeardown();
 moment.locale('ru');
