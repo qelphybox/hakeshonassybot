@@ -38,6 +38,7 @@ describe.skip('auto create messages', () => {
   });
 
   test('messagesContentSupplier', async () => {
+    // TODO: https://github.com/qelphybox/hakeshonassybot/pull/516#discussion_r746132962
     // await addMessages(messagesContentSupplier);
 
     const expectedText = `*Сообщений за последние 24 часа:* test1 test1 (2)
@@ -62,6 +63,7 @@ describe.skip('auto create messages', () => {
   });
 
   test('messagesWorklessUser', async () => {
+    // TODO: https://github.com/qelphybox/hakeshonassybot/pull/516#discussion_r746132962
     // await addMessages(messagesWorklessUser);
 
     const expectedText = `*Сообщений за последние 24 часа:* test1 test1 (2)
