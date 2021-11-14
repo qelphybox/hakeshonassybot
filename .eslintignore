@@ -1,2 +1,3 @@
 node_modules/**
 src/db/migrations/**
+app/public/**

@@ -3,19 +3,10 @@ const UsersRepository = require('../users');
 const UserChatsRepository = require('../user_chats');
 
 const BaseRepository = require('../base');
-
-const saveQuery = `INSERT INTO message_metrics(tg_id,
-                                   timestamp,
-                                   users_chats_id,
-                                   photoCount,
-                                   videoCount,
-                                   questionCount,
-                                   stickerSetName,
-                                   textLength,
-                                   voiceCount,
-                                   lolReplyForUser)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-       ON CONFLICT (tg_id) DO UPDATE SET tg_id=EXCLUDED.tg_id RETURNING *`;
+const saveQuery = require('./saveQuery');
+const updateQuery = require('./updateQuery');
+const dayCountQuery = require('./dayCountQuery');
+const hourCountQuery = require('./hourCountQuery');
 
 const getAllQuery = 'SELECT * FROM message_metrics';
 
@@ -35,7 +26,7 @@ class MetricsRepository extends BaseRepository {
     await this.save(messageMetrics, userChatResult);
   }
 
-  async saveMessageMetricsTranslation(...args) {
+  async saveMessageMetricsTransaction(...args) {
     const saveMessageMetrics = this.queryWithTransaction(this.saveMessageMetrics.bind(this));
     await saveMessageMetrics(...args);
   }
@@ -43,7 +34,7 @@ class MetricsRepository extends BaseRepository {
   async save(messageMetric, userChat) {
     const values = [
       messageMetric.tg_id,
-      new Date(), // FIXME: сохранять date из message
+      messageMetric.timestamp,
       userChat.id,
       messageMetric.photoCount,
       messageMetric.videoCount,
@@ -57,8 +48,37 @@ class MetricsRepository extends BaseRepository {
     return result.rows[0];
   }
 
+  async update(messageMetric) {
+    const values = [
+      messageMetric.tg_id,
+      messageMetric.timestamp,
+      messageMetric.photoCount,
+      messageMetric.videoCount,
+      messageMetric.questionCount,
+      messageMetric.stickerSetName,
+      messageMetric.textLength,
+      messageMetric.voiceCount,
+      messageMetric.lolReplyForUser,
+    ];
+    const result = await this.client.query(updateQuery, values);
+    return result.rows[0];
+  }
+
   async getAll() {
     const result = await this.client.query(getAllQuery);
+    return result.rows;
+  }
+
+  async getHourCount(tgId, date) {
+    const values = [tgId, date];
+    const result = await this.client.query(hourCountQuery, values);
+    return result.rows;
+  }
+
+  async getDayCount(tgId, date) {
+    const values = [tgId, date];
+
+    const result = await this.client.query(dayCountQuery, values);
     return result.rows;
   }
 }

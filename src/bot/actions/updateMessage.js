@@ -1,10 +1,9 @@
-const { dbClient } = require('../../dbClient');
+const { fetchMessageMetrics } = require('../metrics');
+const MetricsRepository = require('../../db/repositories/metrics');
+
+const metricsRepository = new MetricsRepository();
 
 module.exports = async (bot, editedMessage) => {
-  await dbClient.queryMessages(async (messages) => {
-    await messages.updateOne(
-      { message_id: editedMessage.message_id },
-      { $set: editedMessage },
-    );
-  });
+  const metrics = fetchMessageMetrics(editedMessage);
+  await metricsRepository.update(metrics);
 };
