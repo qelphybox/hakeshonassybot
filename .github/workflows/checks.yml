@@ -14,10 +14,6 @@ jobs:
       NODE_VERSION: 13.x
       DATABASE_URL: postgres://postgres:mysecretpassword@localhost:5432/hakeshonassydb
     services:
-      mongodb:
-        image: mongo:4.2.6
-        ports:
-          - 27017:27017
       postgres:
         image: postgres:13-alpine
         env:
@@ -45,9 +41,6 @@ jobs:
       - name: Run migrations
         run: npm run db:migration:up
       - run: npm test
-        env:
-          MONGO_DB_NAME: hakeshonassydb_test
-          MONGO_URL: mongodb://localhost:27017
   lint:
     runs-on: ubuntu-latest
     steps:

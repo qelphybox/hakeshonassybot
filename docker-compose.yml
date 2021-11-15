@@ -11,13 +11,10 @@ services:
     restart: always
     ports:
       - 3000:3000
-    environment:
-      - MONGO_URL=mongodb://mongodb:27017
-      - MONGO_DB_NAME=hakeshonassydb
     volumes:
       - ./:/app
     depends_on:
-      - mongodb
+      - postgres
 
   client:
     build: .
@@ -32,26 +29,10 @@ services:
     entrypoint: ./entrypoint.sh
     command: npm run bot:watch
     restart: always
-    environment:
-      - MONGO_URL=mongodb://mongodb:27017
-      - MONGO_DB_NAME=hakeshonassydb
     volumes:
       - ./:/app
     depends_on:
       - postgres
-      - mongodb
-
-  mongodb:
-    image: mongo:4.2.6
-    restart: always
-    environment:
-      - MONGO_DATA_DIR=/data/db
-      - MONGO_LOG_DIR=/dev/null
-    volumes:
-      - db_data:/data/db
-    ports:
-      - 27017:27017
-    command: mongod --logpath=/dev/null # --quiet
 
   postgres:
     image: postgres:13-alpine

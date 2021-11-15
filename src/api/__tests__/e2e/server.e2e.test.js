@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../../server');
-const statistics = require('../../../bot/statistics/pg');
+const statistics = require('../../../bot/statistics');
 
 describe('Post Endpoints', () => {
   const user = {

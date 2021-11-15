@@ -9,10 +9,10 @@ COMPOSE_RUN=docker-compose run --rm --user=$(USER)
 workdir:
 	$(COMPOSE_RUN) bot sh
 
-migrate-pg:
+migrate:
 	$(COMPOSE_RUN) bot npm run db:migration:up
 
-migrate-down-pg:
+migrate-down:
 	$(COMPOSE_RUN) bot npm run db:migration:down
 
 up:
@@ -30,19 +30,19 @@ build:
 npm-install:
 	$(COMPOSE_RUN) api npm install
 
-setup: npm-install migrate-pg
+setup: npm-install migrate
 
 reset: down-v build setup
 
 test:
 	$(COMPOSE_RUN) -e POSTGRES_DB=hakeshonassydb_test bot npm test
 
-setup_test: create-test-pg-db migrate-test-pg
+setup_test: create-test-db migrate-test
 
-create-test-pg-db:
+create-test-db:
 	$(COMPOSE_RUN) bot npm run db:create -- hakeshonassydb_test
 
-migrate-test-pg:
+migrate-test:
 	$(COMPOSE_RUN) -e DOTENV_CONFIG_PATH='.env.test' bot npm run db:migration:up
 
 lint:
