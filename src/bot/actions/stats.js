@@ -1,4 +1,4 @@
-const { statsArray } = require('../statistics/pg');
+const { statsArray } = require('../statistics');
 
 const renderMessage = (statsStringsArray) => statsStringsArray
   .filter((statString) => statString.length > 0)
