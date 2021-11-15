@@ -39,7 +39,7 @@
     "pg": "^8.6.0",
     "proschet": "^1.0.1",
     "react": "^17.0.2",
-    "react-bulma-components": "^3.4.0",
+    "react-bulma-components": "^4.0.7",
     "react-dom": "^17.0.2",
     "react-telegram-login": "^1.1.2"
   },
