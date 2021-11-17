@@ -25,7 +25,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "cookie-parser": "^1.4.5",
+    "cookie-parser": "^1.4.6",
     "db-migrate": "^0.11.13",
     "db-migrate-pg": "^1.2.2",
     "debug": "^4.3.2",
