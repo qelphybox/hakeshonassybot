@@ -1,4 +1,3 @@
-const moment = require('moment');
 const ChatsRepository = require('../chats');
 const UsersRepository = require('../users');
 const UserChatsRepository = require('../user_chats');
