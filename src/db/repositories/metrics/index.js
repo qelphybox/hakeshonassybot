@@ -1,3 +1,4 @@
+const moment = require('moment');
 const ChatsRepository = require('../chats');
 const UsersRepository = require('../users');
 const UserChatsRepository = require('../user_chats');
@@ -7,6 +8,7 @@ const saveQuery = require('./saveQuery');
 const updateQuery = require('./updateQuery');
 const dayCountQuery = require('./dayCountQuery');
 const hourCountQuery = require('./hourCountQuery');
+const worklessUserQuery = require('./worklessUserQuery');
 
 const getAllQuery = 'SELECT * FROM message_metrics';
 
@@ -79,6 +81,13 @@ class MetricsRepository extends BaseRepository {
     const values = [tgId, date];
 
     const result = await this.client.query(dayCountQuery, values);
+    return result.rows;
+  }
+
+  async getWorklessUser(tgId, date, dayTimestamp) {
+    const values = [tgId, date, dayTimestamp];
+
+    const result = await this.client.query(worklessUserQuery, values);
     return result.rows;
   }
 }
