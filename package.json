@@ -49,10 +49,10 @@
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.5.1",
-    "eslint": "^8.2.0",
+    "eslint": "^8.3.0",
     "eslint-config-airbnb": "^19.0.1",
     "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-jest": "^25.2.4",
+    "eslint-plugin-jest": "^25.3.0",
     "eslint-plugin-react": "^7.27.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
@@ -60,12 +60,12 @@
     "mini-css-extract-plugin": "^2.4.5",
     "mockdate": "^3.0.5",
     "onchange": "^7.1.0",
-    "sass": "^1.43.4",
+    "sass": "^1.43.5",
     "sass-loader": "^12.3.0",
     "style-loader": "^3.3.1",
     "supertest": "^6.1.6",
     "uuid": "^8.3.2",
-    "webpack": "^5.64.2",
+    "webpack": "^5.64.3",
     "webpack-cli": "^4.9.1"
   }
 }
