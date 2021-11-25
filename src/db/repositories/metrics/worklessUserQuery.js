@@ -11,5 +11,6 @@ module.exports = `
       and to_timestamp($2) > timestamp
       and to_timestamp($3) < timestamp
     group by u.id
+    order by count(*) desc
     limit 1
 `;

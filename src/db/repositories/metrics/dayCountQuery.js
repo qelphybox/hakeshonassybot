@@ -7,4 +7,5 @@ module.exports = `
     where c.tg_id = $1
       and timestamp > to_timestamp($2) - INTERVAL '24 HOURS' and timestamp < to_timestamp($2)
     group by u.id
+    order by count(*) desc
 `;
