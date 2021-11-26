@@ -8,6 +8,7 @@ const updateQuery = require('./updateQuery');
 const dayCountQuery = require('./dayCountQuery');
 const hourCountQuery = require('./hourCountQuery');
 const worklessUserQuery = require('./worklessUserQuery');
+const contentSupplierQuery = require('./contentSupplierQuery');
 
 const getAllQuery = 'SELECT * FROM message_metrics';
 
@@ -85,8 +86,13 @@ class MetricsRepository extends BaseRepository {
 
   async getWorklessUser(tgId, date, dayTimestamp) {
     const values = [tgId, date, dayTimestamp];
-
     const result = await this.client.query(worklessUserQuery, values);
+    return result.rows;
+  }
+
+  async getContentSupplier(tgId, date, dayTimestamp) {
+    const values = [tgId, date, dayTimestamp];
+    const result = await this.client.query(contentSupplierQuery, values);
     return result.rows;
   }
 }
