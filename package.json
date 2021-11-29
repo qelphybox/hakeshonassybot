@@ -28,7 +28,7 @@
     "cookie-parser": "^1.4.6",
     "db-migrate": "^0.11.13",
     "db-migrate-pg": "^1.2.2",
-    "debug": "^4.3.2",
+    "debug": "^4.3.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "http-errors": "^1.8.1",
