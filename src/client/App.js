@@ -1,12 +1,8 @@
 import React from 'react';
-import 'react-bulma-components/src/index.sass';
-import Footer from 'react-bulma-components/lib/components/footer';
-import Container from 'react-bulma-components/lib/components/container';
-import Content from 'react-bulma-components/lib/components/content';
-import Hero from 'react-bulma-components/lib/components/hero';
-import Heading from 'react-bulma-components/src/components/heading';
-import Columns from 'react-bulma-components/src/components/columns';
 import TelegramLoginButton from 'react-telegram-login';
+import {
+  Columns, Container, Content, Footer, Heading, Hero,
+} from 'react-bulma-components';
 import WelcomeImage from './welcome.svg';
 import config from './config';
 
