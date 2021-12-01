@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN apk update && \
     apk upgrade && \
-    apk add g++ gcc libgcc libstdc++ linux-headers make python
+    apk add g++ gcc libgcc libstdc++ linux-headers make cmake python
 RUN npm ci
 COPY . .
 RUN npm run client:build:production
