@@ -3,7 +3,7 @@ name: Deploy latest
 
 on:
   push:
-    branches: [ master, fix_deploy ]
+    branches: [ master ]
 
 jobs:
   deploy_latest:
