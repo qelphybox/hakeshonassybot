@@ -7,9 +7,7 @@ const { describeDBSetupTeardown } = require('./lib/dbHelper');
 describeDBSetupTeardown();
 moment.locale('ru');
 
-// TODO: REMOVE SKIP
-/* eslint-disable */
-describe.skip('sticker packer', () => {
+describe('sticker packer', () => {
   test('sticker packer', async () => {
     const bot = createMockedSlimbot((chatId, text) => {
       expect(text).toMatch('*user1* - стикерпакер (юзает 2 стикерпака)');
