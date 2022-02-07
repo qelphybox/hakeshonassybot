@@ -35,7 +35,7 @@
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
     "node-telegram-bot-api": "^0.56.0",
-    "pg": "^8.6.0",
+    "pg": "^8.7.3",
     "proschet": "^1.0.1",
     "react": "^17.0.2",
     "react-bulma-components": "^4.0.7",
