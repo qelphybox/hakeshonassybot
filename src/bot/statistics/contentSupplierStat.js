@@ -16,7 +16,6 @@ const collect = async ({ chat, date }) => {
 
 const render = (collectedStat) => {
   if (collectedStat.length > 0) {
-    console.log('collectedStat: ', collectedStat);
     const topUser = collectedStat[0];
 
     const pictures = ['картинка', 'картинки', 'картинок'];
